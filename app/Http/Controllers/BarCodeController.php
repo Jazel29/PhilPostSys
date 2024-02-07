@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class BarCodeController extends Controller
 {
     public function index(){
-        return view('barcode.store');
+        return view('tracer');
     }
 
     public function store(Request $request){

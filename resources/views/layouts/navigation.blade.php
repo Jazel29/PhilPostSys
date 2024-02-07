@@ -23,6 +23,16 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('Tracer') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('new_transmittal')" :active="request()->routeIs('new_transmittal')">
+                        {{ __('Add Transmittal') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('TestBarcode') }}
                     </x-nav-link>
                 </div>
