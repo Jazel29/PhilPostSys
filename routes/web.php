@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarCodeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransmittalController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeUnit\FunctionUnit;
 
@@ -34,8 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //store the test barcode in the database
     Route::get('/barcode', [BarCodeController::class, 'index'])->name('index');
     Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
+
+    //Transmittal record routes
+    Route::get('/newRecord', [TransmittalController::class, 'index'])->name('index');
+
 });
 
 require __DIR__.'/auth.php';
