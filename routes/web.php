@@ -41,7 +41,9 @@ Route::middleware('auth')->group(function () {
 
     //Transmittal record routes
     Route::get('/newRecord', [TransmittalController::class, 'index'])->name('index');
+    Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
 
 });
+
 
 require __DIR__.'/auth.php';
