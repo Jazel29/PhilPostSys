@@ -52,23 +52,7 @@
                 <td>DOLE-NLRC</td>
                 <td>DEPARTMENT OF LABOR AND EMPLOYMENT NATIONAL LABOR RELATIONS COMMISSION REGIONAL ARBITRATION BRANCH</td>
                 <td>Rawis, Legazpi City</td>
-                <td><button type="button" id="view_more" class="btn btn-outline-success" onclick=""><a href="/transmittals">View More</a></button></td>
-            </tr>
-            <tr>
-                <th scope="row">RE795531884ZZ</th>
-                <td>30/11/2023</td>
-                <td>DOLE-NLRC</td>
-                <td>DEPARTMENT OF LABOR AND EMPLOYMENT NATIONAL LABOR RELATIONS COMMISSION REGIONAL ARBITRATION BRANCH</td>
-                <td>Rawis, Legazpi City</td>
-                <td><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></td>
-            </tr>
-            <tr>
-                <th scope="row">RE795541161ZZ</th>
-                <td>12/12/2023</td>
-                <td>DOLE-NLRC</td>
-                <td>DEPARTMENT OF LABOR AND EMPLOYMENT NATIONAL LABOR RELATIONS COMMISSION REGIONAL ARBITRATION BRANCH</td>
-                <td>Rawis, Legazpi City</td>
-                <td><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></td>
+                <td><a href="/transmittals"><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></a></td>
             </tr>
         </tbody>
     </table>
@@ -95,7 +79,7 @@
     function verifyCheckbox() {
         if (!addressee.checked && !rrrTN.checked) {
             alert("Please check at least one checkbox");
-            // Add a class to highlight the checkboxes
+            // Highlight the checkboxes if none is checked
             addressee.classList.add("highlight");
             rrrTN.classList.add("highlight");
             tableDiv.style.display = "none"; // Hide the table
