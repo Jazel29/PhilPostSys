@@ -43,11 +43,12 @@ Route::middleware('auth')->group(function () {
     //store the test barcode in the database
     Route::get('/barcode', [BarCodeController::class, 'index'])->name('index');
     Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
+    Route::post('/addReturn', [BarCodeController:: class, 'addReturnCard'])->name('addReturnCard');
 
     //Transmittal record routes
-    Route::get('/newRecord', [TransmittalController::class, 'index'])->name('index');
+    Route::get('/newRecord', [TransmittalController::class, 'index'])->name('formTest');
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
-
+    
 
     Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');

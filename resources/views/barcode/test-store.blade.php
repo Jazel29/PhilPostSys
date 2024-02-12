@@ -3,10 +3,10 @@
         <div class="h4 d-flex justify-content-center">
             Test Input to the Database
         </div>
-        
-        <div class="d-flex justify-content-center p-3">
-            <form action="/addRecord" method="POST">
-                @csrf
+        <form action="/addRecord" method="POST">
+            @csrf
+                <div class="d-flex justify-content-center p-3">
+            
                     <div class="mb-3 p-2">
                         <label for="exampleFormControlInput1" class="form-label">Track Number</label>
                         <input type="text" name="tracknum" class="form-control rounded" id="exampleFormControlInput1" placeholder="name@example.com">
