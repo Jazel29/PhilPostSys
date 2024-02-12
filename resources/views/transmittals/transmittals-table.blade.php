@@ -35,7 +35,7 @@
         </div>
     </div>
 <div class="row mt-5" id="table_div">
-    <table class="table table-bordered">
+    <table id="trace_table" class="table table-bordered">
         <thead class="text-center">
             <tr>
                 <th scope="col">Transmittal TN</th>
@@ -85,16 +85,23 @@
 
     function verifyCheckbox() {
         if (!addressee.checked && !rrrTN.checked) {
-            alert("Please check at least one checkbox");
+            // alert("Please check at least one checkbox");
             // Highlight the checkboxes if none is checked
             addressee.classList.add("highlight");
             rrrTN.classList.add("highlight");
-            tableDiv.style.display = "none"; // Hide the table
+            $(document).ready(function() {
+                $('#trace_table').DataTable();
+            });
+            // tableDiv.style.display = "none"; // Hide the table
         } else {
             // Remove the class if at least one checkbox is checked
             addressee.classList.remove("highlight");
             rrrTN.classList.remove("highlight");
-            tableDiv.style.display = "block"; // Hide the table
+            $(document).ready(function() {
+                $('#trace_table').DataTable();
+            });
+            // tableDiv.style.display = "block"; // Hide the table
         }
     }
+    
 </script>
