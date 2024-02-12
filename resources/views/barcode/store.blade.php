@@ -1,18 +1,23 @@
 <x-app-layout>
-    <div class="mssg">
-
-    </div>
+  <div class="cp mt-5 d-flex justify-content-center">
+    Barcode Test Storing
+  </div>
+    <div class="mssg mt-2 d-flex justify-content-center">
     <form class="row g-3" action="/store" method="POST">
        @csrf
         <div class="col-auto">
           
           <label for="last-barcode" class="visually-hidden">Barcode</label>
-          <input type="text" class="form-control rounded" id="last-barcode" placeholder="***" name="barcode">
+          <input type="text" class="form-control rounded" id="last-barcode" placeholder="######" name="barcode">
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+          <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
         </div>
       </form>
+    </div>
+
+
+
       <script>
         var barcode = '';
         var interval;

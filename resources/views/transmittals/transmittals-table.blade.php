@@ -3,23 +3,25 @@
         border: 2px solid red; /* You can customize the highlighting style */
     }
     
-    #table_div {
+    /* #table_div {
         display: none;
-    }
+    } */
 </style>
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
-<form>
-    <div class="row mt-5">
-        <div class="col" style="max-width: 600px;">
-            <input placeholder="" type="text" name="tracer_input" id="tracer_input" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
+    <form action="/tracer" method="GET">
+        @csrf
+        <div class="row mt-5">
+            <div class="col" style="max-width: 600px;">
+                <input placeholder="" type="text" id="search" name="search" placeholder="Search..." class="form-control"/>
+                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+            </div>
+            <div class="col-2">
+                    <button type="submit" id="trace" class="btn btn-outline-success" onclick="verifyCheckbox()">Trace</button>
+            </div>
         </div>
-        <div class="col-2">
-            <button type="button" id="trace" class="btn btn-outline-success" onclick="verifyCheckbox()">Trace</button>
-        </div>
-    </div>
+    </form>
     <div class="row mt-3">
         <div class="col">
             <div class="form-check form-check-inline">
@@ -32,7 +34,6 @@
             </div>
         </div>
     </div>
-</form>
 <div class="row mt-5" id="table_div">
     <table class="table table-bordered">
         <thead class="text-center">
@@ -40,20 +41,26 @@
                 <th scope="col">Transmittal TN</th>
                 <th scope="col">Date Posted</th>
                 <th scope="col">Addressee</th>
-                <th scope="col">Details</th>
                 <th scope="col">Address</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">RE796528127ZZ</th>
-                <td>07/11/2023</td>
-                <td>DOLE-NLRC</td>
-                <td>DEPARTMENT OF LABOR AND EMPLOYMENT NATIONAL LABOR RELATIONS COMMISSION REGIONAL ARBITRATION BRANCH</td>
-                <td>Rawis, Legazpi City</td>
-                <td><a href="/transmittals"><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></a></td>
+            @if ($records->isEmpty())
+            <tr class="border-b">
+                <td>No Record Found</td>
             </tr>
+            @else
+                @foreach ($records as $record)
+                    <tr>
+                        <th scope="row">{{ $record->mailTrackNum }}</th>
+                        <td>{{ $record->date }}</td>
+                        <td>{{ $record->recieverName }}</td>
+                        <td>{{ $record->recieverAddress }}</td>
+                        <td><a href="/transmittals"><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></a></td>
+                    </tr>              
+                @endforeach
+            @endif
         </tbody>
     </table>
 </div>
