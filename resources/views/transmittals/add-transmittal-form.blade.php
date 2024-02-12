@@ -43,8 +43,15 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input placeholder="Addressee" type="text" name="receiver" id="receiver" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
+        <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee">
+            <datalist id="datalistOptions">
+                <option value="San Francisco">
+                <option value="New York">
+                <option value="Seattle">
+                <option value="Los Angeles">
+                <option value="Chicago">
+                <option value="Add New Addressee">
+            </datalist>
         </div>
     </div>
     <div class="row mt-2">
@@ -71,7 +78,23 @@
         </div>
     </div>
 </form>
-
+<!-- Modal -->
+<div class="modal fade" id="newAddresseeModal" tabindex="-1" hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 <script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
     var count = 0;
@@ -103,4 +126,15 @@
             addTN();
         }
     });
+
+    document.getElementById('addresseeDataList').addEventListener('input', function() {
+        // Get the selected value from the input
+        var selectedValue = this.value;
+        // Check if the selected value matches a predefined option
+        if (selectedValue === 'Add New Addressee') {
+            // Redirect to the "/transmittals" link
+            window.location.href = '/transmittals';
+        } 
+    });
+
 </script>
