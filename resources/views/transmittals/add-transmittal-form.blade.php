@@ -65,22 +65,29 @@
 
     <div class="row mt-5 custom-border" id="rrr_div">
     </div>
+    <div class="row mt-3">
+        <div class="col-6 text-right">
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </div>
+    </div>
 </form>
 
 <script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
+    var count = 0;
     function removeTN(element) {
 // Remove the container from the DOM
         element.parentNode.removeChild(element);
     }
 
     function addTN() {
+        count++;
         var rrr_tn_value = document.getElementById('rrr_tn').value;
 
         // Create a new tn_container with the extracted value
         var tn_container = document.createElement('div');
         tn_container.className = 'container';
-        tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode)">✖</span><p>' + rrr_tn_value + '</p>';
+        tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode)">✖</span><p>' + count + ". "+ rrr_tn_value + '</p>';
 
 // Append the new tn_container to the rrr_div
         document.getElementById('rrr_div').appendChild(tn_container);
