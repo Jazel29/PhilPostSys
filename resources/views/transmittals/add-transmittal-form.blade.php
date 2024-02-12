@@ -28,7 +28,8 @@
 <div class="row">
     <h1 class="display-5"> New Transmittal </h1>
 </div>
-<form>
+<form action="/addRecord" method="POST">
+    @csrf
     <div class="row mt-4">
         <div class="col-6">
             <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control">
