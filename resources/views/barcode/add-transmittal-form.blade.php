@@ -53,14 +53,14 @@
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-            <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-        <div class="col-2">
-            <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-        </div>
+        <div class="row mt-5">
+            <div class="col" style="max-width: 500px;">
+                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
+                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+            </div>
+            <div class="col-2">
+                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+                    </div>
     </div>
 
     <div class="row mt-5 custom-border" id="rrr_div">
@@ -70,7 +70,7 @@
 <script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
     function removeTN(element) {
-        // Remove the container from the DOM
+// Remove the container from the DOM
         element.parentNode.removeChild(element);
     }
 
@@ -82,10 +82,10 @@
         tn_container.className = 'container';
         tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode)">✖</span><p>' + rrr_tn_value + '</p>';
 
-        // Append the new tn_container to the rrr_div
+// Append the new tn_container to the rrr_div
         document.getElementById('rrr_div').appendChild(tn_container);
 
-        // Clear the value of rrr_tn input field
+// Clear the value of rrr_tn input field
         document.getElementById('rrr_tn').value = '';
     }
 
