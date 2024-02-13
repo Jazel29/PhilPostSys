@@ -6,6 +6,7 @@ use App\Http\Controllers\TransmittalController;
 use App\Http\Controllers\TracerController;
 use App\Http\Controllers\AddTransmittalController;
 use App\Http\Controllers\TransmittalsController;
+use App\Http\Controllers\AddresseeController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeUnit\FunctionUnit;
 
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function () {
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm']);
+
+    Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
 });
 
 
