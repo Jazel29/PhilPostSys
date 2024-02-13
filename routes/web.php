@@ -43,12 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //store the test barcode in the database
-    // Route::get('/showRecords', [BarCodeController::class, 'index'])->name('index');
+    Route::get('/test', [BarCodeController::class, 'formTest']);
     // Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
-    // Route::post('/addReturn', [BarCodeController:: class, 'addReturnCard'])->name('addReturnCard');
+    Route::post('/addReturn', [BarCodeController:: class, 'addReturnCard'])->name('addReturnCard');
 
     //Transmittal record routes
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
+    Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
     
 
