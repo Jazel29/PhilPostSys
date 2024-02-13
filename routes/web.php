@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     //Transmittal record routes
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
+    Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
     
 

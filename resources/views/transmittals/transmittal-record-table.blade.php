@@ -31,18 +31,18 @@
     </div>
     <div class="row mt-5">
         <div class="col-6">
-            <p>Tracking Number: <span class="bold">RE795541161ZZ</span></p>
+            <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
         </div>
         <div class="col-6">
-            <p class="labels">Date Posted: <span class="bold">November 30, 2024</span></p>
+            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-6">
-            <p>Addressee: <span class="bold">DEPARTMENT OF LABOR AND EMPLOYMENT NATIONAL LABOR RELATIONS COMMISSION REGIONAL ARBITRATION BRANCH</span></p>
+            <p>Addressee: <span class="bold">{{ $records->recieverName }}</span></p>
         </div>
         <div class="col-6">
-            <p class="labels">Address: <span class="bold">Rawis, Legazpi City</span></p>
+            <p class="labels">Address: <span class="bold">{{ $records->recieverAddress }}</span></p>
         </div>
     </div>
     <div class="row mt-5">

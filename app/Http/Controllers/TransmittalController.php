@@ -41,5 +41,17 @@ class TransmittalController extends Controller
             return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
       
     }
-    
+
+    // fetch to the bladev views
+    public function show($recieverName){
+        $record = Transmittals::find($recieverName);
+
+        if (!$record) { 
+            abort(404);
+        }
+        return view('transmittals', compact('recieverName'))->with(['records' => $record]);
+    }
+    public function update(){
+
+    }
 }

@@ -57,7 +57,8 @@
                         <td>{{ $record->date }}</td>
                         <td>{{ $record->recieverName }}</td>
                         <td>{{ $record->recieverAddress }}</td>
-                        <td><a href="/transmittals"><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></a></td>
+                        {{-- <td><a href="/transmittals"><button type="button" id="view_more" class="btn btn-outline-success" onclick="">View More</button></a></td> --}}
+                        <td><a href="{{ url('/transmittals/' . $record->id) }}">View</a></td>
                     </tr>              
                 @endforeach
             @endif
