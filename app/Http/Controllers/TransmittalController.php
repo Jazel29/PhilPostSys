@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transmittal;
+use App\Models\ReturnCards;
 use App\Models\Transmittals;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -34,7 +34,11 @@ class TransmittalController extends Controller
                 'recieverAddress' => $request->input('address'),
                 'date' => $request->input('date_posted')
             ]);
-            return response()->json(['message' => 'Transmittal Created Successfully'], 200);
+            // ReturnCards::create([
+            //     'returncard' => $request->input('mail_tn'),
+            //     'trucknumber' => $request->input('rrr_tn')
+            // ]);
+            return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
       
     }
     
