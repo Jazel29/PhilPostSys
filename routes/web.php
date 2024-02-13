@@ -10,6 +10,7 @@ use App\Http\Controllers\AddresseeController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeUnit\FunctionUnit;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm']);
 
     Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
+    Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
 });
 
 

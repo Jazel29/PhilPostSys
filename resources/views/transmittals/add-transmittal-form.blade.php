@@ -45,13 +45,8 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-        <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
             <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
                 <option value="Add New Addressee"></option>
             </datalist>
         </div>
@@ -106,7 +101,7 @@
 <script>
     var count = 0;
     function removeTN(element) {
-// Remove the container from the DOM
+    // Remove the container from the DOM
         element.parentNode.removeChild(element);
     }
 
@@ -119,10 +114,10 @@
         tn_container.className = 'container';
         tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode)">✖</span><p>' + count + ". "+ rrr_tn_value + '</p>';
 
-// Append the new tn_container to the rrr_div
+    // Append the new tn_container to the rrr_div
         document.getElementById('rrr_div').appendChild(tn_container);
 
-// Clear the value of rrr_tn input field
+    // Clear the value of rrr_tn input field
         document.getElementById('rrr_tn').value = '';
     }
 
@@ -135,33 +130,38 @@
     });
 
     document.getElementById('addresseeDataList').addEventListener('input', function() {
-    // Get the selected value from the input
     var selectedValue = this.value;
-    // Check if the selected value matches "Add New Addressee"
-    if (selectedValue === 'Add New Addressee') {
-        // Show the newAddresseeModal
-        $('#newAddresseeModal').modal('show');
-        // Clear the value to prevent triggering again on modal close
-        this.value = '';
-    } 
-});
+        if (selectedValue === 'Add New Addressee') {
+            $('#newAddresseeModal').modal('show');
+            this.value = '';
+        } 
+    });
 
-function closeModal() {
-    $('#newAddresseeModal').modal('hide');
-}
+    function closeModal() {
+        $('#newAddresseeModal').modal('hide');
+    }
 
-function saveNewAddressee() {
-    // Add logic to save the new addressee data
-    // Example: You can use AJAX to send a request to the server
-    // and update the datalist options dynamically.
-    
-    // After saving, close the modal
-    $('#newAddresseeModal').modal('hide');
-}
+    function saveNewAddressee() {
+        $('#newAddresseeModal').modal('hide');
+    }
 
-function testModal() {
-    $('#newAddresseeModal').modal('show');
-}
+    document.addEventListener('DOMContentLoaded', function () {
+        // Fetch addressees from the server
+        fetch('/get-addressees')
+            .then(response => response.json())
+            .then(data => {
+                const datalist = document.getElementById('datalistOptions');
+                const addressees = data.addressees;
+
+                addressees.forEach(addressee => {
+                    const option = document.createElement('option');
+                    option.value = `${addressee.abbrev} - ${addressee.name_primary} - ${addressee.name_secondary}`;
+                    datalist.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching addressees:', error));
+    });
+
 
 
 </script>

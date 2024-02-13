@@ -24,4 +24,11 @@ class AddresseeController extends Controller
             return response()->json(['message' => 'Addressee Added Successfully'], 200);
       
     }
+
+    public function getAddressees()
+    {
+        $addressees = AddresseeList::select('abbrev', 'name_primary', 'name_secondary')->get();
+
+        return response()->json(['addressees' => $addressees], 200);
+    }
 }
