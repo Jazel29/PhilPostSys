@@ -35,7 +35,7 @@
     </div>
     @endif
 </div>
-<form action="/addRecord" method="POST">
+<form action="/addRecord" method="POST" class="p-3">
     @csrf
     <div class="row mt-4">
         <div class="col-6">
@@ -61,17 +61,19 @@
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
     </div>
-        <div class="row mt-5">
-                <div class="col" style="max-width: 500px;">
-                    <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+    
+    {{-- comment ko muna kasi for testing --}}
+    {{-- <div class="row mt-5">
+        <div class="col" style="max-width: 500px;">
+                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
+                <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
                 <div class="col-2">
-                    <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-                </div>
-    </div>
+                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+        </div>
+    </div> --}}
 
-    <div class="row mt-5 custom-border" id="rrr_div">
+    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
     </div>
     <div class="row mt-3">
         <div class="col-6 text-right">
@@ -79,6 +81,11 @@
         </div>
     </div>
 </form>
+
+<div class="content mt-5">
+    <div class="d-flex justify-content-center">
+    </div>
+</div>
    
 
 <script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>

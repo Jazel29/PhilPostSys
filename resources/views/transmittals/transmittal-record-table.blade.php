@@ -62,17 +62,14 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>RE796528127ZZ</td>
+              
+                @foreach ($rrt_n as $rrt_n )
                 <tr>
                     <th scope="row">2</th>
-                    <td>RE795531884ZZ</td>
+                    <td>{{ $rrt_n->returncard }}</td>
                 </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>RE795541161ZZ</td>
-                </tr>
+                @endforeach
+                
             </tbody>
         </table>
     </div>

@@ -32,9 +32,6 @@ class BarCodeController extends Controller
             'returncard' => $request->input('trackingNum'),
             'trucknumber' => $request->input('truckNumMail')
         ]);
-        return response()->json([
-            'redirect' => '/barcode',
-            'flash_mssg' => 'Successfully Created!'
-        ]);
+        return redirect('/test');
     }
 }

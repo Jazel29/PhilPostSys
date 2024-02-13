@@ -43,13 +43,14 @@ class TransmittalController extends Controller
     }
 
     // fetch to the bladev views
-    public function show($recieverName){
-        $record = Transmittals::find($recieverName);
-
+    public function show($mailTrackNum){
+        $record = Transmittals::find($mailTrackNum);
+        $rrr_tn = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
         if (!$record) { 
             abort(404);
         }
-        return view('transmittals', compact('recieverName'))->with(['records' => $record]);
+        
+        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn]);
     }
     public function update(){
 

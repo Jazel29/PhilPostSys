@@ -6,9 +6,9 @@
     <form class="row g-3" action="/addReturn" method="POST">
        @csrf
         <div class="col-auto">
-          <input type="text" value="2523535" name="trackingNum">
+          <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
           <label for="last-barcode" class="visually-hidden">Barcode</label>
-          <input type="text" class="form-control rounded" id="last-barcode" placeholder="######" name="truckNumMail">
+          <input type="text" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail">
         </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>

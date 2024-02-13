@@ -15,4 +15,6 @@ class Transmittals extends Model
         'recieverAddress',
         'date'
     ];
+
+    
 }
