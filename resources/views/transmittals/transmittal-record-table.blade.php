@@ -65,12 +65,15 @@
               
                 @foreach ($rrt_n as $rrt_n )
                 <tr>
-                    <th scope="row">2</th>
+                    <th scope="row">1</th>
                     <td>{{ $rrt_n->returncard }}</td>
                 </tr>
                 @endforeach
                 
             </tbody>
         </table>
+    </div>
+    <div class="newtb">
+        
     </div>
 </div>

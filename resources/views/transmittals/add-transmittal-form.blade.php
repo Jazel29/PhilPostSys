@@ -160,38 +160,38 @@
 //         }
 //     });
 
-    document.getElementById('addRecordForm').addEventListener('submit', function(event) {
-        // Prevent the default form submission behavior
-        event.preventDefault();
+    // document.getElementById('addRecordForm').addEventListener('submit', function(event) {
+    //     // Prevent the default form submission behavior
+    //     event.preventDefault();
 
-        // Serialize form data
-        var formData = new FormData(this);
+    //     // Serialize form data
+    //     var formData = new FormData(this);
 
-        // Send AJAX request
-        fetch('/addRecord', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle successful form submission
-            console.log('Success:', data);
-            // Optionally, you can show a success message or perform other actions
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('Error:', error);
-            // Optionally, you can show an error message to the user
-        });
-    });
+    //     // Send AJAX request
+    //     fetch('/addRecord', {
+    //         method: 'POST',
+    //         body: formData,
+    //         headers: {
+    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    //         }
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         // Handle successful form submission
+    //         console.log('Success:', data);
+    //         // Optionally, you can show a success message or perform other actions
+    //     })
+    //     .catch(error => {
+    //         // Handle errors
+    //         console.error('Error:', error);
+    //         // Optionally, you can show an error message to the user
+    //     });
+    // });
 
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     // Get the selected value from the input
