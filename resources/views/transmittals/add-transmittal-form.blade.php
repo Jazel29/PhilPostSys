@@ -111,8 +111,8 @@
                     <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
                     <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
                     <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
-                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Address">
-                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City" required>
+                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
+                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
                     <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
                     <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province" required>
                 </div>
