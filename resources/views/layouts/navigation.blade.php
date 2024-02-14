@@ -100,20 +100,20 @@
     <div class="text-center md:block hidden items-center text-black">
         <div class="hover:bg-gray-300 rounded-md mx-3 ">
             <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 ">
-                <img src="{{ asset('assets/dashboard.svg') }}" alt="dashboard" class="h-5 fill-current mr-2" />
+                <img src="{{ asset('assets/dashboard.svg') }}" alt="dashboard" class="ml-3 h-5 fill-current mr-2" />
                 <span>{{ __('Dashboard') }}</span>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3 ">
             <a href="{{ route('formTest') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-                <img src="{{ asset('assets/search.svg') }}" alt="dashboard" class="h-5 fill-current mr-2" />
+                <img src="{{ asset('assets/search.svg') }}" alt="dashboard" class="ml-3 h-5 fill-current mr-2" />
                 <span>{{ __('Trace') }}</span>
                 
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3 ">
             <a href="{{ route('new_transmittal') }}" class="flex items-center p-1        py-2 hover:bg-gray-300 rounded-md w-full">
-                <img src="{{ asset('assets/add_transmittal.svg') }}" alt="search" class="h-5 fill-current mr-2" />
+                <img src="{{ asset('assets/add_transmittal.svg') }}" alt="search" class="ml-3 h-5 fill-current mr-2" />
                 <span>{{ __('Add Transmittal') }}</span>
             </a>
         </div>
