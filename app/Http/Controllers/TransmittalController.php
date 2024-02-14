@@ -11,16 +11,18 @@ class TransmittalController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = Transmittals::query();
-        if ($request->has('search')) {
-            $searchTerm = $request->search;
-    
-            $query->where('mailTrackNum', 'like', '%' . $searchTerm . '%')
-                ->orWhere('recieverName', 'like', '%' . $searchTerm. '%')
-                ->orWhere('recieverAddress', 'like', '%' . $searchTerm . '%');
+        $query = Transmittals::query()->get();
+        $rrt_n = [];
+
+        foreach ($query as $record) {
+            // Retrieve ReturnCards related to the current Transmittal's mailTrackNum
+            $returnCards = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
+            
+            // Add the ReturnCards to the array
+            $rrt_n[$record->id] = $returnCards;
         }
-        $records = $query->paginate(8);
-        return view('tracer', compact('records'));
+
+        return view('tracer', compact('query', 'rrt_n'));
     }
 
     public function store(Request $request){
