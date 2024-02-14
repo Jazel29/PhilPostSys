@@ -3,6 +3,10 @@
 use App\Http\Controllers\BarCodeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransmittalController;
+use App\Http\Controllers\TracerController;
+use App\Http\Controllers\AddTransmittalController;
+use App\Http\Controllers\TransmittalsController;
+use App\Http\Controllers\AddresseeController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeUnit\FunctionUnit;
 
@@ -20,8 +24,7 @@ use SebastianBergmann\CodeUnit\FunctionUnit;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/test', function(){
-    return view('welcome');
+Route::get('/hellowirld', function(){
 });
 
 
@@ -30,18 +33,31 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //store the test barcode in the database
-    Route::get('/barcode', [BarCodeController::class, 'index'])->name('index');
-    Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
+    Route::get('/test', [BarCodeController::class, 'formTest']);
+    // Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
+    Route::post('/addReturn', [BarCodeController:: class, 'addReturnCard'])->name('addReturnCard');
 
     //Transmittal record routes
-    Route::get('/newRecord', [TransmittalController::class, 'index'])->name('index');
+    Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
+    Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
+    Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
+    
 
+    // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
+    Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
+    Route::get('/transmittals', [TransmittalsController::class, 'tracerForm']);
+
+    Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
 });
+
 
 require __DIR__.'/auth.php';

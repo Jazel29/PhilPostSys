@@ -23,6 +23,8 @@
               <button class="btn-secondary m-4 p-2 rounded-md mx-auto">
                 <a href="/login" class="text-white">Proceed to Login -></a>
               </button>
+
+              @include('components.form')
             </div>
           </div>
       </div>
