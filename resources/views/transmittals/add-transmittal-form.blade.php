@@ -25,72 +25,67 @@
         color: #333;
     }    
 </style>
-<div class="row">
-    <h1 class="display-5"> New Transmittal </h1>
-    <input type="button" value="Click me" onclick="testModal()">
-</div>
-<div class="mssg">
-    @if(session('flash_mssg'))
-    <div class="alert alert-primary" role="alert">
-        <p>{{ session('flash_mssg') }}</p>
-    </div>
-    @endif
-</div>
-<form action="/addRecord" method="POST" class="p-3">
-    @csrf
-    <div class="row mt-4">
-        <div class="col-6">
-            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-        <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
-            <datalist id="datalistOptions">
-                <option value="San Francisco">
-                <option value="New York">
-                <option value="Seattle">
-                <option value="Los Angeles">
-                <option value="Chicago">
-                <option value="Add New Addressee"></option>
-            </datalist>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-            <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-        <div class="col-2">
-            <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-        </div>
-    </div>
-    
-    {{-- comment ko muna kasi for testing --}}
-    {{-- <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                </div>
-                <div class="col-2">
-                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-        </div>
-    </div> --}}
 
-    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
+<div class="ml-4">
+    <div>
+        <h1 class="display-5"> Add New Transmittal </h1>
     </div>
-    <div class="row mt-3">
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-outline-success">Submit</button>
+    <div class="mssg">
+        @if(session('flash_mssg'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('flash_mssg') }}</p>
         </div>
+        @endif
     </div>
+</div>
+<form action="/addRecord" method="POST" class="">
+    @csrf
+    <div class="living-room-settings flex">
+        <div class="left-section w-1/2 ">
+            <div class="mx-4">
+                <div class="row mt-4">
+                    <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19">
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                </div>
+                <div class="row mt-2">
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19">
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                </div>
+                <div class="row mt-2">
+                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
+                    <datalist id="datalistOptions">
+                        <option value="San Francisco">
+                        <option value="New York">
+                        <option value="Seattle">
+                        <option value="Los Angeles">
+                        <option value="Chicago">
+                        <option value="Add New Addressee"></option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section w-1/2">
+            <div class="flex flex-col mt-4">
+                <div class="mx-4">
+                    <div class="flex flex-row">
+                        <input placeholder="Tracking Number/s of Registry Return Receipts/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19">
+                        <i class="fas fa-calendar input-prefix text-gray-500" tabindex=0></i>
+                        <div>
+                            <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-control rounded-md h-20 border-gray-300 text-gray-300"></div>      
+                </div>
+            </div>
+            <div class="mt-3 mr-6">
+                <div class="flex justify-end">
+                    <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                </div>
+            </div>
+        </div>    
+    </div> 
 </form>
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">

@@ -1,11 +1,11 @@
 <nav x-data="{ open: false }" class="px-10 bg-white border-b shadow-sm border-gray-100 sticky top-0 z-50">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <!-- Logo -->
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <img src="{{ asset('assets/PhilPostLogo.jfif') }}" alt="PhilPostLogo" class=" h-8 fill-current text-gray-800" />
+                    <img src="{{ asset('assets/PhilPostLogo.jfif') }}" alt="PhilPostLogo" class=" h-6 fill-current text-gray-800" />
                 </div>
             </div>
 
@@ -98,23 +98,23 @@
 
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16">
     <div class="text-center md:block hidden items-center text-black">
-        <div class="hover:bg-gray-300 rounded-md mx-3 ">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 ">
+        <div class="hover:bg-gray-300 rounded-md mx-3 hover:text-white ">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 mt-4">
                 <img src="{{ asset('assets/dashboard.svg') }}" alt="dashboard" class="ml-3 h-5 fill-current mr-2" />
-                <span>{{ __('Dashboard') }}</span>
+                <span class="text-19">{{ __('Dashboard') }}</span>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3 ">
             <a href="{{ route('formTest') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
                 <img src="{{ asset('assets/search.svg') }}" alt="dashboard" class="ml-3 h-5 fill-current mr-2" />
-                <span>{{ __('Trace') }}</span>
+                <span class="text-19">{{ __('Trace') }}</span>
                 
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3 ">
             <a href="{{ route('new_transmittal') }}" class="flex items-center p-1        py-2 hover:bg-gray-300 rounded-md w-full">
                 <img src="{{ asset('assets/add_transmittal.svg') }}" alt="search" class="ml-3 h-5 fill-current mr-2" />
-                <span>{{ __('Add Transmittal') }}</span>
+                <span class="text-19">{{ __('Add Transmittal') }}</span>
             </a>
         </div>
     </div>
