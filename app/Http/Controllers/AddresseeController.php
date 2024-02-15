@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\AddresseeList;
 
 use Illuminate\Http\Request;
+use App\Models\AddresseeList;
 
 class AddresseeController extends Controller
 {
@@ -21,7 +21,14 @@ class AddresseeController extends Controller
                 'zip'               => $request->input('zip'),
                 'province'          => $request->input('province')
             ]);
-            return response()->json(['message' => 'Addressee Added Successfully'], 200);
+            return redirect('add_transmittal')->with('record_added','Addressee Added Successfully'); 
       
+    }
+
+    public function getAddressees()
+    {
+        $addressees = AddresseeList::select('*')->get();
+
+        return response()->json(['addressees' => $addressees], 200);
     }
 }
