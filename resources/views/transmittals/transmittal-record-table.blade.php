@@ -9,7 +9,19 @@
     .labels {
         text-align: right;
     }
+
+    .highlight {
+    background-color: #2C54FF;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 29px ;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 </style>
+
 <div class="container">
     <div class="row mt-3">
         <h1 class="display-6">Transmittal Record</h1>
@@ -31,10 +43,11 @@
     </div>
     <div class="row mt-5">
         <div class="col-6">
-            <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
-        </div>
+            <p>Tracking Number : <br>
+            <span class="bold highlight"> {{ $records->mailTrackNum }} </span>
+            </p></div>
         <div class="col-6">
-            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
+            <p class="labels">Date Posted : <span class="bold">{{ $records->date }}</span></p>
         </div>
     </div>
     <div class="row mt-3">

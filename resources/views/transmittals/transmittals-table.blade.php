@@ -10,7 +10,7 @@
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
-    <form action="/tracer" method="GET">
+    <!--<form action="/tracer" method="GET">
         @csrf
         <div class="row mt-5">
             <div class="col" style="max-width: 600px;">
@@ -41,99 +41,138 @@
             
         </tbody>
     </table>
+</div>-->
+
+<!--<div class="search-bar-container">
+    <input type="search" id="search-input" class="custom-search-input" placeholder="Search records . . .">
 </div>
 
-<div class="newtb">
-    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<div class="filter-container">
+    <label for="filter-select">Filter by:</label>
+    <select id="filter-select" class="custom-filter-select">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+    </select>
+</div>-->
+
+<div class="table-wrapper">
+    <table id="transmittalstable" class="custom-table" cellspacing="0">
+        <!-- Table headers -->
         <thead class="text-center">
             <tr>
-                <th scope="col">Transmittal TN</th>
-                <th scope="col">Date Posted</th>
-                <th scope="col">Addressee</th>
-                <th scope="col">Address</th>
-                <th scope="col">RRR TN</th>
-                <th scope="col">Action</th>
+                <th>Transmittal TN</th>
+                <th>Date Posted</th>
+                <th>Addressee</th>
+                <th>Address</th>
+                <th>RRR TN</th>
+                <th>Action</th>
             </tr>
         </thead>
- 
-       
- 
+        
+        <!-- Table body -->
         <tbody>
             @if ($query->isEmpty())
-            <tr class="border-b">
-                <td>No Record Found</td>
-            </tr>
+                <tr class="border-b">
+                    <td colspan="6">No Record Found</td>
+                </tr>
             @else
-            @foreach ($query as $record)
-                <tr>
-                    <th scope="row">{{ $record->mailTrackNum }}</th>
-                    <td>{{ $record->date }}</td>
-                    <td>{{ $record->recieverName }}</td>
-                    <td>{{ $record->recieverAddress }}</td>
-                    <td>
-                        @if ($rrt_n[$record->id]->isEmpty())
-                            No Record Found
-                        @else
-                            @foreach ($rrt_n[$record->id] as $item)
-                                {{ $item->returncard }}
-                            @endforeach
-                        @endif
-                        
-                    </td>
-                    <td>
-                        <div class="d-flex">
-                            <a class="btn btn-primary m-2" href="{{ url('/transmittals/' . $record->id) }}">View</a> <a class="btn btn-warning  m-2" href="{{ url('/transmittals/' . $record->id) }}">View</a>
-                        </div>
-                    </td>
-                </tr>              
-            @endforeach
-        
+                @foreach ($query as $record)
+                    <tr>
+                        <td>{{ $record->mailTrackNum }}</td>
+                        <td>{{ $record->date }}</td>
+                        <td>{{ $record->recieverName }}</td>
+                        <td>{{ $record->recieverAddress }}</td>
+                        <td>
+                            @if ($rrt_n[$record->id]->isEmpty())
+                                No Record Found
+                            @else
+                                @foreach ($rrt_n[$record->id] as $item)
+                                    {{ $item->returncard }}
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a class="btn btn-primary" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                                <a class="btn btn-warning" href="{{ url('/transmittals/' . $record->id) }}">Edit</a>
+                            </div>
+                        </td>
+                    </tr>              
+                @endforeach
             @endif
-            
         </tbody>
     </table>
 </div>
 
-<script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
+<style>
+    /* Custom table styles */
+    .table-wrapper {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .custom-table th {
+        background-color: #f2f2f2;
+    }
+
+    .custom-table tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    .custom-search-input,
+    .custom-filter-select {
+        width: 200px; /* Customize input and select width */
+        padding: 5px; /* Add padding */
+        font-size: 16px; /* Customize font size */
+        border-radius: 5px; /* Add rounded corners */
+        border: 1px solid #ccc; /* Add border */
+        box-shadow: none; /* Remove box-shadow */
+    }
+
+    .search-bar-container,
+    .filter-container {
+        margin-bottom: 20px; /* Add some space between search bar, filter, and table */
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#example').dataTable();
-    } );
-    var addressee = document.getElementById("addressee_checkbox");
-    var rrrTN = document.getElementById("rrrTN_checkbox");
-    var tableDiv = document.getElementById("table_div");
+        $('#transmittalstable').DataTable({
+            "language": {
+                "search": "search" // Customize search placeholder
+            }
+        });
 
-    addressee.addEventListener("change", function() {
-        if (addressee.checked) {
-            rrrTN.checked = false;
-        }
+        $('#transmittalstable').css('padding-top', '100px');
+
     });
-
-    rrrTN.addEventListener("change", function() {
-        if (rrrTN.checked) {
-            addressee.checked = false;
-        }
-    });
-
-    function verifyCheckbox() {
-        if (!addressee.checked && !rrrTN.checked) {
-            // alert("Please check at least one checkbox");
-            // Highlight the checkboxes if none is checked
-            addressee.classList.add("highlight");
-            rrrTN.classList.add("highlight");
-            $(document).ready(function() {
-                $('#trace_table').DataTable();
-            });
-            // tableDiv.style.display = "none"; // Hide the table
-        } else {
-            // Remove the class if at least one checkbox is checked
-            addressee.classList.remove("highlight");
-            rrrTN.classList.remove("highlight");
-            $(document).ready(function() {
-                $('#trace_table').DataTable();
-            });
-            // tableDiv.style.display = "block"; // Hide the table
-        }
-    }
-    
 </script>
+
