@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered border-dark table-size mt-5">
+        <table id="example" class="table table-striped " cellspacing="0" width="50%">
             <thead class="text-center">
                 <tr>
                     <th scope="col">#</th>
@@ -63,12 +63,17 @@
             </thead>
             <tbody class="text-center">
               
-                @foreach ($rrt_n as $rrt_n )
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ $rrt_n->returncard }}</td>
-                </tr>
-                @endforeach
+                @if ($rrt_n->isEmpty())
+                    <td>404</td>
+                    <td>No Record Found</td>
+                @else
+                    @foreach ($rrt_n as $rrt_n )
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $rrt_n->returncard }}</td>
+                    </tr>
+                    @endforeach
+                @endif
                 
             </tbody>
         </table>
@@ -77,3 +82,9 @@
         
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
