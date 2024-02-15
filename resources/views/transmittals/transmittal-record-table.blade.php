@@ -4,22 +4,54 @@
     }
     .bold {
         font-weight: bold;
-        text-align: right;
+        text-align: left;
     }
+
+    .bold-addressee {
+        font-weight: bold;
+        font-size: 29px;
+    }
+    
     .labels {
-        text-align: right;
+        text-align: left;
     }
+    
 
     .highlight {
     background-color: #2C54FF;
-    border-radius: 4px;
+    border-radius: 10px;
     color: #FFFFFF;
-    font-size: 29px ;
+    font-size: 19px ;
     padding-left: 6px;
     padding-right: 6px;
     padding-top: 4px;
     padding-bottom: 4px;
 }
+
+    .tracking {
+    padding: 10px;
+}
+
+    .rounded-container {
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 20px; /* Add rounded corners */
+    padding: 20px; /* Add padding */
+    background-color: #ffffff; /* Set background color */
+}
+
+    .custom-line {
+    border: 90px; /* Remove default border */
+    margin-top: 20px; /* Adjust margin top as needed */
+}
+
+    .form-control {
+    border-radius: 15px;
+}
+
+    .btn-outline-success {
+        border-radius: 15px;
+    }
+
 </style>
 
 <div class="container">
@@ -41,52 +73,64 @@
         </button>
         </div>
     </div>
+
+    <!-- Left side column -->
     <div class="row mt-5">
-        <div class="col-6">
-            <p>Tracking Number : <br>
-            <span class="bold highlight"> {{ $records->mailTrackNum }} </span>
-            </p></div>
-        <div class="col-6">
-            <p class="labels">Date Posted : <span class="bold">{{ $records->date }}</span></p>
+    <!-- Left side column -->
+    <div class="col-md-4">
+        <div class="rounded-container">
+            <p>
+                <span class="tracking">Tracking Number</span>
+                <span class="bold highlight">{{ $records->mailTrackNum }}</span>
+            </p>
         </div>
+            <p class="labels"><br>Date Posted :</p>
+            <p><span class="bold">{{ $records->date }}</span></p>
+            <hr class="custom-line">
+
+            <p class="labels"><br>Address :</p>
+            <p><span class="bold">{{ $records->recieverAddress }}</span><br></p>
+        
     </div>
-    <div class="row mt-3">
-        <div class="col-6">
-            <p>Addressee: <span class="bold">{{ $records->recieverName }}</span></p>
-        </div>
-        <div class="col-6">
-            <p class="labels">Address: <span class="bold">{{ $records->recieverAddress }}</span></p>
-        </div>
-    </div>
-    <div class="row mt-5">
+
+    <!-- Right side column -->
+    <div class="col-md-8">
+
+            <p class="labels">Addressee :</p>
+            <p><span class="bold-addressee">{{ $records->recieverName }}</span></p>
+
         <div class="row mt-5">
-            <div class="col-6">
+            <div class="col-md-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search RRR Tracking Number">
                     <button class="btn btn-outline-success" type="button">Search</button>
                 </div>
             </div>
-        </div>
+        
+      
         <table class="table table-bordered border-dark table-size mt-5">
             <thead class="text-center">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Items</th>
                     <th scope="col">RRR Tracking Numbers</th>
+        
                 </tr>
             </thead>
             <tbody class="text-center">
-              
+           
                 @foreach ($rrt_n as $rrt_n )
                 <tr>
                     <th scope="row">1</th>
                     <td>{{ $rrt_n->returncard }}</td>
                 </tr>
                 @endforeach
-                
+                </div>
             </tbody>
         </table>
     </div>
+   
     <div class="newtb">
-        
+    
+    </div>
     </div>
 </div>

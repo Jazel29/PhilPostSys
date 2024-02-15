@@ -95,7 +95,6 @@
                         <td>
                             <div class="action-buttons">
                                 <a class="btn btn-primary" href="{{ url('/transmittals/' . $record->id) }}">View</a>
-                                <a class="btn btn-warning" href="{{ url('/transmittals/' . $record->id) }}">Edit</a>
                             </div>
                         </td>
                     </tr>              
@@ -107,9 +106,13 @@
 
 <style>
     /* Custom table styles */
-    .table-wrapper {
-        border-radius: 10px;
+    .table-wrapper th {
+        border-radius: 0px;
         overflow: hidden;
+    }
+
+    .text-center {
+        border-radius: 50px;
     }
 
     .custom-table {
@@ -119,7 +122,7 @@
 
     .custom-table th,
     .custom-table td {
-        padding: 10px;
+        padding: 1px;
         text-align: left;
     }
 
@@ -138,19 +141,23 @@
     .action-buttons {
         display: flex;
         justify-content: center;
-        gap: 5px;
+        gap: 10px;
     }
 
     .btn {
-        border-radius: 5px;
+        border-radius:15px;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 
     .custom-search-input,
     .custom-filter-select {
-        width: 200px; /* Customize input and select width */
+        width: 500px; /* Customize input and select width */
         padding: 5px; /* Add padding */
         font-size: 16px; /* Customize font size */
-        border-radius: 5px; /* Add rounded corners */
+        border-radius: 11px; /* Add rounded corners */
         border: 1px solid #ccc; /* Add border */
         box-shadow: none; /* Remove box-shadow */
     }
@@ -171,8 +178,7 @@
             }
         });
 
-        $('#transmittalstable').css('padding-top', '100px');
-
+        $('#transmittalstable').css('padding-top', '20px');
     });
 </script>
 
