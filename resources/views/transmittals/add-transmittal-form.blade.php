@@ -77,16 +77,47 @@
                     </div>
 
                     <div class="mt-3 form-control rounded-md h-20 border-gray-300 text-gray-300"></div>      
-                </div>
-            </div>
-            <div class="mt-3 mr-6">
-                <div class="flex justify-end">
-                    <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
-                </div>
+                </div>          
             </div>
         </div>    
-    </div> 
+    </div>
+    <div class="flex justify-end mr-4 mt-3"> 
+        <button type="button" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" data-toggle="modal" data-target="#submitConfirmationModal">
+            Submit
+        </button>
+    </div>
 </form>
+
+
+<!--Modal for Submit Button-->
+<div class="modal fade" id="submitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="submitConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h5 class="modal-title mb-3" id="submitConfirmationModalLabel">Are you sure you want to save this record?</h5>                
+                <hr>
+                <div class="mt-3 mb-2 d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary rounded-4 mr-1" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-primary rounded-4 ml-1" onclick="submitForm()">Yes, Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Function to handle form submission
+    function submitForm() {
+        // Add logic to submit the form
+        // Example: You can use AJAX to send a request to the server
+
+        // After submission, close the modal
+        $('#submitConfirmationModal').modal('hide');
+    }
+</script>
+
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -121,73 +152,8 @@
     <div class="d-flex justify-content-center">
     </div>
 </div>
-   
 
-<script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
-//     var count = 0;
-//     function removeTN(element) {
-// // Remove the container from the DOM
-//         element.parentNode.removeChild(element);
-//     }
-
-//     function addTN() {
-//         count++;
-//         var rrr_tn_value = document.getElementById('rrr_tn').value;
-
-//         // Create a new tn_container with the extracted value
-//         var tn_container = document.createElement('div');
-//         tn_container.className = 'container';
-//         tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode)">✖</span><p>' + count + ". "+ rrr_tn_value + '</p>';
-
-// // Append the new tn_container to the rrr_div
-//         document.getElementById('rrr_div').appendChild(tn_container);
-
-// // Clear the value of rrr_tn input field
-//         document.getElementById('rrr_tn').value = '';
-//     }
-
-//     var rrr_tn_value = document.getElementById("rrr_tn");
-//     rrr_tn_value.addEventListener("keypress", function(event) {
-//         if (event.key === "Enter") {
-//             event.preventDefault();
-//             addTN();
-//         }
-//     });
-
-    // document.getElementById('addRecordForm').addEventListener('submit', function(event) {
-    //     // Prevent the default form submission behavior
-    //     event.preventDefault();
-
-    //     // Serialize form data
-    //     var formData = new FormData(this);
-
-    //     // Send AJAX request
-    //     fetch('/addRecord', {
-    //         method: 'POST',
-    //         body: formData,
-    //         headers: {
-    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    //         }
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         // Handle successful form submission
-    //         console.log('Success:', data);
-    //         // Optionally, you can show a success message or perform other actions
-    //     })
-    //     .catch(error => {
-    //         // Handle errors
-    //         console.error('Error:', error);
-    //         // Optionally, you can show an error message to the user
-    //     });
-    // });
-
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     // Get the selected value from the input
     var selectedValue = this.value;
