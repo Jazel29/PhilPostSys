@@ -34,10 +34,22 @@
     </div>
     <div class="row mt-3">
         <div class="col-6">
-            <p>Addressee: <span class="bold">{{ $records->recieverName }}</span></p>
+            <p>Addressee: 
+                <span class="bold">
+                    {{ $addressee->name_primary }}, 
+                    {{ $addressee->name_secondary }}
+                </span>
+            </p>
         </div>
         <div class="col-6">
-            <p class="labels">Address: <span class="bold">{{ $records->recieverAddress }}</span></p>
+            <p class="labels">Address: 
+                <span class="bold">
+                    {{ $addressee->address }},
+                    {{ $addressee->zip }} 
+                    {{ $addressee->city }},
+                    {{ $addressee->province }}
+                </span>
+            </p>
         </div>
     </div>
     <div class="row mt-5">
@@ -93,8 +105,12 @@
             records: {
                 mailTrackNum: "{{ $records->mailTrackNum }}",
                 date: "{{ $records->date }}",
-                recieverName: "{{ $records->recieverName }}",
-                recieverAddress: "{{ $records->recieverAddress }}"
+                addresseePN: "{{ $addressee->name_primary }}",
+                addresseeSN: "{{ $addressee->name_secondary }}",
+                address: "{{ $addressee->address }}",
+                zip: "{{ $addressee->zip }}",
+                city: "{{ $addressee->city }}",
+                province: "{{ $addressee->province }}"
             },
             rrtn: tableData.flat() // Flatten the array to store only the returncard values
         };
