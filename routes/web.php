@@ -51,7 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
     Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
-    
+    Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update']);
+    Route::delete('/transmittals/delete', [TransmittalController::class, 'destroy'])->name('members.destroy');
+
+    Route::resource('transmittals', TransmittalController::class);
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');

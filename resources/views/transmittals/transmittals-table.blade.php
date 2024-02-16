@@ -39,7 +39,7 @@
                     <td>{{ $record->date }}</td>
                     <td>{{ $record->recieverName }}</td>
                     <td>{{ $record->recieverAddress }}</td>
-                    <td hidden>
+                    <td>
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
                         @else
@@ -49,9 +49,22 @@
                         @endif
                         
                     </td>
-                    <td>
+                    
+                    <td class="">
                         <div class="d-flex">
-                            <a class="btn btn-primary m-2" href="{{ url('/transmittals/' . $record->id) }}">View</a> <a class="btn btn-warning  m-2" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                            <div class="">
+                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                            </div>
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                            </div>
+                            <div class="ms-3 mt-2">
+                                <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->name }}')"> Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </td>
                 </tr>              

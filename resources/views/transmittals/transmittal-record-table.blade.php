@@ -11,9 +11,12 @@
     }
 </style>
 <div class="container">
-    <div class="row mt-3">
-        <h1 class="display-6">Transmittal Record</h1>
+    <div class="d-flex">
+        <div class="row mt-3">
+            <h1 class="display-6">Transmittal Record</h1>
+        </div>
     </div>
+    
     <div class="row text-right">
         <div class="col">
             <a href="/tracer"><button class="btn btn-outline-success">
