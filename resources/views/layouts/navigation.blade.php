@@ -5,7 +5,7 @@
             <!-- Logo -->
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <img src="{{ asset('assets/PhilPostLogo.jfif') }}" alt="PhilPostLogo" class=" h-6 fill-current text-gray-800" />
+                    <img src="{{ asset('assets/PHLPOSTLogo.PNG') }}" alt="PhilPostLogo" class=" h-8 fill-current text-gray-800" />
                 </div>
             </div>
 
