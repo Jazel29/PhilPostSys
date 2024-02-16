@@ -7,8 +7,10 @@ use App\Http\Controllers\TracerController;
 use App\Http\Controllers\AddTransmittalController;
 use App\Http\Controllers\TransmittalsController;
 use App\Http\Controllers\AddresseeController;
+use App\Http\Controllers\ExcelExportController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeUnit\FunctionUnit;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,13 +52,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
     Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
-    
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm']);
+    
 
     Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
+    Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
+
+    Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
+
 });
 
 
