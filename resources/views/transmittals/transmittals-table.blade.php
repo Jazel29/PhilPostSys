@@ -76,9 +76,42 @@
     </table>
 </div>
 
-<script src="path/to/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#example').dataTable();
-    } );
+    var addressee = document.getElementById("addressee_checkbox");
+    var rrrTN = document.getElementById("rrrTN_checkbox");
+    var tableDiv = document.getElementById("table_div");
+
+    addressee.addEventListener("change", function() {
+        if (addressee.checked) {
+            rrrTN.checked = false;
+        }
+    });
+
+    rrrTN.addEventListener("change", function() {
+        if (rrrTN.checked) {
+            addressee.checked = false;
+        }
+    });
+
+    function verifyCheckbox() {
+        if (!addressee.checked && !rrrTN.checked) {
+            // alert("Please check at least one checkbox");
+            // Highlight the checkboxes if none is checked
+            addressee.classList.add("highlight"); 
+            rrrTN.classList.add("highlight");
+            $(document).ready(function() {
+                $('#trace_table').DataTable();
+            });
+            // tableDiv.style.display = "none"; // Hide the table
+        } else {
+            // Remove the class if at least one checkbox is checked
+            addressee.classList.remove("highlight");
+            rrrTN.classList.remove("highlight");
+            $(document).ready(function() {
+                $('#trace_table').DataTable();
+            });
+            // tableDiv.style.display = "block"; // Hide the table
+        }
+    }
+    
 </script>

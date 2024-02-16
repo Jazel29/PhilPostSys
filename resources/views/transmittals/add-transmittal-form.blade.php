@@ -51,10 +51,11 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required>
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" required>
             <datalist id="datalistOptions">
                 <option value="Add New Addressee"></option>
             </datalist>
+            <input class="form-control" type="hidden" name="receiver" id="receiver">
         </div>
     </div>
     <div class="row mt-2">
@@ -133,9 +134,10 @@
 </div>
    
 <script>
-
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     var addressValue = document.getElementById('address');
+    var addresseeVal = document.getElementById('receiver');
+    var tn = document.getElementById('mail_tn');
     var selectedValue = this.value;
 
     if (selectedValue === 'Add New Addressee') {
@@ -144,13 +146,13 @@
     } else {
         // Get the selected option element
         var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
-        console.log(selectedOption);
         
         // Check if the selected option exists
         if (selectedOption) {
-            var selectedId = selectedOption.id;
+            selectedId = selectedOption.id;
             var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
             addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
+            addresseeVal.value = selectedId;
         }else {
             addressValue.value = '';
         }
@@ -182,7 +184,4 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
-
-
-
 </script>
