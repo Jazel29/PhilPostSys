@@ -54,8 +54,7 @@ class ExcelExportController extends Controller
         }
         
 
-        // Specify the directory path on local disk D
-        $directoryPath = 'C:\Users\Public\tracer_exports';
+        $directoryPath = public_path('tracer_exports');
 
         // Create the directory if it doesn't exist
         if (!file_exists($directoryPath) && !is_dir($directoryPath)) {
@@ -64,11 +63,18 @@ class ExcelExportController extends Controller
 
         // Save the updated spreadsheet to the new directory
         date_default_timezone_set('Asia/Tokyo');
-        $destinationPath = $directoryPath . '/tracer_' . date('Y_m_d_G-i-s') . '.xlsx';
+        $filename = '/tracer_' . date('Y_m_d_G-i-s') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
-        $writer->save($destinationPath);
-        
-        return response()->json(['success' => true, 'path' => $destinationPath]);
+        $writer->save($directoryPath . $filename);
+
+        return response()->json(['success' => true, 'path' => $filename]);
+    }
+
+    public function downloadExcel($filename)
+    {
+        $filePath = public_path('tracer_exports/' . $filename);
+
+        return response()->download($filePath);
     }
 }
 

@@ -91,6 +91,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="" id="downloadLink">Download Excel</a>
       </div>
     </div>
   </div>
@@ -139,6 +140,14 @@
             success: function (response) {
                 $('#promptText').text('Excel exported successfully!');
                 $('#exportStatusPrompt').modal('show');
+
+                // Assuming response.path contains the file path
+                var filePath = response.path;
+
+                // Update the href attribute of the downloadLink
+                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
+
+                console.log("/download-excel" + response.path);
                 console.log('Excel exported successfully');
             },
             error: function (error) {
