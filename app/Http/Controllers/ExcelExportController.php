@@ -19,19 +19,40 @@ class ExcelExportController extends Controller
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('D5', $exportData['records']['mailTrackNum'] ?? '');
-        $sheet->setCellValue('A5', $exportData['records']['date'] ?? '');
-        $sheet->setCellValue('A7', strtoupper($exportData['records']['addresseePN'] ?? ''));
-        $sheet->setCellValue('A8', strtoupper($exportData['records']['addresseeSN'] ?? ''));
-        $sheet->setCellValue('A9', $exportData['records']['address'] ?? '');
-        $sheet->setCellValue('A10', $exportData['records']['zip'] . ' ' . $exportData['records']['city'] ?? '');
+        $data = [
+            'D5' => $exportData['records']['mailTrackNum'] ?? '',
+            'A5' => $exportData['records']['date'] ?? '',
+            'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
+            'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
+            'A9' => $exportData['records']['address'] ?? '',
+            'A10' => $exportData['records']['zip'] . ' ' . $exportData['records']['city'] ?? '',
+        ];
 
-        $style = $sheet->getStyle('D5');
-        $style = $sheet->getStyle('A7');
-        $style = $sheet->getStyle('A8');
+        // Set font attributes to make it bold for specific cells
+        $boldCells = ['D5', 'A7', 'A8'];
 
-        // Set font attributes to make it bold
-        $style->getFont()->setBold(true);
+        foreach ($data as $cell => $value) {
+            $sheet->setCellValue($cell, $value);
+
+            // Set font attributes to make it bold if the cell is in $boldCells array
+            if (in_array($cell, $boldCells)) {
+                $sheet->getStyle($cell)->getFont()->setBold(true);
+            }
+        }
+
+        $rrtnLength = count($exportData['rrtn']);
+        $startRow = 18;
+        $startCol = 'A';
+        $tnCount = 1;
+
+        foreach ($exportData['rrtn'] as $index => $rrtn) {
+            $row = $startRow + $index;
+            $col = $startCol;
+            $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
+            $tnCount++;
+            $col++;
+        }
+        
 
         // Specify the directory path on local disk D
         $directoryPath = 'C:\Users\Public\tracer_exports';
@@ -46,8 +67,8 @@ class ExcelExportController extends Controller
         $destinationPath = $directoryPath . '/tracer_' . date('Y_m_d_G-i-s') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
         $writer->save($destinationPath);
-
-        // Return a response or perform any other actions as needed
+        
+        return response()->json(['success' => true, 'path' => $destinationPath]);
     }
 }
 

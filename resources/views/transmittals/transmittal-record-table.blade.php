@@ -79,7 +79,28 @@
         </table>
     </div>
 </div>
+<div class="modal" id="exportStatusPrompt" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Export Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="promptText"> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a type="button" href="file:///C:/Users/Public/tracer_exports" target="_blank" id="downloadBtn">Download File</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+    var downloadBtn = document.getElementById('downloadBtn');
+
     function exportToExcel() {
         console.log('exportToExcel called');
         // Collect table data
@@ -119,10 +140,13 @@
         $.ajax({
             type: 'GET',
             url: '/export-to-excel',
-            data: { exportData: JSON.stringify(exportData) },
+            data: { exportData: JSON.stringify(exportData) },   
             success: function (response) {
-                // Optional: Handle success response, if needed
-                console.log('Excel exported successfully');
+                $('#promptText').text('Excel exported successfully!');
+                $('#exportStatusPrompt').modal('show');
+                var $path = response.path;
+                downloadBtn.href = 'file:///' + $path;
+                console.log('Excel file is ready to download');
             },
             error: function (error) {
                 // Optional: Handle error response, if needed
