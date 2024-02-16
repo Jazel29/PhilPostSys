@@ -154,17 +154,25 @@
 
     .custom-search-input,
     .custom-filter-select {
-        width: 500px; /* Customize input and select width */
-        padding: 5px; /* Add padding */
-        font-size: 16px; /* Customize font size */
-        border-radius: 11px; /* Add rounded corners */
-        border: 1px solid #ccc; /* Add border */
-        box-shadow: none; /* Remove box-shadow */
+        width: 500px;
+        padding: 5px;
+        font-size: 16px; 
+        border-radius: 11px; 
+        border: 1px solid #ccc; 
+        box-shadow: none; 
     }
 
     .search-bar-container,
     .filter-container {
-        margin-bottom: 20px; /* Add some space between search bar, filter, and table */
+        margin-bottom: 20px; 
+    }
+
+    .input{
+        padding-left: 10px;
+    }
+
+    .transmittalstable thead {
+
     }
 </style>
 
@@ -174,11 +182,11 @@
     $(document).ready(function() {
         $('#transmittalstable').DataTable({
             "language": {
-                "search": "search" // Customize search placeholder
-            }
+                "search": "" }
         });
 
-        $('#transmittalstable').css('padding-top', '20px');
+        $('.dataTables_filter input').attr('placeholder', 'Search');
+        $('#2').css('padding-top', '20px');
     });
 </script>
 
