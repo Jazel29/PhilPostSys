@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReturnCards;
 use App\Models\Transmittals;
+use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -48,10 +49,12 @@ class TransmittalController extends Controller
     public function show($mailTrackNum){
         $record = Transmittals::find($mailTrackNum);
         $rrr_tn = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
+        $addressee = AddresseeList::find($record->recieverName);
         if (!$record) { 
             abort(404);
         }
-        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn]);
+        
+        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
     }
 
     public function edit($id){  

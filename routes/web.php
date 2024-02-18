@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
+    Route::get('/download-excel/{filename}', [ExcelExportController::class, 'downloadExcel'])->name('download-excel');
+
 
 });
 
