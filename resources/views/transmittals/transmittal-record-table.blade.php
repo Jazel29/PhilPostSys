@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <table id="example" class="table table-striped " cellspacing="0" width="50%">
+        <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
                     <th scope="col">#</th>
@@ -60,17 +60,29 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                @foreach ($rrt_n as $index => $rrt)
+                @if ($rrt_n->isEmpty())
+                <tr>
+                    <th>Error</th>
+                    <td>No RRTN Found</td>
+                </tr>
+                
+                @else
+                    @foreach ($rrt_n as $index => $rrt)
                     <tr>
                         <th scope="row">{{ $index + 1 }}</th>
                         <td>{{ $rrt->returncard }}</td>
                     </tr>
-                @endforeach
+                    @endforeach
+                @endif
+                
             </tbody>
         </table>
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
     function exportToExcel() {
         console.log('exportToExcel called');
         // Collect table data
@@ -108,7 +120,7 @@
             url: '/export-to-excel',
             data: { exportData: JSON.stringify(exportData) },
             success: function (response) {
-                // Optional: Handle success response, if needed
+                Optional: Handle success response, if needed
                 console.log('Excel exported successfully');
             },
             error: function (error) {
@@ -117,15 +129,16 @@
             }
         });
     }
-    $(document).ready(function() {
-        $('#transmittalstable').DataTable({
-            "language": {
-                "search": "search" // Customize search placeholder
-            }
-        });
+    // $(document).ready(function() {
+    //     $('#transmittalstable').DataTable({
+    //         "language": {
+    //             "search": "search" // Customize search placeholder
+    //         }
+    //     });
 
-        $('#transmittalstable').css('padding-top', '20px');
-    });
+    //     $('#transmittalstable').css('padding-top', '20px');
+    // });
+    
 </script>
 
 
