@@ -117,6 +117,15 @@
             }
         });
     }
+    $(document).ready(function() {
+        $('#transmittalstable').DataTable({
+            "language": {
+                "search": "search" // Customize search placeholder
+            }
+        });
+
+        $('#transmittalstable').css('padding-top', '20px');
+    });
 </script>
 
 

@@ -35,7 +35,7 @@
         </div>
     @endif
 </div>
-<form action="{{ url('/transmittals/'.$records->id.'/update') }}" method="POST" class="p-3">
+<form action="{{ route('transmittals.update', ['id' => $records->id]) }}" method="POST" class="p-3">
     @csrf
     @method("PATCH")
     <div class="row mt-4">

@@ -7,6 +7,15 @@
         display: none;
     } */
 </style>
+<div class="mssg">
+    <div class="mssg">
+    @if(session('flash_mssg'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('flash_mssg') }}</p>
+        </div>
+    @endif
+</div>
+</div>
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
@@ -56,7 +65,7 @@
                                 <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                                <a href="{{ route('edit', ['id' => $record->id]) }}" class="btn btn-success text-white">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
@@ -77,41 +86,14 @@
 </div>
 
 <script>
-    var addressee = document.getElementById("addressee_checkbox");
-    var rrrTN = document.getElementById("rrrTN_checkbox");
-    var tableDiv = document.getElementById("table_div");
+    $(document).ready(function() {
+        $('#transmittalstable').DataTable({
+            "language": {
+                "search": "search" // Customize search placeholder
+            }
+        });
 
-    addressee.addEventListener("change", function() {
-        if (addressee.checked) {
-            rrrTN.checked = false;
-        }
+        $('#transmittalstable').css('padding-top', '20px');
     });
-
-    rrrTN.addEventListener("change", function() {
-        if (rrrTN.checked) {
-            addressee.checked = false;
-        }
-    });
-
-    function verifyCheckbox() {
-        if (!addressee.checked && !rrrTN.checked) {
-            // alert("Please check at least one checkbox");
-            // Highlight the checkboxes if none is checked
-            addressee.classList.add("highlight"); 
-            rrrTN.classList.add("highlight");
-            $(document).ready(function() {
-                $('#trace_table').DataTable();
-            });
-            // tableDiv.style.display = "none"; // Hide the table
-        } else {
-            // Remove the class if at least one checkbox is checked
-            addressee.classList.remove("highlight");
-            rrrTN.classList.remove("highlight");
-            $(document).ready(function() {
-                $('#trace_table').DataTable();
-            });
-            // tableDiv.style.display = "block"; // Hide the table
-        }
-    }
     
 </script>
