@@ -40,18 +40,18 @@
             <p>Addressee: 
                 <span class="bold">
                     {{ $addressee->name_primary }}, 
-                    {{ $addressee->name_secondary }}
-                </span>
+                        {{ $addressee->name_secondary }}
+                                    </span>
             </p>
         </div>
         <div class="col-6">
             <p class="labels">Address: 
                 <span class="bold">
                     {{ $addressee->address }},
-                    {{ $addressee->zip }} 
-                    {{ $addressee->city }},
-                    {{ $addressee->province }}
-                </span>
+                        {{ $addressee->zip }} 
+                        {{ $addressee->city }},
+                        {{ $addressee->province }}
+                                    </span>
             </p>
         </div>
     </div>
