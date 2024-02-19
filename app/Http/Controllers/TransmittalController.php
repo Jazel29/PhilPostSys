@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReturnCards;
 use App\Models\Transmittals;
+use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -48,10 +49,12 @@ class TransmittalController extends Controller
     public function show($mailTrackNum){
         $record = Transmittals::find($mailTrackNum);
         $rrr_tn = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
+        $addressee = AddresseeList::find($record->recieverName);
         if (!$record) { 
             abort(404);
         }
-        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn]);
+        
+        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
     }
 
     public function edit($id){  
@@ -59,22 +62,24 @@ class TransmittalController extends Controller
         if (!$records) {
             return redirect()->route('/transmittals')->with('flash_message', 'Member not found');
         }
-        return view('edit-transmitttals', compact('records'));
+        return view('edit-transmitttals', ['records' => $records]);
     }
+
     public function update(Request $request, $id)
     {
         try {
             $record = Transmittals::findOrFail($id);
-
+    
             $input = $request->all();
-
+    
             $record->update($input);
-
-            return redirect('tracer')->with('success_edit', 'Transmittal Edited Successful!');
+    
+            return redirect('tracer')->with('flash_mssg', 'Transmittal updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
     }
+
     public function destroy($id)
     {
         Transmittals::destroy($id);

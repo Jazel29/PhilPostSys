@@ -81,45 +81,93 @@
         </div>
         <div class="col text-right">
             <button class="btn btn-outline-success" onclick="exportToExcel()">
-            &nbsp;<i class="fa-solid fa-table"></i> &nbsp; Export as Excel
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64"/>
+                </svg>
             </button>
-</div>
-
-    <!-- Left side column -->
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
+        </div>
+        <div class="col-6">
+            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
+        </div>
+    </div>
     <div class="row mt-3">
-        
-    <!-- Left side column -->
-    <div class="col-md-4">
-        <div class="rounded-container">
-            <p>
-                <span class="tracking">Tracking Number</span>
-                <span class="bold highlight">{{ $records->mailTrackNum }}</span>
+        <div class="col-6">
+            <p>Addressee: 
+                <span class="bold">
+                    {{ $addressee->name_primary }}, 
+                    {{ $addressee->name_secondary }}
+                </span>
             </p>
         </div>
-            <p class="labels"><br>Date Posted :</p>
-            <p><span class="bold">{{ $records->date }}</span></p>
-            <hr class="custom-line">
-
-            <p class="labels"><br>Address :</p>
-            <p><span class="bold">{{ $records->recieverAddress }}</span><br></p>
-        
+        <div class="col-6">
+            <p class="labels">Address: 
+                <span class="bold">
+                    {{ $addressee->address }},
+                    {{ $addressee->zip }} 
+                    {{ $addressee->city }},
+                    {{ $addressee->province }}
+                </span>
+            </p>
+        </div>
     </div>
-
-    <!-- Right side column -->
-    <div class="col-md-8">
-
-            <p class="labels">Addressee :</p>
-            <p><span class="bold-addressee">{{ $records->recieverName }}</span></p>
-
-            <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <!-- Search Bar -->
-                    
-                    <div class="input-group">
+    <div class="row mt-5">
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
+                    <button class="btn btn-outline-success" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+        <table id="example" class="table table-striped " cellspacing="0" width="90%">
+            <thead class="text-center">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">RRR Tracking Numbers</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @if ($rrt_n->isEmpty())
+                <tr>
+                    <th>Error</th>
+                    <td>No RRTN Found</td>
+                </tr>
+                
+                @else
+                    @foreach ($rrt_n as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                    </tr>
+                    @endforeach
+                @endif
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal" id="exportStatusPrompt" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Export Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="promptText"> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="" id="downloadLink">Download Excel</a>
+      </div>
+    </div>
+  </div>
+</div>
                         <button class="btn btn-outline-success" type="button">Search</button>
                     </div>
                 </div>
@@ -153,6 +201,9 @@
 </div>
  
 <script>
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
     function exportToExcel() {
         console.log('exportToExcel called');
         // Collect table data
@@ -173,13 +224,17 @@
             tableData.push(rowData);
         });
 
-        // Prepare data for sending to the server
+        //Prepare data for sending to the server
         var exportData = {
             records: {
                 mailTrackNum: "{{ $records->mailTrackNum }}",
                 date: "{{ $records->date }}",
-                recieverName: "{{ $records->recieverName }}",
-                recieverAddress: "{{ $records->recieverAddress }}"
+                addresseePN: "{{ $addressee->name_primary }}",
+                addresseeSN: "{{ $addressee->name_secondary }}",
+                address: "{{ $addressee->address }}",
+                zip: "{{ $addressee->zip }}",
+                city: "{{ $addressee->city }}",
+                province: "{{ $addressee->province }}"
             },
             rrtn: tableData.flat() // Flatten the array to store only the returncard values
         };
@@ -190,7 +245,16 @@
             url: '/export-to-excel',
             data: { exportData: JSON.stringify(exportData) },
             success: function (response) {
-                // Optional: Handle success response, if needed
+                $('#promptText').text('Excel exported successfully!');
+                $('#exportStatusPrompt').modal('show');
+
+                // Assuming response.path contains the file path
+                var filePath = response.path;
+
+                // Update the href attribute of the downloadLink
+                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
+
+                console.log("/download-excel" + response.path);
                 console.log('Excel exported successfully');
             },
             error: function (error) {
@@ -199,6 +263,16 @@
             }
         });
     }
+    // $(document).ready(function() {
+    //     $('#transmittalstable').DataTable({
+    //         "language": {
+    //             "search": "search" // Customize search placeholder
+    //         }
+    //     });
+
+    //     $('#transmittalstable').css('padding-top', '20px');
+    // });
+    
 </script>
 
 

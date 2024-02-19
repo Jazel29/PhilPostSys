@@ -7,6 +7,15 @@
         display: none;
     } */
 </style>
+<div class="mssg">
+    <div class="mssg">
+    @if(session('flash_mssg'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('flash_mssg') }}</p>
+        </div>
+    @endif
+</div>
+</div>
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
@@ -55,7 +64,7 @@
                                 <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                                <a href="{{ route('edit', ['id' => $record->id]) }}" class="btn btn-success text-white">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
