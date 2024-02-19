@@ -51,10 +51,35 @@ class TransmittalController extends Controller
         if (!$record) { 
             abort(404);
         }
-        
         return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn]);
     }
-    public function update(){
 
+    public function edit($id){  
+        $records = Transmittals::find($id);
+        if (!$records) {
+            return redirect()->route('/transmittals')->with('flash_message', 'Member not found');
+        }
+        return view('edit-transmitttals', ['records' => $records]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $record = Transmittals::findOrFail($id);
+    
+            $input = $request->all();
+    
+            $record->update($input);
+    
+            return redirect('tracer')->with('flash_mssg', 'Transmittal updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        Transmittals::destroy($id);
+        return redirect('tracer')->with('flash_mssg', 'Youth Info Deleted!');  
     }
 }

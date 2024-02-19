@@ -25,98 +25,65 @@
         color: #333;
     }    
 </style>
-
-<div class="ml-4">
-    <div>
-        <h1 class="display-5"> Add New Transmittal </h1>
-    </div>
-    <div class="mssg">
-        @if(session('flash_mssg'))
+<div class="row">
+    <h1 class="display-5"> New Transmittal </h1>
+</div>
+<div class="mssg">
+    @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
             <p>{{ session('flash_mssg') }}</p>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
-<form action="/addRecord" method="POST" class="">
+<form action="{{ route('transmittals.update', ['id' => $records->id]) }}" method="POST" class="p-3">
     @csrf
-    <div class="living-room-settings flex">
-        <div class="left-section w-1/2 ">
-            <div class="mx-4">
-                <div class="row mt-4">
-                    <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                </div>
-                <div class="row mt-2">
-                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                </div>
-                <div class="row mt-2">
-                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
-                    <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
-                        <option value="Add New Addressee"></option>
-                    </datalist>
-                </div>
-            </div>
+    @method("PATCH")
+    <div class="row mt-4">
+        <div class="col-6">
+            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required value="{{ $records->date }}">
+            <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
-
-        <div class="right-section w-1/2">
-            <div class="flex flex-col mt-4">
-                <div class="mx-4">
-                    <div class="flex flex-row">
-                        <input placeholder="Tracking Number/s of Registry Return Receipts/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19">
-                        <i class="fas fa-calendar input-prefix text-gray-500" tabindex=0></i>
-                        <div>
-                            <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 form-control rounded-md h-20 border-gray-300 text-gray-300"></div>      
-                </div>          
-            </div>
-        </div>    
     </div>
-    <div class="flex justify-end mr-4 mt-3"> 
-        <button type="button" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" data-toggle="modal" data-target="#submitConfirmationModal">
-            Submit
-        </button>
+    <div class="row mt-2">
+        <div class="col-6">
+            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required value="{{ $records->mailTrackNum }}">
+            <i class="fas fa-calendar input-prefix" tabindex=0></i>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required value="{{ $records->recieverName }}">
+            <datalist id="datalistOptions">
+                <option value="Add New Addressee"></option>
+            </datalist>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+            <b>Address:</b><br>
+            <textarea  id="address" name="address" cols="64" rows="2"></textarea>
+        </div>
+    </div>
+    
+    {{-- comment ko muna kasi for testing --}}
+    {{-- <div class="row mt-5">
+        <div class="col" style="max-width: 500px;">
+                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
+                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                </div>
+                <div class="col-2">
+                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+        </div>
+    </div> --}}
+
+    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-right">
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </div>
     </div>
 </form>
-
-
-<!--Modal for Submit Button-->
-<div class="modal fade" id="submitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="submitConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <h5 class="modal-title mb-3" id="submitConfirmationModalLabel">Are you sure you want to save this record?</h5>                
-                <hr>
-                <div class="mt-3 mb-2 d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-secondary rounded-4 mr-1" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-primary rounded-4 ml-1" onclick="submitForm()">Yes, Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<script>
-    // Function to handle form submission
-    function submitForm() {
-        // Add logic to submit the form
-        // Example: You can use AJAX to send a request to the server
-
-        // After submission, close the modal
-        $('#submitConfirmationModal').modal('hide');
-    }
-</script>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
@@ -167,10 +134,9 @@
 </div>
    
 <script>
+
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     var addressValue = document.getElementById('address');
-    var addresseeVal = document.getElementById('receiver');
-    var tn = document.getElementById('mail_tn');
     var selectedValue = this.value;
 
     if (selectedValue === 'Add New Addressee') {
@@ -179,13 +145,13 @@
     } else {
         // Get the selected option element
         var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
+        console.log(selectedOption);
         
         // Check if the selected option exists
         if (selectedOption) {
-            selectedId = selectedOption.id;
+            var selectedId = selectedOption.id;
             var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
             addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
-            addresseeVal.value = selectedId;
         }else {
             addressValue.value = '';
         }
@@ -217,4 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
+
+
+
 </script>

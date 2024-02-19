@@ -7,45 +7,19 @@
         display: none;
     } */
 </style>
+<div class="mssg">
+    <div class="mssg">
+    @if(session('flash_mssg'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('flash_mssg') }}</p>
+        </div>
+    @endif
+</div>
+</div>
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
-    <!--<form action="/tracer" method="GET">
-        @csrf
-        <div class="row mt-5">
-            <div class="col" style="max-width: 600px;">
-                <input placeholder="" type="text" id="search" name="search" placeholder="Search..." class="form-control"/>
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
-            </div>
-            <div class="col-2">
-                    <button type="submit" id="trace" class="btn btn-outline-success" onclick="verifyCheckbox()">Trace</button>
-            </div>
-        </div>
-    </form>
-    <div class="row mt-3">
-        <div class="col">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="addressee_checkbox" value="addressee_val">
-                <label class="form-check-label" for="addressee_checkbox">Addressee</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="rrrTN_checkbox" value="rrrTn_val">
-                <label class="form-check-label" for="rrrTN_checkbox">RRR Tracking Num</label>
-            </div>
-        </div>
-    </div>
-<div class="row mt-5" id="table_div">
-    <table id="trace_table" class="table table-bordered">
-        
-        <tbody>
-            
-        </tbody>
-    </table>
-</div>-->
 
-<!--<div class="search-bar-container">
-    <input type="search" id="search-input" class="custom-search-input" placeholder="Search records . . .">
-</div>
 
 <div class="filter-container">
     <label for="filter-select">Filter by:</label>
