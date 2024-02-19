@@ -43,11 +43,16 @@
             </tr>
             @else
             @foreach ($query as $record)
+                @php
+                    // Retrieve AddresseeList and ReturnCards for the current record
+                    $addressee = $addressees[$record->id] ?? null;
+                    $returnCards = $rrt_n[$record->id] ?? collect();
+                @endphp
                 <tr>
                     <th scope="row">{{ $record->mailTrackNum }}</th>
                     <td>{{ $record->date }}</td>
-                    <td>{{ $record->recieverName }}</td>
-                    <td>{{ $record->recieverAddress }}</td>
+                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
+                    <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
                     <td>
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
