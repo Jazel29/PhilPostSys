@@ -25,46 +25,43 @@
         color: #333;
     }    
 </style>
-
-<div class="ml-4">
-    <div>
-        <h1 class="display-5"> Add New Transmittal </h1>
-    </div>
-    <div class="mssg">
-        @if(session('flash_mssg'))
+<div class="row">
+    <h1 class="display-5"> New Transmittal </h1>
+</div>
+<div class="mssg">
+    @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
             <p>{{ session('flash_mssg') }}</p>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
-<form action="/addRecord" method="POST" class="">
+<form action="{{ url('/transmittals/'.$records->id.'/update') }}" method="POST" class="p-3">
     @csrf
+    @method("PATCH")
     <div class="row mt-4">
         <div class="col-6">
-            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required>
+            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required value="{{ $records->date }}">
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required>
+            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required value="{{ $records->mailTrackNum }}">
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" required>
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required value="{{ $records->recieverName }}">
             <datalist id="datalistOptions">
                 <option value="Add New Addressee"></option>
             </datalist>
-            <input class="form-control" type="hidden" name="receiver" id="receiver">
         </div>
     </div>
     <div class="row mt-2">
         <div class="col-6">
             <b>Address:</b><br>
-            <textarea id="address" name="address" cols="64" rows="2"></textarea>
+            <textarea  id="address" name="address" cols="64" rows="2"></textarea>
         </div>
     </div>
     
@@ -74,14 +71,18 @@
                 <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
                 <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
-            </div>
-            <div class="mt-3 mr-6">
-                <div class="flex justify-end">
-                    <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
-                </div>
-            </div>
-        </div>    
-    </div> 
+                <div class="col-2">
+                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+        </div>
+    </div> --}}
+
+    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-right">
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </div>
+    </div>
 </form>
 
 <!-- Modal -->
@@ -133,10 +134,9 @@
 </div>
    
 <script>
+
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     var addressValue = document.getElementById('address');
-    var addresseeVal = document.getElementById('receiver');
-    var tn = document.getElementById('mail_tn');
     var selectedValue = this.value;
 
     if (selectedValue === 'Add New Addressee') {
@@ -145,13 +145,13 @@
     } else {
         // Get the selected option element
         var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
+        console.log(selectedOption);
         
         // Check if the selected option exists
         if (selectedOption) {
-            selectedId = selectedOption.id;
+            var selectedId = selectedOption.id;
             var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
             addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
-            addresseeVal.value = selectedId;
         }else {
             addressValue.value = '';
         }
@@ -183,4 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
+
+
+
 </script>

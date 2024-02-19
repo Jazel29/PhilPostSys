@@ -10,55 +10,10 @@
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
-    <!--<form action="/tracer" method="GET">
-        @csrf
-        <div class="row mt-5">
-            <div class="col" style="max-width: 600px;">
-                <input placeholder="" type="text" id="search" name="search" placeholder="Search..." class="form-control"/>
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
-            </div>
-            <div class="col-2">
-                    <button type="submit" id="trace" class="btn btn-outline-success" onclick="verifyCheckbox()">Trace</button>
-            </div>
-        </div>
-    </form>
-    <div class="row mt-3">
-        <div class="col">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="addressee_checkbox" value="addressee_val">
-                <label class="form-check-label" for="addressee_checkbox">Addressee</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="rrrTN_checkbox" value="rrrTn_val">
-                <label class="form-check-label" for="rrrTN_checkbox">RRR Tracking Num</label>
-            </div>
-        </div>
-    </div>
-<div class="row mt-5" id="table_div">
-    <table id="trace_table" class="table table-bordered">
-        
-        <tbody>
-            
-        </tbody>
-    </table>
-</div>-->
 
-<!--<div class="search-bar-container">
-    <input type="search" id="search-input" class="custom-search-input" placeholder="Search records . . .">
-</div>
 
-<div class="filter-container">
-    <label for="filter-select">Filter by:</label>
-    <select id="filter-select" class="custom-filter-select">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-    </select>
-</div>-->
-
-<div class="table-wrapper">
-    <table id="transmittalstable" class="custom-table" cellspacing="0">
-        <!-- Table headers -->
+<div class="newtb">
+    <table id="example" class="table table-striped " cellspacing="0" width="90%">
         <thead class="text-center">
             <tr>
                 <th>Transmittal TN</th>
@@ -77,28 +32,43 @@
                     <td colspan="6">No Record Found</td>
                 </tr>
             @else
-                @foreach ($query as $record)
-                    <tr>
-                        <td>{{ $record->mailTrackNum }}</td>
-                        <td>{{ $record->date }}</td>
-                        <td>{{ $record->recieverName }}</td>
-                        <td>{{ $record->recieverAddress }}</td>
-                        <td>
-                            @if ($rrt_n[$record->id]->isEmpty())
-                                No Record Found
-                            @else
-                                @foreach ($rrt_n[$record->id] as $item)
-                                    {{ $item->returncard }}
-                                @endforeach
-                            @endif
-                        </td>
-                        <td>
-                            <div class="action-buttons">
-                                <a class="btn btn-primary" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+            @foreach ($query as $record)
+                <tr>
+                    <th scope="row">{{ $record->mailTrackNum }}</th>
+                    <td>{{ $record->date }}</td>
+                    <td>{{ $record->recieverName }}</td>
+                    <td>{{ $record->recieverAddress }}</td>
+                    <td>
+                        @if ($rrt_n[$record->id]->isEmpty())
+                            No Record Found
+                        @else
+                            @foreach ($rrt_n[$record->id] as $item)
+                                {{ $item->returncard }}
+                            @endforeach
+                        @endif
+                        
+                    </td>
+                    
+                    <td class="">
+                        <div class="d-flex">
+                            <div class="">
+                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
                             </div>
-                        </td>
-                    </tr>              
-                @endforeach
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                            </div>
+                            <div class="ms-3 mt-2">
+                                <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->name }}')"> Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>              
+            @endforeach
+        
             @endif
         </tbody>
     </table>
