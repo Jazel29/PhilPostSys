@@ -3,41 +3,78 @@
 namespace App\Http\Controllers;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ExcelExportController extends Controller
 {
     public function exportToExcel(Request $request)
     {
-        $exportData = json_decode($request -> input('exportData'), true);
+        $exportData = json_decode($request->input('exportData'), true);
+
         // Load the existing spreadsheet (assuming format.xlsx is your template)
         $spreadsheet = IOFactory::load(public_path('assets/format.xlsx'));
 
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
 
-        $mailTrackNum = $exportData['records']['mailTrackNum'] ?? '';
-        $date = $exportData['records']['date'] ?? '';
-        $recieverName = $exportData['records']['recieverName'] ?? '';
-        $recieverAddress = $exportData['records']['recieverAddress'] ?? '';
+        $data = [
+            'D5' => $exportData['records']['mailTrackNum'] ?? '',
+            'A5' => $exportData['records']['date'] ?? '',
+            'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
+            'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
+            'A9' => $exportData['records']['address'] ?? '',
+            'A10' => $exportData['records']['zip'] . ' ' . $exportData['records']['city'] ?? '',
+        ];
 
-        // Set values in the specified cells
-        $sheet->setCellValue('D5', $mailTrackNum);
-        $sheet->setCellValue('A5', $date);
-        $sheet->setCellValue('A7', $recieverName);
-        $sheet->setCellValue('A8', ''); // Leave cell A8 blank
-        $sheet->setCellValue('A10', $recieverAddress);
+        // Set font attributes to make it bold for specific cells
+        $boldCells = ['D5', 'A7', 'A8'];
 
-        // Save the updated spreadsheet back to the same file
-        $filename = 'tracer_' . date('Ymd') . '.xlsx';
+        foreach ($data as $cell => $value) {
+            $sheet->setCellValue($cell, $value);
 
-        // Get the absolute path to the public directory
-        $publicPath = public_path();
+            // Set font attributes to make it bold if the cell is in $boldCells array
+            if (in_array($cell, $boldCells)) {
+                $sheet->getStyle($cell)->getFont()->setBold(true);
+            }
+        }
 
-        // Create the writer and save the Excel spreadsheet
+        $rrtnLength = count($exportData['rrtn']);
+        $startRow = 18;
+        $startCol = 'A';
+        $tnCount = 1;
+
+        foreach ($exportData['rrtn'] as $index => $rrtn) {
+            $row = $startRow + $index;
+            $col = $startCol;
+            $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
+            $tnCount++;
+            $col++;
+        }
+        
+
+        $directoryPath = public_path('tracer_exports');
+
+        // Create the directory if it doesn't exist
+        if (!file_exists($directoryPath) && !is_dir($directoryPath)) {
+            mkdir($directoryPath, 0777, true);
+        }
+
+        // Save the updated spreadsheet to the new directory
+        date_default_timezone_set('Asia/Tokyo');
+        $filename = '/tracer_' . date('Y_m_d_G-i-s') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
-        $writer->save($publicPath . '/' . $filename);
+        $writer->save($directoryPath . $filename);
+
+        return response()->json(['success' => true, 'path' => $filename]);
+    }
+
+    public function downloadExcel($filename)
+    {
+        $filePath = public_path('tracer_exports/' . $filename);
+
+        return response()->download($filePath);
     }
 }
+
