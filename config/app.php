@@ -182,8 +182,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([ 
-        Maatwebsite\Excel\ExcelServiceProvider::class,
+    'aliases' => Facade::defaultAliases()->merge([
+        Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

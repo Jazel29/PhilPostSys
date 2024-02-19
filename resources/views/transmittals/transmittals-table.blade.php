@@ -13,7 +13,7 @@
 
 
 <div class="newtb">
-    <table id="example" class="table table-striped " cellspacing="0" width="90%">
+    <table id="transmittalstable" class="table table-striped " cellspacing="0" width="90%">
         <thead class="text-center">
             <tr>
                 <th>Transmittal TN</th>
