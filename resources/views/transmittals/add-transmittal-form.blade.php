@@ -37,74 +37,53 @@
         </div>
     @endif
 </div>
+
 <form action="/addRecord" method="POST" class="p-3" onsubmit="submitForm()">
     @csrf
-    <div class="living-room-settings flex">
+    <div class="add-transmittal-form flex">
         <div class="left-section w-1/2 ">
-            <div class="mx-4">
+            <div class="mx-4">          
                 <div class="row mt-4">
-                    <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19">
+                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
                 <div class="row mt-2">
-                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19">
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
                 <div class="row mt-2">
-                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
+                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
                     <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
-                        <option value="Add New Addressee"></option>
+                    <option value="Add New Addressee"></option>
                     </datalist>
+                    <input class="form-control" type="hidden" name="receiver" id="receiver">
+                </div>
+                <div class="row mt-4">
+                   <div class="text-gray-500">
+                        Address:
+                   </div> 
+                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;"></textarea>
                 </div>
             </div>
-        </div>
-
+        </div>    
         <div class="right-section w-1/2">
             <div class="flex flex-col mt-4">
-                <div class="mx-4">
+                <div>
                     <div class="flex flex-row">
-                        <input placeholder="Tracking Number/s of Registry Return Receipts/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19">
+                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0;">
                         <div>
                             <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
                         </div>
                     </div>
-
-                    <div class="mt-3 form-control rounded-md h-20 border-gray-300 text-gray-300"></div>      
-                </div>          
-            </div>
-        </div>    
-    </div>
-    <div class="flex justify-end mr-4 mt-3"> 
-        <button type="button" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" data-toggle="modal" data-target="#submitConfirmationModal">
-            Submit
-        </button>
-    </div>
-    
-    {{-- comment ko muna kasi for testing --}}
-    <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                    <div class="mt-4 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
+                    </div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                    </div>
                 </div>
-                <div class="col-2">
-                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+            </div> 
         </div>
     </div>
-
-    <div class="row mt-5 custom-border" id="rrr_div">
-        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
-    </div>
-    <div class="row mt-3">
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-outline-success">Submit</button>
-        </div>
-    </div>
-</div>
-
-
+</form>
 
 <script>
     // Function to handle form submission

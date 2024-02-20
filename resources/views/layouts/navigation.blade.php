@@ -19,7 +19,6 @@
             <div class="flex items-center">
                 <div class="shrink-0">
                     <img src="{{ asset('assets/PHLPOSTLogo.PNG') }}" alt="PhilPostLogo" class=" h-8 fill-current text-gray-800" />
-                    <img src="{{ asset('assets/PHLPOSTLogo.png') }}" alt="PhilPostLogo" class=" h-6 fill-current text-gray-800" />
                 </div>
             </div>
 
@@ -112,10 +111,10 @@
 
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16">
     <div class="text-center md:block hidden items-center text-black">
-        <div class="hover:bg-gray-300 rounded-md mx-3 hover:text-white ">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 mt-4">
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
             &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; {{ __('Dashboard') }}</span>
+                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Dashboard') }}</span>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3 ">

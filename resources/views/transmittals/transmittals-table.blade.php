@@ -72,7 +72,7 @@
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
+                                <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->name }}')"> Delete</button>
@@ -153,10 +153,6 @@
 
     .input{
         padding-left: 10px;
-    }
-
-    .transmittalstable thead {
-
     }
 </style>
 

@@ -2,7 +2,6 @@
     <div class="ml-60 mt-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-<<<<<<< HEAD
                 <div class="ml-4 p-6 text-gray-700 font-bold">
                     Monthly Return Count and Return Rate
                 </div>
@@ -110,11 +109,6 @@
                         var chart = new ApexCharts(document.querySelector("#chart"), options);
                         chart.render();
                     </script>
-=======
-                <div class="p-6 text-gray-900">
-
-
->>>>>>> upstream/kevin
                 </div>
             </div>
         </div>
