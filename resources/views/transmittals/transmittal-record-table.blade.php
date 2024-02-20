@@ -108,7 +108,11 @@
     border-radius: 15px; 
     padding: 7px; 
     background-color: #FFFFFF;
-}
+    }
+
+    .fa-envelope {
+        font-size: 29px;
+    }
 
 </style>
 
@@ -153,7 +157,7 @@
     <p class="labels-addressee">Addressee<br /></p>
     <p>
         <span class="bold-addressee">
-             <span class="abbrev">{{ $addressee->abbrev }}</span> <br>
+             <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span> <br>
                 {{ $addressee->name_primary }} <br>
         </span>
             <span class="secondary">{{ $addressee->name_secondary }}</span>
