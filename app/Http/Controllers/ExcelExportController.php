@@ -43,16 +43,24 @@ class ExcelExportController extends Controller
         $rrtnLength = count($exportData['rrtn']);
         $startRow = 18;
         $startCol = 'A';
+        $lastRow= 0;
         $tnCount = 1;
 
         foreach ($exportData['rrtn'] as $index => $rrtn) {
             $row = $startRow + $index;
             $col = $startCol;
+            if ($row > 42) {
+                $row = $startRow;
+                $col++;
+            }
             $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
             $tnCount++;
-            $col++;
+            $lastRow = $row;
         }
         
+        $sheet->setCellValue($startCol . $lastRow + 2, "Very truly yours,");
+        $sheet->setCellValue($startCol . $lastRow + 5, "NENITA B. PAN");
+        $sheet->setCellValue($startCol . $lastRow + 6, "Postmaster");
 
         $directoryPath = public_path('tracer_exports');
 
