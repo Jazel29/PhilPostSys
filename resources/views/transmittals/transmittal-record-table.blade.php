@@ -32,7 +32,7 @@
             <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
         </div>
         <div class="col-6">
-            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
+            <p class="labels">Date Posted: <span class="bold">{{ Carbon\Carbon::parse($records->date)->format('F j, Y') }}</span></p>
         </div>
     </div>
     <div class="row mt-3">

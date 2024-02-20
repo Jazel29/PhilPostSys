@@ -8,6 +8,7 @@ use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+
 class TransmittalController extends Controller
 {
     public function index(Request $request): View
