@@ -45,11 +45,9 @@
             <div class="mx-4">
                 <div class="row mt-4">
                     <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
                 <div class="row mt-2">
                     <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
                 <div class="row mt-2">
                     <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver">
@@ -70,7 +68,6 @@
                 <div class="mx-4">
                     <div class="flex flex-row">
                         <input placeholder="Tracking Number/s of Registry Return Receipts/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19">
-                        <i class="fas fa-calendar input-prefix text-gray-500" tabindex=0></i>
                         <div>
                             <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
                         </div>
@@ -156,13 +153,6 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
-
-
-<div class="content mt-5">
-    <div class="d-flex justify-content-center">
-        displahy the content here
     </div>
 </div>
    
