@@ -36,7 +36,14 @@ class TransmittalController extends Controller
     
 
     public function store(Request $request) {
-        // Validate your request if needed
+        $existingTransmittal = Transmittals::where('mailTrackNum', $request->input('mail_tn'))->first();
+
+        if ($existingTransmittal) {
+            // Handle the case where mailTrackNum already exists
+            return redirect('/add_transmittal')
+                ->with('flash_mssg', 'Mail Track Number already exists!')
+                ->withInput($request->all()); // Retain all input values
+        }
     
         // Create a new Transmittals record
         $transmittal = Transmittals::create([
@@ -76,6 +83,15 @@ class TransmittalController extends Controller
         
         return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
         
+    }
+
+    public function checkMailTN(Request $request)
+    {
+        $mail_tn = $request->input('mail_tn');
+
+        $existingTransmittal = Transmittals::where('mailTrackNum', $mail_tn)->exists();
+
+        return response()->json(['exists' => $existingTransmittal]);
     }
 
     

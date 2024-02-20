@@ -35,7 +35,7 @@
         </div>
     @endif
 </div>
-<form action="/addRecord" method="POST" class="p-3" onsubmit="submitForm()">
+<form action="/addRecord" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     <div class="row mt-4">
         <div class="col-6">
@@ -47,6 +47,7 @@
         <div class="col-6">
             <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required>
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
+            <span id="mail_tn_error" class="text-danger"></span>
         </div>
     </div>
     <div class="row mt-2">
@@ -57,6 +58,7 @@
             </datalist>
             <input class="form-control" type="hidden" name="receiver" id="receiver">
         </div>
+        <div id="popover-content" style="display:none;" class="mt-2 text-danger">Addressee Not Found.<a href="" onclick="openModal()"> Add New Addressee?</a></span></div>
     </div>
     <div class="row mt-2">
         <div class="col-6">
@@ -65,23 +67,24 @@
         </div>
     </div>
     
-    {{-- comment ko muna kasi for testing --}}
-    <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                </div>
-                <div class="col-2">
-                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+    <div id="addRRR_div" style="display: none;">
+        <div class="row mt-5">
+            <div class="col" style="max-width: 500px;">
+                    <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                    </div>
+                    <div class="col-2">
+                    <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+            </div>
         </div>
-    </div>
 
-    <div class="row mt-5 custom-border" id="rrr_div">
-        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
-    </div>
-    <div class="row mt-3">
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-outline-success">Submit</button>
+        <div class="row mt-5 custom-border" id="rrr_div">
+            <input type="hidden" name="rrr_tns" id="rrr_tns_input">
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 text-right">
+                <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
         </div>
     </div>
 </form>
@@ -120,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
+                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
                 </div>
             </form>
         </div>
@@ -208,18 +211,20 @@
     });
 
     function submitForm() {
+
         // Set the rrr_tns array value to the hidden input
         document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
-
-        console.log('rrr_tns:', test);
 
         // Submit the form
         document.forms[0].submit();
     }
+
     
     document.getElementById('addresseeDataList').addEventListener('input', function() {
         var addressValue = document.getElementById('address');
         var addresseeVal = document.getElementById('receiver');
+        var RRRdiv = document.getElementById('addRRR_div');
+        var popUp = document.getElementById('popover-content');
         var tn = document.getElementById('mail_tn');
         var selectedValue = this.value;
 
@@ -236,14 +241,28 @@
                 var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
                 addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
                 addresseeVal.value = selectedId;
-            }else {
+                RRRdiv.style.display = 'block';
+                popUp.style.display = 'none';
+            } else {
                 addressValue.value = '';
+                RRRdiv.style.display = 'none';
+                popUp.style.display = 'block';
+
+            }
+            
+            if(!selectedOption & selectedValue == '') {
+                popUp.style.display = 'none';
             }
         }
     });
 
+
     function closeModal() {
         $('#newAddresseeModal').modal('hide');
+    }
+
+    function openModal() {
+        $('#newAddresseeModal').modal('show');
     }
 
     function saveNewAddressee() {
@@ -266,6 +285,29 @@
                 });
             })
             .catch(error => console.error('Error fetching addressees:', error));
+    });
+    
+    $(document).ready(function () {
+        $('#mail_tn').on('blur', function () {
+            var mail_tn = $(this).val();
+
+            // Perform AJAX request to check existence
+            $.ajax({
+                type: 'GET',
+                url: '/checkMailTN', // Replace with your actual route
+                data: { mail_tn: mail_tn },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#mail_tn_error').text('Mail Tracking Number already exists');
+                    } else {
+                        $('#mail_tn_error').text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking Mail Tracking Number:', error);
+                }
+            });
+        });
     });
 
 </script>
