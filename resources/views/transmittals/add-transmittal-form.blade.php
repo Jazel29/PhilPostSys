@@ -35,10 +35,9 @@
         <div class="alert alert-primary" role="alert">
             <p>{{ session('flash_mssg') }}</p>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
-<form action="/addRecord" method="POST" class="">
+<form action="/addRecord" method="POST" class="p-3" onsubmit="submitForm()">
     @csrf
     <div class="living-room-settings flex">
         <div class="left-section w-1/2 ">
@@ -83,21 +82,24 @@
             Submit
         </button>
     </div>
-</form>
-
-
-<!--Modal for Submit Button-->
-<div class="modal fade" id="submitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="submitConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <h5 class="modal-title mb-3" id="submitConfirmationModalLabel">Are you sure you want to save this record?</h5>                
-                <hr>
-                <div class="mt-3 mb-2 d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-secondary rounded-4 mr-1" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-primary rounded-4 ml-1" onclick="submitForm()">Yes, Submit</button>
+    
+    {{-- comment ko muna kasi for testing --}}
+    <div class="row mt-5">
+        <div class="col" style="max-width: 500px;">
+                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
+                <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
-            </div>
+                <div class="col-2">
+                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
+        </div>
+    </div>
+
+    <div class="row mt-5 custom-border" id="rrr_div">
+        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-right">
+            <button type="submit" class="btn btn-outline-success">Submit</button>
         </div>
     </div>
 </div>
@@ -157,6 +159,71 @@
 </div>
    
 <script>
+    var rrr_tns = [];
+    var count = 0;
+
+    function removeTN(element, rrr_tn_value) {
+        // Remove the container from the DOM
+        element.parentNode.removeChild(element);
+
+        // Remove the corresponding rrr_tn_value from the rrr_tns array
+        var index = rrr_tns.indexOf(rrr_tn_value);
+        if (index !== -1) {
+            rrr_tns.splice(index, 1);
+        }
+
+        // Log the updated rrr_tns array (for testing purposes)
+        console.log(rrr_tns);
+    }
+
+    function addTN() {
+        count++;
+        var rrr_tn_value = document.getElementById('rrr_tn').value;
+
+        // Check if rrr_tn_value is truthy before appending
+        if (rrr_tn_value) {
+            // Create a new tn_container with the extracted value
+            var tn_container = document.createElement('div');
+            tn_container.className = 'container';
+            tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode, \'' + rrr_tn_value + '\')">✖</span><p>' + count + ". " + rrr_tn_value + '</p>';
+
+            // Append the new tn_container to the rrr_div
+            document.getElementById('rrr_div').appendChild(tn_container);
+
+            // Add the rrr_tn_value to the rrr_tns array
+            rrr_tns.push(rrr_tn_value);
+
+            // Clear the value of rrr_tn input field
+            document.getElementById('rrr_tn').value = '';
+
+            // Log the updated rrr_tns array (for testing purposes)
+            console.log(rrr_tns);
+        }
+    }
+
+    var rrr_tn_value = document.getElementById("rrr_tn");
+    // var rrr_barcode = '';
+    // var rrr_interval;
+    rrr_tn_value.addEventListener("keypress", function(event) {
+        // if (rrr_interval) {
+        //     clearInterval(rrr_interval);
+        // }
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addTN();
+        }
+    });
+
+    function submitForm() {
+        // Set the rrr_tns array value to the hidden input
+        document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
+
+        console.log('rrr_tns:', test);
+
+        // Submit the form
+        document.forms[0].submit();
+    }
+    
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     var addressValue = document.getElementById('address');
     var addresseeVal = document.getElementById('receiver');
@@ -207,4 +274,29 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
+
+    var barcode = '';
+    var interval;
+    document.addEventListener('keydown', function(evt) {
+        if (interval) {
+            clearInterval(interval);
+        }
+        if (evt.code == 'Enter') {
+            evt.preventDefault(); // Prevent the default behavior (carriage return)
+            if (barcode) {
+                handleBarcode(barcode);
+            }
+            barcode = '';
+            return;
+        }
+        if (evt.key != 'Shift') {
+            barcode += evt.key;
+        }
+        interval = setInterval(() => barcode = '', 20);
+    });
+
+    function handleBarcode(scanned_barcode) {
+        document.querySelector('#mail_tn').value = scanned_barcode;
+    }
+
 </script>
