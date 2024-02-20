@@ -68,7 +68,7 @@
         </div>
     </div>
     
-    {{-- comment ko muna kasi for testing --}}
+    {{-- comment ko muna kasi for testing
     {{-- <div class="row mt-5">
         <div class="col" style="max-width: 500px;">
                 <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
@@ -82,7 +82,7 @@
             </div>
         </div>    
     </div> 
-</form>
+</form> --}}
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
