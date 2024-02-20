@@ -32,6 +32,14 @@ class BarCodeController extends Controller
             'returncard' => $request->input('trackingNum'),
             'trucknumber' => $request->input('truckNumMail')
         ]);
-        return redirect('/test');
+        
+    }
+    public function update(){
+
+    }
+
+    public function destroy($id){
+        ReturnCards::destroy($id);
+        return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!'); 
     }
 }

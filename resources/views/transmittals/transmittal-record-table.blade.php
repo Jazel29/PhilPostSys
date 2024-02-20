@@ -9,6 +9,11 @@
     .labels {
         text-align: right;
     }
+
+    .btn-primary-add {
+        transform: translate(200, 300);
+    }
+    
 </style>
 
 <div class="container">
@@ -56,11 +61,13 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="row mt-5">
-            <div class="col-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <button class="btn btn-outline-success" type="button">Search</button>
+        <div class="row mb-5">
+            <div class="col"></div> <!-- This column will occupy the left space -->
+            <div class="col-auto"> <!-- This column will display the content on the right side -->
+                <div>
+                    <div class="add">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add RRTN</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,6 +115,36 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add new RRTN</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/addReturn" class="m-3" method="POST">
+            @csrf
+            <div class="tracknum m-3">
+                <label for="tracknumber">Track Number:</label>
+                <input name="truckNumMail" class="rounded" type="text" value="{{ $records->mailTrackNum }}" readonly>
+            </div>
+            <div class="rrtn m-3">
+                <label for="rrtNumber">RRT Number: </label>
+                <input type="text" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="trackingNum">
+            </div>
+            <div class="sub">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
@@ -171,6 +208,25 @@
             }
         });
     }
+    var barcode = '';
+        var interval;
+        document.addEventListener('keydown', function(evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    handleBarcode(barcode);
+                barcode = '';
+                return;
+            }
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
+
+        function handleBarcode(scanned_barcode) {
+            document.querySelector('#last-barcode').value = scanned_barcode;
+        }
     // $(document).ready(function() {
     //     $('#transmittalstable').DataTable({
     //         "language": {
