@@ -2,26 +2,61 @@
     .table-size {
         width: 50%;
     }
-    .bold {
+    .bold-address {
+    font-weight: bold;
+    text-align: left;
+    line-height: 5px;
+    }
+
+
+    .bold-date {
         font-weight: bold;
         text-align: left;
+        line-height: 5px;
     }
 
     .bold-addressee {
         font-weight: bold;
         font-size: 24px;
+        line-height: 20px;
     }
-    
-    .labels {
+
+    .labels-address {
+        color: #9F9F9F;
+    }
+
+    .labels-addressee {
+        color: #9F9F9F;
+        margin-bottom: 10px;
+    }
+
+    .labelsdate {
+        color: #9F9F9F;
         text-align: left;
+        line-height: 20px;
+        padding-top: 5px;
     }
     
     .highlight {
-    background: linear-gradient(90deg, #0026C8, #2C54FF); 
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-size: 19px;
-    padding: 4px 6px;
+        background: linear-gradient(90deg, #0026C8, #2C54FF); 
+        border-radius: 10px;
+        color: #FFFFFF;
+        font-size: 19px;
+        padding: 4px 6px;
+    }
+
+    .abbrev {
+    border: 1px;
+    font-size: 31px;
+    font-family: 'ABC Diatype Bold', sans-serif;
+    background: linear-gradient(45deg, #0026C8, #2C54FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+    .secondary {
+        color: #909090;
+        font-size: 20px;
     }
 
     .tracking {
@@ -29,15 +64,18 @@
     }   
 
     .rounded-container {
-    border: 1px solid #ccc; 
-    border-radius: 20px; 
-    padding: 20px; 
-    background-color: #ffffff; 
+        border: 1px solid #ccc; 
+        border-radius: 20px; 
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 0px;
+        padding-left: 15px; 
+        background-color: #ffffff; 
     }
 
     .custom-line {
-    border: 90px; /* Remove default border */
-    margin-top: 20px; /* Adjust margin top as needed */
+    border: 90px; 
+    margin-top: 20px; 
     }
 
     .form-control {
@@ -63,13 +101,13 @@
     }  
 
     .table-size tbody tr {
-    border-radius: 10px; /* Adjust the radius value as needed */
+    border-radius: 10px; 
     }
 
     .rounded-entries .rounded-entry {
-    border-radius: 15px; /* Adjust the border radius as needed */
-    padding: 7px; /* Adjust the padding as needed */
-    background-color: #FFFFFF; /* Adjust the background color as needed */
+    border-radius: 15px; 
+    padding: 7px; 
+    background-color: #FFFFFF;
 }
 
 </style>
@@ -85,58 +123,63 @@
             </button>
 </div>
 
-    <!-- Left side column -->
+    <!-- left side column -->
     <div class="row mt-3">
-        <div class="col-6">
-            <p>Addressee: 
-                <span class="bold">
-                    {{ $addressee->name_primary }}, 
-                    {{ $addressee->name_secondary }}
-                </span>
+        <div class="col-md-4">
+        <div class="rounded-container">
+            <p>
+                <span class="tracking">Tracking Number </span>
+                <span class="bold highlight">{{ $records->mailTrackNum }}</span>
             </p>
-        </div>
-        <div class="col-6">
-            <p class="labels">Address: 
-                <span class="bold">
-                    {{ $addressee->address }},
-                    {{ $addressee->zip }} 
+            </div>
+
+            <p class="labelsdate"><br />Date Posted</p>
+            <p><span class="bold-date">{{ $records->date }}</span></p>
+            <hr class="custom-line" /><br>
+
+            <p class="labels-address">Address<br></p>
+                <span class="bold-address">
+                    {{ $addressee->address }}<br>
                     {{ $addressee->city }},
-                    {{ $addressee->province }}
+                    {{ $addressee->province }}<br>
+                    {{ $addressee->zip }}
                 </span>
-            </p>
+            
         </div>
-            <p class="labels"><br>Date Posted :</p>
-            <p><span class="bold">{{ $records->date }}</span></p>
-            <hr class="custom-line">
 
-            <p class="labels"><br>Address :</p>
-            <p><span class="bold">{{ $records->recieverAddress }}</span><br></p>
+    <!-- right side column -->
+    <div class="col-md-7">
+
+    <p class="labels-addressee">Addressee<br /></p>
+    <p>
+        <span class="bold-addressee">
+             <span class="abbrev">{{ $addressee->abbrev }}</span> <br>
+                {{ $addressee->name_primary }} <br>
+        </span>
+            <span class="secondary">{{ $addressee->name_secondary }}</span>
+    
+</p>
+
         
-    </div>
-
-    <!-- Right side column -->
-    <div class="col-md-8">
-
-            <p class="labels">Addressee :</p>
-            <p><span class="bold-addressee">{{ $records->recieverName }}</span></p>
-
             <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="row mt-5">
                 <div class="col-md-12">
-                    <!-- Search Bar -->
-                    
+
+        <!-- search bar -->
                     <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                        <button class="btn btn-outline-success" type="button">Search</button>
+                    <input type="text" class="form-control" placeholder="Search RRRTN">
+                        <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-md-24">
-                    <!-- Table -->
-                    <div class="container-fluid">
+
+        <!-- table -->
+        
+    <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="rounded-entries">
@@ -148,28 +191,39 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach ($rrt_n as $index => $rrt)
-                        <tr>
-                            <td class="rounded-entry">{{ $index + 1 }}</td>
-                            <td class="rounded-entry">{{ $rrt->returncard }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                @if ($rrt_n->isEmpty())
+                <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
+                </tr>
+                
+                @else
+                    @foreach ($rrt_n as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                    </tr>
+                    @endforeach
+                @endif
+                </tbody>
                 </table>
             </div>
         </div>
+    </div>
+</div>
+
         <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Items</th>
                     <th scope="col">RRR Tracking Numbers</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 @if ($rrt_n->isEmpty())
                 <tr>
-                    <th>Error</th>
-                    <td>No RRTN Found</td>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
                 </tr>
                 
                 @else
@@ -265,16 +319,6 @@
             }
         });
     }
-    // $(document).ready(function() {
-    //     $('#transmittalstable').DataTable({
-    //         "language": {
-    //             "search": "search" // Customize search placeholder
-    //         }
-    //     });
-
-    //     $('#transmittalstable').css('padding-top', '20px');
-    // });
-    
 </script>
 
 

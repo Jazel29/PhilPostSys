@@ -130,10 +130,9 @@
     </div>
 </div>
 
-
 <div class="content mt-5">
     <div class="d-flex justify-content-center">
-        displahy the content here
+        display the content here
     </div>
 </div>
    
