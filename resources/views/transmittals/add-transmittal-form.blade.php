@@ -33,7 +33,7 @@
     <div class="mssg">
         @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_mssg') }}</p>
+            <p>{{ session('flash_msg') }}</p>
         </div>
         @endif
     </div>
@@ -69,7 +69,7 @@
     </div>
     
     {{-- comment ko muna kasi for testing --}}
-    {{-- <div class="row mt-5">
+    <div class="row mt-5">
         <div class="col" style="max-width: 500px;">
                 <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
                 <i class="fas fa-calendar input-prefix" tabindex=0></i>
