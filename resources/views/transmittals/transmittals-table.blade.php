@@ -4,6 +4,15 @@
     }
  
 </style>
+<div class="mssg">
+    <div class="mssg">
+    @if(session('flash_mssg'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('flash_mssg') }}</p>
+        </div>
+    @endif
+</div>
+</div>
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
@@ -30,11 +39,16 @@
                 </tr>
             @else
             @foreach ($query as $record)
+                @php
+                    // Retrieve AddresseeList and ReturnCards for the current record
+                    $addressee = $addressees[$record->id] ?? null;
+                    $returnCards = $rrt_n[$record->id] ?? collect();
+                @endphp
                 <tr>
                     <th scope="row">{{ $record->mailTrackNum }}</th>
                     <td>{{ $record->date }}</td>
-                    <td>{{ $record->recieverName }}</td>
-                    <td>{{ $record->recieverAddress }}</td>
+                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
+                    <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
                     <td>
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
@@ -52,7 +66,7 @@
                                 <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                                <a href="{{ route('edit', ['id' => $record->id]) }}" class="btn btn-success text-white">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8" style="" class="">
@@ -157,3 +171,9 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+    
+</script>
