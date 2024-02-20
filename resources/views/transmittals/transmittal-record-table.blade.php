@@ -91,7 +91,7 @@
         </table>
     </div>
 </div>
-<div class="modal" id="exportStatusPrompt" tabindex="-1">
+<div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -103,7 +103,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="" id="downloadLink">Download Excel</a>
+        <a href="" id="downloadLink"><button type="button" class="btn btn-outline-success">Download Excel</button></a>
       </div>
     </div>
   </div>
@@ -153,7 +153,7 @@
             url: '/export-to-excel',
             data: { exportData: JSON.stringify(exportData) },
             success: function (response) {
-                $('#promptText').text('Excel exported successfully!');
+                $('#promptText').text('Excel exported successfully and is ready for download.');
                 $('#exportStatusPrompt').modal('show');
 
                 // Assuming response.path contains the file path
@@ -161,25 +161,14 @@
 
                 // Update the href attribute of the downloadLink
                 $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
-
-                console.log("/download-excel" + response.path);
-                console.log('Excel exported successfully');
             },
             error: function (error) {
                 // Optional: Handle error response, if needed
+                $('#promptText').text('Excel export failed. Please try again.');
                 console.error('Error exporting Excel:', error);
             }
         });
     }
-    // $(document).ready(function() {
-    //     $('#transmittalstable').DataTable({
-    //         "language": {
-    //             "search": "search" // Customize search placeholder
-    //         }
-    //     });
-
-    //     $('#transmittalstable').css('padding-top', '20px');
-    // });
     
 </script>
 
