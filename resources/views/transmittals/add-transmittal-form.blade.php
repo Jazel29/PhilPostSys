@@ -48,7 +48,7 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required>
+            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="last-barcode" class="form-control" required>
             <i class="fas fa-calendar input-prefix" tabindex=0></i>
         </div>
     </div>
@@ -183,4 +183,23 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
+var barcode = '';
+        var interval;
+        document.addEventListener('keydown', function(evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    handleBarcode(barcode);
+                barcode = '';
+                return;
+            }
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
+
+        function handleBarcode(scanned_barcode) {
+            document.querySelector('#last-barcode').value = scanned_barcode;
+        }
 </script>

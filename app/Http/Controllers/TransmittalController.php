@@ -83,6 +83,6 @@ class TransmittalController extends Controller
     public function destroy($id)
     {
         Transmittals::destroy($id);
-        return redirect('tracer')->with('flash_mssg', 'Youth Info Deleted!');  
+        return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!');  
     }
 }
