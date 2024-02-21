@@ -3,9 +3,9 @@
         width: 50%;
     }
     .bold-address {
-    font-weight: bold;
-    text-align: left;
-    line-height: 5px;
+        font-weight: bold;
+        text-align: left;
+        line-height: 5px;
     }
 
 
@@ -46,14 +46,14 @@
     }
 
     .abbrev {
-    border: 1px;
-    font-size: 31px;
-    font-family: 'ABC Diatype Bold', sans-serif;
-    background: linear-gradient(45deg, #0026C8, #2C54FF);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+        border: 1px;
+        font-size: 31px;
+        font-family: 'ABC Diatype Bold', sans-serif;
+        background: linear-gradient(45deg, #0026C8, #2C54FF);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
     .secondary {
         color: #909090;
@@ -61,7 +61,7 @@
     }
 
     .tracking {
-    padding: 10px;
+        padding: 10px;
     }   
 
     .rounded-container {
@@ -75,12 +75,12 @@
     }
 
     .custom-line {
-    border: 90px; 
-    margin-top: 20px; 
+        border: 90px; 
+        margin-top: 20px; 
     }
 
     .form-control {
-    border-radius: 15px;
+        border-radius: 15px;
     }
 
     .btn-outline-success {
@@ -88,32 +88,42 @@
     }
 
     .table-size {
-    width: 100%;
-    border-collapse: collapse; /* Ensure borders collapse properly */
+        width: 100%;
+        border-collapse: collapse; /* Ensure borders collapse properly */
     }
 
     .table-size thead {
-    border-bottom: 2px solid #303030;
-    padding: 5px;
+        border-bottom: 2px solid #303030;
+        padding: 5px;
     }
 
     .text-center{
-    border-bottom: 1px;
+        border-bottom: 1px;
     }  
 
     .table-size tbody tr {
-    border-radius: 10px; 
+        border-radius: 10px; 
     }
 
     .rounded-entries .rounded-entry {
-    border-radius: 15px; 
-    padding: 7px; 
-    background-color: #FFFFFF;
+        border-radius: 15px; 
+        padding: 7px; 
+        background-color: #FFFFFF;
     }
 
     .fa-envelope {
         font-size: 29px;
     }
+    .custom-header {
+        background-color: #198754;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 15px;
+    }
+    .modal-title {
+    color: #ffffff;
+}
 
 </style>
 
@@ -198,7 +208,7 @@
 <div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header custom-header">
         <h5 class="modal-title">Export Status</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -212,6 +222,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <script>
     $(document).ready(function() {
