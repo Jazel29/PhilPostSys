@@ -167,7 +167,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
@@ -183,8 +183,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([ 
-        Maatwebsite\Excel\ExcelServiceProvider::class,
+    'aliases' => Facade::defaultAliases()->merge([
+        Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

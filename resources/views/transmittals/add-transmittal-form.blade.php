@@ -25,17 +25,20 @@
         color: #333;
     }    
 </style>
-<div class="row">
-    <h1 class="display-5"> New Transmittal </h1>
-</div>
-<div class="mssg">
-    @if(session('flash_mssg'))
+
+<div class="ml-4">
+    <div>
+        <h1 class="display-5"> Add New Transmittal </h1>
+    </div>
+    <div class="mssg">
+        @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
             <p>{{ session('flash_mssg') }}</p>
         </div>
-    @endif
+        @endif
+    </div>
 </div>
-<form action="/addRecord" method="POST" class="p-3">
+<form action="/addRecord" method="POST" class="">
     @csrf
     <div class="row mt-4">
         <div class="col-6">
@@ -65,25 +68,21 @@
         </div>
     </div>
     
-    {{-- comment ko muna kasi for testing --}}
+    {{-- comment ko muna kasi for testing
     {{-- <div class="row mt-5">
         <div class="col" style="max-width: 500px;">
                 <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
                 <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
-                <div class="col-2">
-                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
-    </div>
-    <div class="row mt-3">
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-outline-success">Submit</button>
-        </div>
-    </div>
-</form>
+            </div>
+            <div class="mt-3 mr-6">
+                <div class="flex justify-end">
+                    <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                </div>
+            </div>
+        </div>    
+    </div> 
+</form> --}}
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">

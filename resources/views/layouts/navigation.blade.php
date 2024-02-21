@@ -1,41 +1,31 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+    <nav x-data="{ open: false }" class="px-10 bg-white border-b shadow-sm border-gray-100 sticky top-0 z-50">
+
+    <style>
+
+.flex {
+    border-radius: 50px;
+}
+
+    </style>
+
+
+
+
+    <!-- Primary Navigation Menu -->
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <div class="shrink-0">
+                    <img src="{{ asset('assets/PHLPOSTLogo.png') }}" alt="PhilPostLogo" class=" h-6 fill-current text-gray-800" />
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('#')">
-                        {{ __('About') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('formTest')" :active="request()->routeIs('formTest')">
-                        {{ __('Tracer') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('new_transmittal')" :active="request()->routeIs('new_transmittal')">
-                        {{ __('Add Transmittal') }}
-                    </x-nav-link>
-                </div>
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('formTest')" :active="request()->routeIs('formTest')">
-                        {{ __('TestBarcode') }}
-                    </x-nav-link>
-                </div> --}}
+            </div>
+
+            <!-- Title -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <span style="font-weight:900; font-size: 19px;">PHILPOST </span> &nbsp;
+                <span style="font-weight: medium; color: #888; font-size: 19px;">RRR Tracking</span>
             </div>
 
             <!-- Settings Dropdown -->
@@ -118,3 +108,26 @@
         </div>
     </div>
 </nav>
+
+<div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16">
+    <div class="text-center md:block hidden items-center text-black">
+        <div class="hover:bg-gray-300 rounded-md mx-3 hover:text-white ">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 mt-4">
+            &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
+                <span class="text-19"> &nbsp; &nbsp; {{ __('Dashboard') }}</span>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3 ">
+            <a href="{{ route('formTest') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
+            &nbsp; &nbsp; <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
+                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Trace') }}</span>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3 ">
+            <a href="{{ route('new_transmittal') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
+            &nbsp; &nbsp; <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
+                <span class="text-19">&nbsp; &nbsp; &nbsp; {{ __('Add Transmittal') }}</span>
+            </a>
+        </div>
+    </div>
+</div>
