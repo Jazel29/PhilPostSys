@@ -183,8 +183,7 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        Maatwebsite\Excel\Facades\Excel::class,
+    'aliases' => Facade::defaultAliases()->merge([ 
     ])->toArray(),
 
 ];

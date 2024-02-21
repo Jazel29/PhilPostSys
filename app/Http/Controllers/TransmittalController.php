@@ -14,17 +14,25 @@ class TransmittalController extends Controller
     {
         $query = Transmittals::query()->get();
         $rrt_n = [];
-
+        $addressees = [];
+    
         foreach ($query as $record) {
             // Retrieve ReturnCards related to the current Transmittal's mailTrackNum
             $returnCards = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
             
+            // Retrieve AddresseeList related to the current Transmittal's recieverName
+            $addressee = AddresseeList::find($record->recieverName);
+    
             // Add the ReturnCards to the array
             $rrt_n[$record->id] = $returnCards;
+    
+            // Add the AddresseeList to the array
+            $addressees[$record->id] = $addressee;
         }
-
-        return view('tracer', compact('query', 'rrt_n'));
+    
+        return view('tracer', compact('query', 'rrt_n', 'addressees'));
     }
+    
 
     public function store(Request $request)
 {
@@ -63,7 +71,10 @@ class TransmittalController extends Controller
         }
         
         return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
+        
     }
+
+    
 
     public function edit($id){  
         $records = Transmittals::find($id);

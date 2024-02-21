@@ -31,7 +31,10 @@
     .rounded-container {
     border: 1px solid #ccc; 
     border-radius: 20px; 
-    padding: 20px; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 0px;
+    padding-left: 15px; 
     background-color: #ffffff; 
     }
 
@@ -104,8 +107,12 @@
                                     </span>
             </p>
         </div>
-        <div class="col-6">
-            <p class="labels">Address: 
+
+            <p class="labels"><br />Date Posted :</p>
+            <p><span class="bold">{{ $records->date }}</span></p>
+            <hr class="custom-line" /><br>
+
+            <p class="labels">Address : <br>
                 <span class="bold">
                     {{ $addressee->address }},
                         {{ $addressee->zip }} 
@@ -114,16 +121,62 @@
                                     </span>
             </p>
         </div>
-    </div>
-    <div class="row mt-5">
-        <div class="row mb-5">
-            <div class="col"></div> <!-- This column will occupy the left space -->
-            <div class="col-auto"> <!-- This column will display the content on the right side -->
-                <div>
-                    <div class="add">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add RRTN</button>
+
+    <!-- right side column -->
+    <div class="col-md-8">
+
+            <p class="labels">Addressee : <br /></p>
+            <p><span class="bold-addressee">
+                    {{ $addressee->name_primary }}, 
+                    {{ $addressee->name_secondary }}
+                </span></p>
+        
+            <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="row mt-5">
+                <div class="col-md-12">
+
+        <!-- search bar -->
+                    <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search RRRTN">
+                        <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-24">
+
+        <!-- table -->
+        
+    <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="rounded-entries">
+                <table class="table table-size mt-4">
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">Items</th>
+                            <th scope="col">RRR Tracking Numbers</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                @if ($rrt_n->isEmpty())
+                <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
+                </tr>
+                
+                @else
+                    @foreach ($rrt_n as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                    </tr>
+                    @endforeach
+                @endif
+                </tbody>
+                </table>
             </div>
         </div>
         @if ($errors->any())
@@ -150,7 +203,7 @@
         <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Items</th>
                     <th scope="col">RRR Tracking Numbers</th>
                     <th>Action</th>
                 </tr>
@@ -158,8 +211,8 @@
             <tbody class="text-center">
                 @if ($rrt_n->isEmpty())
                 <tr>
-                    <th>Error</th>
-                    <td>No RRTN Found</td>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
                 </tr>
                 
                 @else

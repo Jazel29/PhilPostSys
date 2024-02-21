@@ -35,54 +35,66 @@
         <div class="alert alert-primary" role="alert">
             <p>{{ session('flash_mssg') }}</p>
         </div>
-        @endif
-    </div>
+    @endif
 </div>
-<form action="/addRecord" method="POST" class="">
+
+<form action="/addRecord" method="POST" class="p-3" onsubmit="submitForm()">
     @csrf
-    <div class="row mt-4">
-        <div class="col-6">
-            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required>
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="last-barcode" class="form-control" required>
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" required>
-            <datalist id="datalistOptions">
-                <option value="Add New Addressee"></option>
-            </datalist>
-            <input class="form-control" type="hidden" name="receiver" id="receiver">
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <b>Address:</b><br>
-            <textarea id="address" name="address" cols="64" rows="2"></textarea>
-        </div>
-    </div>
-    
-    {{-- comment ko muna kasi for testing
-    {{-- <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+    <div class="add-transmittal-form flex">
+        <div class="left-section w-1/2 ">
+            <div class="mx-4">          
+                <div class="row mt-4">
+                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
-            </div>
-            <div class="mt-3 mr-6">
-                <div class="flex justify-end">
-                    <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                <div class="row mt-2">
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                </div>
+                <div class="row mt-2">
+                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <datalist id="datalistOptions">
+                    <option value="Add New Addressee"></option>
+                    </datalist>
+                    <input class="form-control" type="hidden" name="receiver" id="receiver">
+                </div>
+                <div class="row mt-4">
+                   <div class="text-gray-500">
+                        Address:
+                   </div> 
+                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;"></textarea>
                 </div>
             </div>
         </div>    
-    </div> 
-</form> --}}
+        <div class="right-section w-1/2">
+            <div class="flex flex-col mt-4">
+                <div>
+                    <div class="flex flex-row">
+                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0;">
+                        <div>
+                            <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
+                        </div>
+                    </div>
+                    <div class="mt-4 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
+                    </div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</form>
+
+<script>
+    // Function to handle form submission
+    function submitForm() {
+        // Add logic to submit the form
+        // Example: You can use AJAX to send a request to the server
+
+        // After submission, close the modal
+        $('#submitConfirmationModal').modal('hide');
+    }
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
@@ -143,6 +155,71 @@
 </div>
    
 <script>
+    var rrr_tns = [];
+    var count = 0;
+
+    function removeTN(element, rrr_tn_value) {
+        // Remove the container from the DOM
+        element.parentNode.removeChild(element);
+
+        // Remove the corresponding rrr_tn_value from the rrr_tns array
+        var index = rrr_tns.indexOf(rrr_tn_value);
+        if (index !== -1) {
+            rrr_tns.splice(index, 1);
+        }
+
+        // Log the updated rrr_tns array (for testing purposes)
+        console.log(rrr_tns);
+    }
+
+    function addTN() {
+        count++;
+        var rrr_tn_value = document.getElementById('rrr_tn').value;
+
+        // Check if rrr_tn_value is truthy before appending
+        if (rrr_tn_value) {
+            // Create a new tn_container with the extracted value
+            var tn_container = document.createElement('div');
+            tn_container.className = 'container';
+            tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode, \'' + rrr_tn_value + '\')">✖</span><p>' + count + ". " + rrr_tn_value + '</p>';
+
+            // Append the new tn_container to the rrr_div
+            document.getElementById('rrr_div').appendChild(tn_container);
+
+            // Add the rrr_tn_value to the rrr_tns array
+            rrr_tns.push(rrr_tn_value);
+
+            // Clear the value of rrr_tn input field
+            document.getElementById('rrr_tn').value = '';
+
+            // Log the updated rrr_tns array (for testing purposes)
+            console.log(rrr_tns);
+        }
+    }
+
+    var rrr_tn_value = document.getElementById("rrr_tn");
+    // var rrr_barcode = '';
+    // var rrr_interval;
+    rrr_tn_value.addEventListener("keypress", function(event) {
+        // if (rrr_interval) {
+        //     clearInterval(rrr_interval);
+        // }
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addTN();
+        }
+    });
+
+    function submitForm() {
+        // Set the rrr_tns array value to the hidden input
+        document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
+
+        console.log('rrr_tns:', test);
+
+        // Submit the form
+        document.forms[0].submit();
+    }
+    
     document.getElementById('addresseeDataList').addEventListener('input', function() {
     var addressValue = document.getElementById('address');
     var addresseeVal = document.getElementById('receiver');
