@@ -103,10 +103,10 @@
 
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
     <div class="text-center md:block hidden items-center text-black">
-        <div class="hover:bg-gray-300 rounded-md mx-3 hover:text-white">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 mt-4">
-                &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; {{ __('Dashboard') }}</span>
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
+            &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
+                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Dashboard') }}</span>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">

@@ -128,6 +128,7 @@
 </div>
 
     <!-- left side column -->
+    <!-- left side column -->
     <div class="row mt-3">
         <div class="col-md-4">
         <div class="rounded-container">
@@ -172,7 +173,11 @@
                 <div class="col-md-12">
 
         <!-- search bar -->
+
+        <!-- search bar -->
                     <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search RRRTN">
+                        <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                     <input type="text" class="form-control" placeholder="Search RRRTN">
                         <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
@@ -180,6 +185,10 @@
             </div>
             <div class="row mt-1">
                 <div class="col-md-24">
+
+        <!-- table -->
+        
+    <div class="container-fluid">
 
         <!-- table -->
         
@@ -210,15 +219,32 @@
                     @endforeach
                 @endif
                 </tbody>
+                @if ($rrt_n->isEmpty())
+                <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
+                </tr>
+                
+                @else
+                    @foreach ($rrt_n as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                    </tr>
+                    @endforeach
+                @endif
+                </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 
+
         <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
+                    <th scope="col">Items</th>
                     <th scope="col">Items</th>
                     <th scope="col">RRR Tracking Numbers</th>
                 </tr>
@@ -226,6 +252,8 @@
             <tbody class="text-center">
                 @if ($rrt_n->isEmpty())
                 <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
                     <th>Empty Record</th>
                     <td>No RRRTN Found</td>
                 </tr>
