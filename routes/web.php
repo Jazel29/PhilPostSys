@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkMailTN', [TransmittalController::class, 'checkMailTN'])->name('checkMailTN');
 
     Route::get('/transmittals/{id}/edit', [TransmittalController::class, 'edit'])->name('edit');
-    Route::patch('/transmittals/{id}', [TransmittalController::class, 'update'])->name('transmittals.update');
+    Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update'])->name('transmittals.update');
     Route::delete('/transmittals/{id}', [TransmittalController::class, 'destroy'])->name('transmittals.destroy');
     Route::delete('/return/{id}', [TransmittalController::class, 'destroy'])->name('return.destroy');
 
