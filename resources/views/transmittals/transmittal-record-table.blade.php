@@ -1,13 +1,15 @@
 <style>
+    
     .table-size {
         width: 50%;
     }
+
     .bold-address {
     font-weight: bold;
+    font-size: 15px;
     text-align: left;
-    line-height: 5px;
+    line-height: 1px;
     }
-
 
     .bold-date {
         font-weight: bold;
@@ -45,6 +47,8 @@
         padding: 4px 6px;
     }
 
+
+
     .abbrev {
     border: 1px;
     font-size: 31px;
@@ -61,7 +65,8 @@
     }
 
     .tracking {
-    padding: 10px;
+    padding: 11px;
+    color: #9F9F9F;
     }   
 
     .rounded-container {
@@ -75,7 +80,7 @@
     }
 
     .custom-line {
-    border: 90px; 
+    border: 1px #ccc; 
     margin-top: 20px; 
     }
 
@@ -89,12 +94,16 @@
 
     .table-size {
     width: 100%;
-    border-collapse: collapse; /* Ensure borders collapse properly */
+    border-collapse: collapse;
     }
 
     .table-size thead {
     border-bottom: 2px solid #303030;
     padding: 5px;
+    }
+
+    .rrt-cell {
+        position: relative;
     }
 
     .text-center{
@@ -105,10 +114,18 @@
     border-radius: 10px; 
     }
 
-    .rounded-entries .rounded-entry {
-    border-radius: 15px; 
-    padding: 7px; 
-    background-color: #FFFFFF;
+    .hover-row:hover {
+        background: linear-gradient(90deg, #0026C8, #2C54FF);
+        color: #FFFFFF;
+    }
+
+    .caret {
+        margin-right: 5px;
+        display: none;
+    }
+
+    .hover-row:hover .caret {
+        display: inline;
     }
 
     .fa-envelope {
@@ -128,69 +145,67 @@
             </button>
         </div>
     </div>
+
     <div class="row mt-3">
-        <div class="col-md-4">
-            <div class="rounded-container">
-                <p>
-                    <span class="tracking">Tracking Number </span>
-                    <span class="bold highlight">{{ $records->mailTrackNum }}</span>
-                </p>
-            </div>
-            <p class="labelsdate"><br />Date Posted</p>
-            <p><span class="bold-date">{{ $records->date }}</span></p>
-            <hr class="custom-line" /><br>
-            <p class="labels-address">Address<br></p>
-            <span class="bold-address">
-                {{ $addressee->address }}<br>
-                {{ $addressee->city }},
-                {{ $addressee->province }}<br>
-                {{ $addressee->zip }}
-            </span>
+    <!-- First Column -->
+    <div class="col-md-3">
+        <div class="rounded-container">
+            <span class="tracking">Tracking Number</span>
+            <br>&nbsp;&nbsp;&nbsp;<span class="bold highlight"><i class="fa-solid fa-caret-right"></i>&nbsp; {{ $records->mailTrackNum }} &nbsp;<i class="fa-solid fa-caret-left"></i></span>
         </div>
-        <!-- right side column -->
-        <div class="col-md-7">
-            <p class="labels-addressee">Addressee<br /></p>
-            <span class="bold-addressee">
-                <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
-                <br>{{ $addressee->name_primary }}
-                <br><span class="secondary">{{ $addressee->name_secondary }}</span>
-            </span>
-            <div class="container-fluid">
-                <div class="row mt-1">
-                    <!-- table -->
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="rounded-entries">
-                                    <table class="table table-size mt-4" id="example">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th scope="col">Items</th>
-                                                <th scope="col">RRR Tracking Numbers</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center">
-                                            @if ($rrt_n->isEmpty())
-                                                <tr>
-                                                    <th>Empty Record</th>
-                                                    <td>No RRRTN Found</td>
-                                                </tr>
-                                            @else
-                                                @foreach ($rrt_n as $index => $rrt)
-                                                    <tr>
-                                                        <th scope="row">{{ $index + 1 }}</th>
-                                                        <td>{{ $rrt->returncard }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <p class="labelsdate"><br />Date Posted</p>
+        <p><span class="bold-date">{{ $records->date }}</span></p>
+        <hr class="custom-line" /><br>
+        <p class="labels-address">Address<br></p>
+        <span class="bold-address">
+            {{ $addressee->address }}<br>
+            {{ $addressee->city }},
+            {{ $addressee->province }}<br>
+            {{ $addressee->zip }}
+        </span>
+    </div>
+
+    <!-- Second Column -->
+    <div class="col-md-1">
+    </div>
+
+    <!-- Third Column -->
+    <div class="col-md-8">
+        <p class="labels-addressee">Addressee<br /></p>
+        <span class="bold-addressee">
+            <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
+            <br>{{ $addressee->name_primary }}
+            <br><span class="secondary">{{ $addressee->name_secondary }}</span>
+        </span>
+        <div class="container-fluid">
+            <div class="row mt-1">
+                <!-- table -->
+                <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <table class="table table-size mt-4" id="example">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col-items">Items</th>
+                        <th scope="col">RRR Tracking Numbers</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if ($rrt_n->isEmpty())
+                        <tr>
+                            <th>Empty Record</th>
+                            <td>No RRRTN Found</td>
+                        </tr>
+                    @else
+                        @foreach ($rrt_n as $index => $rrt)
+                            <tr class="hover-row">
+                                <th scope="row-item">{{ $index + 1 }}</th>
+                                <td><span class="caret"><i class="fa-solid fa-caret-right"></i></span>&nbsp; {{ $rrt->returncard }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -216,7 +231,30 @@
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
-    } );
+    });
+
+    // (kevin) start - frontend javascript for table //
+
+    $('#example').on('length.dt', function (e, settings, len) {
+                // Modify length select dropdown items
+                var select = $(this).closest('.dataTables_wrapper').find('div.dataTables_length select');
+                select.removeClass('table'); // Remove any existing custom class
+                select.addClass('your-custom-class'); // Add your custom class to the select dropdown
+            });
+
+    $(document).ready(function() {
+    $(".hover-row").hover(
+        function() {
+            $(this).find('.caret').css('display', 'inline');
+        },
+        function() {
+            $(this).find('.caret').css('display', 'none');
+        }
+    );
+    });
+
+    // (kevin) start - frontend javascript for table //
+
     function exportToExcel() {
         console.log('exportToExcel called');
         // Collect table data

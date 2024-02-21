@@ -3,7 +3,43 @@
         border: 2px solid red; 
     }
  
+    .container-dots {
+        width: 60px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+        border: 1px solid #909090; /* Border color */
+        border-radius: 20px; /* Half of the height to create a rounded rectangle */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .dots {
+        font-size: 24px; /* Adjust the font size as needed */
+        line-height: 1;
+    }
+
+    /* Add this style to apply ellipsis to the RRRTN column */
+    .ellipsis {
+        max-width: 100px; /* Adjust the max-width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Set font size to 14px for the entire table */
+    #transmittalstable {
+        font-size: 14px;
+    }
+
+    /* Add rounded corners to table rows on hover and change background color to blue */
+    #transmittalstable tbody tr:hover {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #0026C8, #2C54FF);
+        color: #FFFFFF;
+    }
 </style>
+
 <div class="mssg">
     <div class="mssg">
     @if(session('flash_mssg'))
@@ -30,6 +66,10 @@
                 <th>Action</th>
             </tr>
         </thead>
+
+        <div class="container-dots">
+            <div class="dots">•••</div>
+        </div>
         
         <!-- Table body --> 
         <tbody>
@@ -49,7 +89,7 @@
                     <td>{{ $record->date }}</td>
                     <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
                     <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
-                    <td>
+                    <td class="ellipsis"> <!-- Apply ellipsis to this column -->
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
                         @else
@@ -85,76 +125,6 @@
     </table>
 </div>
 
-<style>
-    /* Custom table styles */
-    .table-wrapper th {
-        border-radius: 0px;
-        overflow: hidden;
-    }
-
-    .text-center {
-        border-radius: 50px;
-    }
-
-    .custom-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .custom-table th,
-    .custom-table td {
-        padding: 1px;
-        text-align: left;
-    }
-
-    .custom-table th {
-        background-color: #f2f2f2;
-    }
-
-    .custom-table tbody tr:nth-child(odd) {
-        background-color: #f9f9f9;
-    }
-
-    .custom-table tbody tr:hover {
-        background-color: #f0f0f0;
-    }
-
-    .action-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .btn {
-        border-radius:15px;
-        padding-left: 7px;
-        padding-right: 7px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
-
-    .custom-search-input,
-    .custom-filter-select {
-        width: 500px;
-        padding: 5px;
-        font-size: 16px; 
-        border-radius: 11px; 
-        border: 1px solid #ccc; 
-        box-shadow: none; 
-    }
-
-    .search-bar-container,
-    .filter-container {
-        margin-bottom: 20px; 
-    }
-
-    .input{
-        padding-left: 10px;
-    }
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#transmittalstable').DataTable({
@@ -166,4 +136,3 @@
         $('#2').css('padding-top', '20px');
     });
 </script>
-
