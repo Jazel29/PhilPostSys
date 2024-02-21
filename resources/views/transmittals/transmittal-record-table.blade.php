@@ -50,7 +50,6 @@
     font-size: 31px;
     font-family: 'ABC Diatype Bold', sans-serif;
     background: linear-gradient(45deg, #0026C8, #2C54FF);
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -125,152 +124,75 @@
             <button class="btn btn-outline-success" onclick="exportToExcel()">
             &nbsp;<i class="fa-solid fa-table"></i> &nbsp; Export as Excel
             </button>
-</div>
-
-    <!-- left side column -->
-    <!-- left side column -->
+        </div>
+    </div>
     <div class="row mt-3">
         <div class="col-md-4">
-        <div class="rounded-container">
-            <p>
-                <span class="tracking">Tracking Number </span>
-                <span class="bold highlight">{{ $records->mailTrackNum }}</span>
-            </p>
+            <div class="rounded-container">
+                <p>
+                    <span class="tracking">Tracking Number </span>
+                    <span class="bold highlight">{{ $records->mailTrackNum }}</span>
+                </p>
             </div>
-
             <p class="labelsdate"><br />Date Posted</p>
             <p><span class="bold-date">{{ $records->date }}</span></p>
             <hr class="custom-line" /><br>
-
             <p class="labels-address">Address<br></p>
-                <span class="bold-address">
-                    {{ $addressee->address }}<br>
-                    {{ $addressee->city }},
-                    {{ $addressee->province }}<br>
-                    {{ $addressee->zip }}
-                </span>
-            
+            <span class="bold-address">
+                {{ $addressee->address }}<br>
+                {{ $addressee->city }},
+                {{ $addressee->province }}<br>
+                {{ $addressee->zip }}
+            </span>
         </div>
-
-    <!-- right side column -->
-    <div class="col-md-7">
-
-    <p class="labels-addressee">Addressee<br /></p>
-    <p>
-        <span class="bold-addressee">
-             <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span> <br>
-                {{ $addressee->name_primary }} <br>
-        </span>
-            <span class="secondary">{{ $addressee->name_secondary }}</span>
-    
-</p>
-
-        
+        <!-- right side column -->
+        <div class="col-md-7">
+            <p class="labels-addressee">Addressee<br /></p>
+            <span class="bold-addressee">
+                <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
+                <br>{{ $addressee->name_primary }}
+                <br><span class="secondary">{{ $addressee->name_secondary }}</span>
+            </span>
             <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="row mt-5">
-                <div class="col-md-12">
-
-        <!-- search bar -->
-
-        <!-- search bar -->
-                    <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search RRRTN">
-                        <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="text" class="form-control" placeholder="Search RRRTN">
-                        <button class="btn btn-outline-success" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="row mt-1">
+                    <!-- table -->
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="rounded-entries">
+                                    <table class="table table-size mt-4" id="example">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th scope="col">Items</th>
+                                                <th scope="col">RRR Tracking Numbers</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            @if ($rrt_n->isEmpty())
+                                                <tr>
+                                                    <th>Empty Record</th>
+                                                    <td>No RRRTN Found</td>
+                                                </tr>
+                                            @else
+                                                @foreach ($rrt_n as $index => $rrt)
+                                                    <tr>
+                                                        <th scope="row">{{ $index + 1 }}</th>
+                                                        <td>{{ $rrt->returncard }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-1">
-                <div class="col-md-24">
-
-        <!-- table -->
-        
-    <div class="container-fluid">
-
-        <!-- table -->
-        
-    <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="rounded-entries">
-                <table class="table table-size mt-4">
-                    <thead class="text-center">
-                        <tr>
-                            <th scope="col">Items</th>
-                            <th scope="col">RRR Tracking Numbers</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                @if ($rrt_n->isEmpty())
-                <tr>
-                    <th>Empty Record</th>
-                    <td>No RRRTN Found</td>
-                </tr>
-                
-                @else
-                    @foreach ($rrt_n as $index => $rrt)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $rrt->returncard }}</td>
-                    </tr>
-                    @endforeach
-                @endif
-                </tbody>
-                @if ($rrt_n->isEmpty())
-                <tr>
-                    <th>Empty Record</th>
-                    <td>No RRRTN Found</td>
-                </tr>
-                
-                @else
-                    @foreach ($rrt_n as $index => $rrt)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $rrt->returncard }}</td>
-                    </tr>
-                    @endforeach
-                @endif
-                </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
 
-
-        <table id="example" class="table table-striped " cellspacing="0" width="90%">
-            <thead class="text-center">
-                <tr>
-                    <th scope="col">Items</th>
-                    <th scope="col">Items</th>
-                    <th scope="col">RRR Tracking Numbers</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @if ($rrt_n->isEmpty())
-                <tr>
-                    <th>Empty Record</th>
-                    <td>No RRRTN Found</td>
-                    <th>Empty Record</th>
-                    <td>No RRRTN Found</td>
-                </tr>
-                
-                @else
-                    @foreach ($rrt_n as $index => $rrt)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $rrt->returncard }}</td>
-                    </tr>
-                    @endforeach
-                @endif
-                
-            </tbody>
-        </table>
-    </div>
-</div>
 <div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -288,6 +210,7 @@
     </div>
   </div>
 </div>
+
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
@@ -349,15 +272,6 @@
             }
         });
     }
-    // $(document).ready(function() {
-    //     $('#transmittalstable').DataTable({
-    //         "language": {
-    //             "search": "search" // Customize search placeholder
-    //         }
-    //     });
-
-    //     $('#transmittalstable').css('padding-top', '20px');
-    // });
     
 </script>
 

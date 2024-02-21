@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>    
-        <div class="right-section w-1/2">
+        <div class="right-section w-1/2" id="addRRR_div">
             <div class="flex flex-col mt-4">
                 <div>
                     <div class="flex flex-row">
