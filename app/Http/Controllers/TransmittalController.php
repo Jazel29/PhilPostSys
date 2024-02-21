@@ -36,15 +36,6 @@ class TransmittalController extends Controller
     
 
     public function store(Request $request) {
-        $existingTransmittal = Transmittals::where('mailTrackNum', $request->input('mail_tn'))->first();
-
-        if ($existingTransmittal) {
-            // Handle the case where mailTrackNum already exists
-            return redirect('/add_transmittal')
-                ->with('flash_mssg', 'Mail Track Number already exists!')
-                ->withInput($request->all()); // Retain all input values
-        }
-    
         // Create a new Transmittals record
         $transmittal = Transmittals::create([
             'mailTrackNum' => $request->input('mail_tn'),
@@ -52,14 +43,24 @@ class TransmittalController extends Controller
             'recieverAddress' => $request->input('address'),
             'date' => $request->input('date_posted')
         ]);
+    
+        // Get the array of return cards from the request
+        $rrr_tns_json = $request->input('rrr_tns');
 
-        // Redirect back to the tracer page with a success message
-        return redirect('/tracer')->with('flash_mssg', 'Successfully Created!');
-    } catch (\Exception $e) {
-        // If an exception occurs during the creation process, redirect back with an error message
-        return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
+        // Decode the JSON string into an array
+        $rrr_tns = json_decode($rrr_tns_json);
+    
+        // Create a new ReturnCards record for each return card
+        foreach ($rrr_tns as $returnCard) {
+            ReturnCards::create([
+                'trucknumber' => $request->input('mail_tn'),
+                'returncard' => $returnCard
+            ]);
+        }
+    
+        // Redirect or respond as needed
+        return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
     }
-}
 
     // fetch to the bladev views
     public function show($mailTrackNum){
