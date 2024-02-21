@@ -99,8 +99,8 @@
         <div class="col-6">
             <p>Addressee: 
                 <span class="bold">
-                    {{ $addressee->name_primary }}, 
-                        {{ $addressee->name_secondary }}
+                    {{ $addressee->name_secondary }}, 
+                        {{ $addressee->name_primary }}
                                     </span>
             </p>
         </div>
@@ -126,11 +126,33 @@
                 </div>
             </div>
         </div>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
         <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">RRR Tracking Numbers</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -145,6 +167,14 @@
                     <tr>
                         <th scope="row">{{ $index + 1 }}</th>
                         <td>{{ $rrt->returncard }}</td>
+                        <td>
+                            <form method="POST" action="{{ route('return-cards.destroy', ['id' => $rrt->id]) }}" accept-charset="UTF-8" style="" class="">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning" title="remove rrtn" onclick="return confirm('Confirm delete?')"> Remove</button>
+                            </form>
+                            
+                        </td>
                     </tr>
                     @endforeach
                 @endif
@@ -174,6 +204,7 @@
 <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
+        
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">Add new RRTN</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -282,15 +313,7 @@
         function handleBarcode(scanned_barcode) {
             document.querySelector('#last-barcode').value = scanned_barcode;
         }
-    // $(document).ready(function() {
-    //     $('#transmittalstable').DataTable({
-    //         "language": {
-    //             "search": "search" // Customize search placeholder
-    //         }
-    //     });
-
-    //     $('#transmittalstable').css('padding-top', '20px');
-    // });
+   
     
 </script>
 
