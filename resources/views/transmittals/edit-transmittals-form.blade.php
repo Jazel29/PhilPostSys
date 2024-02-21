@@ -52,7 +52,7 @@
     </div>
     <div class="row mt-2">
         <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required value="{{ $records->recieverName }}">
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required value="{{ $addressee->name_primary }}">
             <datalist id="datalistOptions">
                 <option value="Add New Addressee"></option>
             </datalist>

@@ -136,6 +136,23 @@
         </div>
     </div>
 </div>
+
+
+<div class="content mt-5">
+    <div class="d-flex justify-content-center">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
+</div>
    
 <script>
     var rrr_tns = [];
