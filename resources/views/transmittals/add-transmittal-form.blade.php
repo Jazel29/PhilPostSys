@@ -70,11 +70,11 @@
     
     {{-- comment ko muna kasi for testing
     {{-- <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
+        {{-- <div class="col" style="max-width: 500px;">
                 <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
                 <i class="fas fa-calendar input-prefix" tabindex=0></i>
                 </div>
-            </div>
+            </div> --}}
             <div class="mt-3 mr-6">
                 <div class="flex justify-end">
                     <button type="submit" class="btn text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
@@ -82,7 +82,7 @@
             </div>
         </div>    
     </div> 
-</form> --}}
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
