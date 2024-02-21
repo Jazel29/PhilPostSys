@@ -25,69 +25,76 @@
         color: #333;
     }    
 </style>
-<div class="row">
-    <h1 class="display-5"> New Transmittal </h1>
-</div>
-<div class="mssg">
-    @if(session('flash_mssg'))
+
+<div class="ml-4">
+    <div>
+        <h1 class="display-5"> Add New Transmittal </h1>
+    </div>
+    <div class="mssg">
+        @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_mssg') }}</p>
+            <p>{{ session('flash_msg') }}</p>
         </div>
-    @endif
+        @endif
+    </div>
 </div>
 <form action="/addRecord" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
-    <div class="row mt-4">
-        <div class="col-6">
-            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required>
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required>
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-            <span id="mail_tn_error" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" required>
-            <datalist id="datalistOptions">
-                <option value="Add New Addressee"></option>
-            </datalist>
-            <input class="form-control" type="hidden" name="receiver" id="receiver">
-        </div>
-        <div id="popover-content" style="display:none;" class="mt-2 text-danger">Addressee Not Found.<a href="" onclick="openModal()"> Add New Addressee?</a></span></div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <b>Address:</b><br>
-            <textarea id="address" name="address" cols="64" rows="2"></textarea>
-        </div>
-    </div>
-    
-    <div id="addRRR_div" style="display: none;">
-        <div class="row mt-5">
-            <div class="col" style="max-width: 500px;">
-                    <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+    <div class="add-transmittal-form flex">
+        <div class="left-section w-1/2 ">
+            <div class="mx-4">          
+                <div class="row mt-4">
+                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                </div>
+                <div class="row mt-2">
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                </div>
+                <div class="row mt-2">
+                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <datalist id="datalistOptions">
+                    <option value="Add New Addressee"></option>
+                    </datalist>
+                    <input class="form-control" type="hidden" name="receiver" id="receiver">
+                </div>
+                <div class="row mt-4">
+                   <div class="text-gray-500">
+                        Address:
+                   </div> 
+                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;"></textarea>
+                </div>
+            </div>
+        </div>    
+        <div class="right-section w-1/2">
+            <div class="flex flex-col mt-4">
+                <div>
+                    <div class="flex flex-row">
+                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0;">
+                        <div>
+                            <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
+                        </div>
                     </div>
-                    <div class="col-2">
-                    <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-            </div>
-        </div>
-
-        <div class="row mt-5 custom-border" id="rrr_div">
-            <input type="hidden" name="rrr_tns" id="rrr_tns_input">
-        </div>
-        <div class="row mt-3">
-            <div class="col-6 text-right">
-                <button type="submit" class="btn btn-outline-success">Submit</button>
-            </div>
+                    <div class="mt-4 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                        <input type="hidden" name="rrr_tns" id="rrr_tns_input">
+                    </div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </form>
+
+<script>
+    // Function to handle form submission
+    function submitForm() {
+        // Add logic to submit the form
+        // Example: You can use AJAX to send a request to the server
+
+        // After submission, close the modal
+        $('#submitConfirmationModal').modal('hide');
+    }
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
@@ -127,13 +134,6 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
-
-
-<div class="content mt-5">
-    <div class="d-flex justify-content-center">
-        displahy the content here
     </div>
 </div>
    
