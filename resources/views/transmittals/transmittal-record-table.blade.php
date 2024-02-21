@@ -50,6 +50,8 @@
     font-size: 31px;
     font-family: 'ABC Diatype Bold', sans-serif;
     background: linear-gradient(45deg, #0026C8, #2C54FF);
+    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
