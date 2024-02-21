@@ -136,6 +136,23 @@
         </div>
     </div>
 </div>
+
+
+<div class="content mt-5">
+    <div class="d-flex justify-content-center">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
+</div>
    
 <script>
     var rrr_tns = [];
@@ -253,29 +270,23 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error fetching addressees:', error));
 });
-
-    var barcode = '';
-    var interval;
-    document.addEventListener('keydown', function(evt) {
-        if (interval) {
-            clearInterval(interval);
-        }
-        if (evt.code == 'Enter') {
-            evt.preventDefault(); // Prevent the default behavior (carriage return)
-            if (barcode) {
-                handleBarcode(barcode);
+var barcode = '';
+        var interval;
+        document.addEventListener('keydown', function(evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    handleBarcode(barcode);
+                barcode = '';
+                return;
             }
-            barcode = '';
-            return;
-        }
-        if (evt.key != 'Shift') {
-            barcode += evt.key;
-        }
-        interval = setInterval(() => barcode = '', 20);
-    });
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
 
-    function handleBarcode(scanned_barcode) {
-        document.querySelector('#mail_tn').value = scanned_barcode;
-    }
-
+        function handleBarcode(scanned_barcode) {
+            document.querySelector('#last-barcode').value = scanned_barcode;
+        }
 </script>

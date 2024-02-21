@@ -34,35 +34,32 @@ class TransmittalController extends Controller
     }
     
 
-    public function store(Request $request) {
-        // Validate your request if needed
-    
-        // Create a new Transmittals record
+    public function store(Request $request)
+{
+    // Validate the incoming request data
+    $request->validate([
+        'mail_tn' => 'required|unique:transmittals,mailTrackNum', // Ensure mail tracking number is required and unique
+        'receiver' => 'required',
+        'address' => 'required',
+        'date_posted' => 'required|date', // Ensure date is required and in valid date format
+    ]);
+
+    try {
+        // Create a new Transmittals instance and save it to the database
         $transmittal = Transmittals::create([
             'mailTrackNum' => $request->input('mail_tn'),
             'recieverName' => $request->input('receiver'),
             'recieverAddress' => $request->input('address'),
             'date' => $request->input('date_posted')
         ]);
-    
-        // Get the array of return cards from the request
-        $rrr_tns_json = $request->input('rrr_tns');
 
-        // Decode the JSON string into an array
-        $rrr_tns = json_decode($rrr_tns_json);
-    
-        // Create a new ReturnCards record for each return card
-        foreach ($rrr_tns as $returnCard) {
-            ReturnCards::create([
-                'trucknumber' => $request->input('mail_tn'),
-                'returncard' => $returnCard
-            ]);
-        }
-    
-        // Redirect or respond as needed
-        return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
+        // Redirect back to the tracer page with a success message
+        return redirect('/tracer')->with('flash_mssg', 'Successfully Created!');
+    } catch (\Exception $e) {
+        // If an exception occurs during the creation process, redirect back with an error message
+        return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
     }
-    
+}
 
     // fetch to the bladev views
     public function show($mailTrackNum){
@@ -81,14 +78,16 @@ class TransmittalController extends Controller
 
     public function edit($id){  
         $records = Transmittals::find($id);
+        $addressee = AddresseeList::find($records->recieverName);
         if (!$records) {
             return redirect()->route('/transmittals')->with('flash_message', 'Member not found');
         }
-        return view('edit-transmitttals', ['records' => $records]);
+        return view('edit-transmitttals', ['records' => $records, 'addressee' => $addressee]);
     }
 
     public function update(Request $request, $id)
     {
+        // dd($request->all()); // Inspect the data received by the controller
         try {
             $record = Transmittals::findOrFail($id);
     
@@ -96,7 +95,7 @@ class TransmittalController extends Controller
     
             $record->update($input);
     
-            return redirect('tracer')->with('flash_mssg', 'Transmittal updated successfully!');
+            return redirect('tracer')->with('flash_mssg', 'message!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
@@ -105,6 +104,11 @@ class TransmittalController extends Controller
     public function destroy($id)
     {
         Transmittals::destroy($id);
-        return redirect('tracer')->with('flash_mssg', 'Youth Info Deleted!');  
+        return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!');  
+    }
+    
+    public function deleteReturnCard($id){
+        ReturnCards::destroy($id);
+        return redirect()->back()->with('flash_mssg', 'Record Deleted Successfully! this');
     }
 }

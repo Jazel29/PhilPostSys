@@ -84,17 +84,28 @@
         </div>
         <div class="col text-right">
             <button class="btn btn-outline-success" onclick="exportToExcel()">
-            &nbsp;<i class="fa-solid fa-table"></i> &nbsp; Export as Excel
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64"/>
+                </svg>
             </button>
-</div>
-
-    <!-- left side column -->
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
+        </div>
+        <div class="col-6">
+            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
+        </div>
+    </div>
     <div class="row mt-3">
-        <div class="col-md-4">
-        <div class="rounded-container">
-            <p>
-                <span class="tracking">Tracking Number </span>
-                <span class="bold highlight">{{ $records->mailTrackNum }}</span>
+        <div class="col-6">
+            <p>Addressee: 
+                <span class="bold">
+                    {{ $addressee->name_secondary }}, 
+                        {{ $addressee->name_primary }}
+                                    </span>
+            </p>
         </div>
 
             <p class="labels"><br />Date Posted :</p>
@@ -104,10 +115,10 @@
             <p class="labels">Address : <br>
                 <span class="bold">
                     {{ $addressee->address }},
-                    {{ $addressee->zip }} 
-                    {{ $addressee->city }},
-                    {{ $addressee->province }}
-                </span>
+                        {{ $addressee->zip }} 
+                        {{ $addressee->city }},
+                        {{ $addressee->province }}
+                                    </span>
             </p>
         </div>
 
@@ -168,14 +179,33 @@
                 </table>
             </div>
         </div>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
-</div>
+@endif
 
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
         <table id="example" class="table table-striped " cellspacing="0" width="90%">
             <thead class="text-center">
                 <tr>
                     <th scope="col">Items</th>
                     <th scope="col">RRR Tracking Numbers</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -190,6 +220,14 @@
                     <tr>
                         <th scope="row">{{ $index + 1 }}</th>
                         <td>{{ $rrt->returncard }}</td>
+                        <td>
+                            <form method="POST" action="{{ route('return-cards.destroy', ['id' => $rrt->id]) }}" accept-charset="UTF-8" style="" class="">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning" title="remove rrtn" onclick="return confirm('Confirm delete?')"> Remove</button>
+                            </form>
+                            
+                        </td>
                     </tr>
                     @endforeach
                 @endif
@@ -215,6 +253,37 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add new RRTN</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/addReturn" class="m-3" method="POST">
+            @csrf
+            <div class="tracknum m-3">
+                <label for="tracknumber">Track Number:</label>
+                <input name="truckNumMail" class="rounded" type="text" value="{{ $records->mailTrackNum }}" readonly>
+            </div>
+            <div class="rrtn m-3">
+                <label for="rrtNumber">RRT Number: </label>
+                <input type="text" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="trackingNum">
+            </div>
+            <div class="sub">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
@@ -239,7 +308,7 @@
             tableData.push(rowData);
         });
 
-        // Prepare data for sending to the server
+        //Prepare data for sending to the server
         var exportData = {
             records: {
                 mailTrackNum: "{{ $records->mailTrackNum }}",
@@ -278,15 +347,26 @@
             }
         });
     }
-    // $(document).ready(function() {
-    //     $('#transmittalstable').DataTable({
-    //         "language": {
-    //             "search": "search" // Customize search placeholder
-    //         }
-    //     });
+    var barcode = '';
+        var interval;
+        document.addEventListener('keydown', function(evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    handleBarcode(barcode);
+                barcode = '';
+                return;
+            }
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
 
-    //     $('#transmittalstable').css('padding-top', '20px');
-    // });
+        function handleBarcode(scanned_barcode) {
+            document.querySelector('#last-barcode').value = scanned_barcode;
+        }
+   
     
 </script>
 

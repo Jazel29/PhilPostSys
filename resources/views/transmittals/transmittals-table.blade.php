@@ -72,10 +72,10 @@
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ url('/transmittals' . '/' . $record->id) }}" accept-charset="UTF-8">
-                                    {{ method_field('DELETE') }}
-                                    {{ csrf_field() }}
-                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->name }}')"> Delete</button>
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" style="" class="">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->id }}')"> Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -169,4 +169,12 @@
         $('#2').css('padding-top', '20px');
     });
 </script>
-
+<style>
+    .highlight {
+        border: 2px solid red; /* You can customize the highlighting style */
+    }
+    
+    /* #table_div {
+        display: none;
+    } */
+</style>
