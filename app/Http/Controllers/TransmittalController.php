@@ -8,6 +8,7 @@ use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+
 class TransmittalController extends Controller
 {
     public function index(Request $request): View
@@ -34,18 +35,17 @@ class TransmittalController extends Controller
     }
     
 
-    public function store(Request $request)
-{
-    // Validate the incoming request data
-    $request->validate([
-        'mail_tn' => 'required|unique:transmittals,mailTrackNum', // Ensure mail tracking number is required and unique
-        'receiver' => 'required',
-        'address' => 'required',
-        'date_posted' => 'required|date', // Ensure date is required and in valid date format
-    ]);
+    public function store(Request $request) {
+        $existingTransmittal = Transmittals::where('mailTrackNum', $request->input('mail_tn'))->first();
 
-    try {
-        // Create a new Transmittals instance and save it to the database
+        if ($existingTransmittal) {
+            // Handle the case where mailTrackNum already exists
+            return redirect('/add_transmittal')
+                ->with('flash_mssg', 'Mail Track Number already exists!')
+                ->withInput($request->all()); // Retain all input values
+        }
+    
+        // Create a new Transmittals record
         $transmittal = Transmittals::create([
             'mailTrackNum' => $request->input('mail_tn'),
             'recieverName' => $request->input('receiver'),
@@ -72,6 +72,15 @@ class TransmittalController extends Controller
         
         return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
         
+    }
+
+    public function checkMailTN(Request $request)
+    {
+        $mail_tn = $request->input('mail_tn');
+
+        $existingTransmittal = Transmittals::where('mailTrackNum', $mail_tn)->exists();
+
+        return response()->json(['exists' => $existingTransmittal]);
     }
 
     

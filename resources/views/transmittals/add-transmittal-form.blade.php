@@ -33,12 +33,12 @@
     <div class="mssg">
         @if(session('flash_mssg'))
         <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_mssg') }}</p>
+            <p>{{ session('flash_msg') }}</p>
         </div>
-    @endif
+        @endif
+    </div>
 </div>
-
-<form action="/addRecord" method="POST" class="p-3" onsubmit="submitForm()">
+<form action="/addRecord" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     <div class="add-transmittal-form flex">
         <div class="left-section w-1/2 ">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>    
-        <div class="right-section w-1/2">
+        <div class="right-section w-1/2" id="addRRR_div">
             <div class="flex flex-col mt-4">
                 <div>
                     <div class="flex flex-row">
@@ -130,7 +130,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
+                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
                 </div>
             </form>
         </div>
@@ -170,14 +170,31 @@
 
         // Log the updated rrr_tns array (for testing purposes)
         console.log(rrr_tns);
+        updateCounts();
+    }
+
+    function updateCounts() {
+    // Get all tn_containers in the rrr_div
+        var tnContainers = document.getElementById('rrr_div').getElementsByClassName('container');
+
+        // Update the counts based on the current index in the rrr_tns array
+        for (var i = 0; i < tnContainers.length; i++) {
+            var countElement = tnContainers[i].getElementsByTagName('p')[0];
+            countElement.innerText = (i + 1) + '. ' + rrr_tns[i];
+        }
     }
 
     function addTN() {
-        count++;
         var rrr_tn_value = document.getElementById('rrr_tn').value;
 
         // Check if rrr_tn_value is truthy before appending
         if (rrr_tn_value) {
+            // Add the rrr_tn_value to the rrr_tns array
+            rrr_tns.push(rrr_tn_value);
+
+            // Get the current index in the rrr_tns array
+            var count = rrr_tns.length;
+
             // Create a new tn_container with the extracted value
             var tn_container = document.createElement('div');
             tn_container.className = 'container';
@@ -185,9 +202,6 @@
 
             // Append the new tn_container to the rrr_div
             document.getElementById('rrr_div').appendChild(tn_container);
-
-            // Add the rrr_tn_value to the rrr_tns array
-            rrr_tns.push(rrr_tn_value);
 
             // Clear the value of rrr_tn input field
             document.getElementById('rrr_tn').value = '';
@@ -197,96 +211,120 @@
         }
     }
 
+
     var rrr_tn_value = document.getElementById("rrr_tn");
-    // var rrr_barcode = '';
-    // var rrr_interval;
     rrr_tn_value.addEventListener("keypress", function(event) {
-        // if (rrr_interval) {
-        //     clearInterval(rrr_interval);
-        // }
         if (event.key === "Enter") {
             event.preventDefault();
             addTN();
         }
     });
 
+    var mailTn = document.getElementById("mail_tn");
+    mailTn.addEventListener("keypress", function(evt) {
+        if (event.key === "Enter") {
+            evt.preventDefault();
+        }
+    });
+
     function submitForm() {
+
         // Set the rrr_tns array value to the hidden input
         document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
-
-        console.log('rrr_tns:', test);
 
         // Submit the form
         document.forms[0].submit();
     }
+
     
     document.getElementById('addresseeDataList').addEventListener('input', function() {
-    var addressValue = document.getElementById('address');
-    var addresseeVal = document.getElementById('receiver');
-    var tn = document.getElementById('mail_tn');
-    var selectedValue = this.value;
+        var addressValue = document.getElementById('address');
+        var addresseeVal = document.getElementById('receiver');
+        var RRRdiv = document.getElementById('addRRR_div');
+        var popUp = document.getElementById('popover-content');
+        var tn = document.getElementById('mail_tn');
+        var selectedValue = this.value;
 
-    if (selectedValue === 'Add New Addressee') {
-        $('#newAddresseeModal').modal('show');
-        this.value = '';
-    } else {
-        // Get the selected option element
-        var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
-        
-        // Check if the selected option exists
-        if (selectedOption) {
-            selectedId = selectedOption.id;
-            var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
-            addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
-            addresseeVal.value = selectedId;
-        }else {
-            addressValue.value = '';
-        }
-    }
-});
+        if (selectedValue === 'Add New Addressee') {
+            $('#newAddresseeModal').modal('show');
+            this.value = '';
+        } else {
+            // Get the selected option element
+            var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
+            
+            // Check if the selected option exists
+            if (selectedOption) {
+                selectedId = selectedOption.id;
+                var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
+                addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
+                addresseeVal.value = selectedId;
+                RRRdiv.style.display = 'block';
+                popUp.style.display = 'none';
+            } else {
+                addressValue.value = '';
+                RRRdiv.style.display = 'none';
+                popUp.style.display = 'block';
 
-function closeModal() {
-    $('#newAddresseeModal').modal('hide');
-}
-
-function saveNewAddressee() {
-    $('#newAddresseeModal').modal('hide');
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Fetch addressees from the server
-    fetch('/get-addressees')
-        .then(response => response.json())
-        .then(data => {
-            const datalist = document.getElementById('datalistOptions');
-            addressees = data.addressees; // Store addressees globally for later access
-
-            addressees.forEach(addressee => {
-                const option = document.createElement('option');
-                option.value = `${addressee.abbrev} - ${addressee.name_primary}`;
-                option.id = addressee.id;
-                datalist.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error fetching addressees:', error));
-});
-var barcode = '';
-        var interval;
-        document.addEventListener('keydown', function(evt) {
-            if (interval)
-                clearInterval(interval);
-            if (evt.code == 'Enter') {
-                if (barcode)
-                    handleBarcode(barcode);
-                barcode = '';
-                return;
             }
-            if (evt.key != 'Shift')
-                barcode += evt.key;
-            interval = setInterval(() => barcode = '', 20);
-        });
-
-        function handleBarcode(scanned_barcode) {
-            document.querySelector('#last-barcode').value = scanned_barcode;
+            
+            if(!selectedOption & selectedValue == '') {
+                popUp.style.display = 'none';
+            }
         }
+    });
+
+
+    function closeModal() {
+        $('#newAddresseeModal').modal('hide');
+    }
+
+    function openModal() {
+        $('#newAddresseeModal').modal('show');
+    }
+
+    function saveNewAddressee() {
+        $('#newAddresseeModal').modal('hide');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Fetch addressees from the server
+        fetch('/get-addressees')
+            .then(response => response.json())
+            .then(data => {
+                const datalist = document.getElementById('datalistOptions');
+                addressees = data.addressees; // Store addressees globally for later access
+
+                addressees.forEach(addressee => {
+                    const option = document.createElement('option');
+                    option.value = `${addressee.abbrev} - ${addressee.name_primary}`;
+                    option.id = addressee.id;
+                    datalist.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching addressees:', error));
+    });
+    
+    $(document).ready(function () {
+        $('#mail_tn').on('blur', function () {
+            var mail_tn = $(this).val();
+
+            // Perform AJAX request to check existence
+            $.ajax({
+                type: 'GET',
+                url: '/checkMailTN', // Replace with your actual route
+                data: { mail_tn: mail_tn },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#mail_tn_error').text('Mail Tracking Number already exists');
+                    } else {
+                        $('#mail_tn_error').text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking Mail Tracking Number:', error);
+                }
+            });
+        });
+    });
+
 </script>

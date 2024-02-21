@@ -1,11 +1,8 @@
 <style>
     .highlight {
-        border: 2px solid red; /* You can customize the highlighting style */
+        border: 2px solid red; 
     }
-    
-    /* #table_div {
-        display: none;
-    } */
+ 
 </style>
 <div class="mssg">
     <div class="mssg">
@@ -20,11 +17,11 @@
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
 
-
 <div class="newtb">
     <table id="transmittalstable" class="table table-striped " cellspacing="0" width="90%">
         <thead class="text-center">
-            <tr>
+            <!-- starting dito, kulang pa ata ng mga functions sakin (kevin) -->
+            <tr> 
                 <th>Transmittal TN</th>
                 <th>Date Posted</th>
                 <th>Addressee</th>
@@ -34,7 +31,7 @@
             </tr>
         </thead>
         
-        <!-- Table body -->
+        <!-- Table body --> 
         <tbody>
             @if ($query->isEmpty())
                 <tr class="border-b">

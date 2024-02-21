@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon; 
 
 class ExcelExportController extends Controller
 {
@@ -19,9 +20,11 @@ class ExcelExportController extends Controller
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
 
+        $formattedDate = Carbon::parse($exportData['records']['date'])->format('F j, Y');
+
         $data = [
             'D5' => $exportData['records']['mailTrackNum'] ?? '',
-            'A5' => $exportData['records']['date'] ?? '',
+            'A5' => $formattedDate,
             'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
             'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
             'A9' => $exportData['records']['address'] ?? '',
@@ -41,18 +44,26 @@ class ExcelExportController extends Controller
         }
 
         $rrtnLength = count($exportData['rrtn']);
-        $startRow = 18;
+        $startRow = 17;
         $startCol = 'A';
+        $lastRow= 0;
         $tnCount = 1;
 
         foreach ($exportData['rrtn'] as $index => $rrtn) {
             $row = $startRow + $index;
             $col = $startCol;
+            if ($row > 41) {
+                $row = $startRow;
+                $col++;
+            }
             $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
             $tnCount++;
-            $col++;
+            $lastRow = $row;
         }
         
+        $sheet->setCellValue($startCol . $lastRow + 2, "Very truly yours,");
+        $sheet->setCellValue($startCol . $lastRow + 5, "NENITA B. PAN");
+        $sheet->setCellValue($startCol . $lastRow + 6, "Postmaster");
 
         $directoryPath = public_path('tracer_exports');
 
