@@ -139,7 +139,7 @@
         table.dataTable thead .sorting_asc_disabled,
         table.dataTable thead .sorting_desc_disabled {
         cursor: pointer;
-        *cursor: hand;
+        cursor: hand;
         background-repeat: no-repeat;
         background-position: center right;
         }
@@ -340,17 +340,24 @@
         background-color: transparent;
         }
         .dataTables_wrapper .dataTables_filter {
-        float: right;
-        text-align: right;
+            float: right;
+            text-align: right;
         }
+
         .dataTables_wrapper .dataTables_filter input {
-        border: 1px solid #aaa;
-        width: 100%;
-        border-radius: 15px;
-        padding: 5px;
-        background-color: transparent;
-        margin-left: 3px;
+            border: 1px solid #aaa;
+            width: 100%;
+            border-radius: 15px;
+            padding: 5px;
+            background-color: transparent;
+            margin-left: 3px;
         }
+
+        .dataTables_wrapper .dataTables_filter input::placeholder {
+            /* Set an empty string as the placeholder */
+            content: '';
+        }
+
         .dataTables_wrapper .dataTables_info {
         clear: both;
         float: left;
@@ -370,10 +377,10 @@
         text-align: center;
         text-decoration: none !important;
         cursor: pointer;
-        *cursor: hand;
+        cursor: hand;
         color: #333 !important;
         border: 1px solid transparent;
-        border-radius: 2px;
+        border-radius: 15px;
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
@@ -526,7 +533,7 @@
         clear: both;
         }
         .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
-        *margin-top: -1px;
+        margin-top: -1px;
         -webkit-overflow-scrolling: touch;
         }
         .dataTables_wrapper
@@ -835,7 +842,7 @@
                                 @foreach ($rrt_n as $index => $rrt)
                                     <tr class="hover-row">
                                         <th scope="row-item">{{ $index + 1 }}</th>
-                                        <td><span class="caret"><i class="fa-solid fa-caret-right"></i></span>&nbsp; {{ $rrt->returncard }}</td>
+                                        <td><span class="caret"><i class="fa-solid fa-caret-right fa-fade"></i></span>&nbsp;{{ $rrt->returncard }} &nbsp;<span class="caret"><i class="fa-solid fa-caret-left fa-fade"></i></span></td>
                                     </tr>
                                 @endforeach
                             @endif
