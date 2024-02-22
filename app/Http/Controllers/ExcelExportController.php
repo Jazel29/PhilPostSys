@@ -66,6 +66,7 @@ class ExcelExportController extends Controller
                         $startCol = chr(ord($col) + 1);
                     }
     
+
                     $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
                     $tnCount++;
                     $lastRow = $row;
