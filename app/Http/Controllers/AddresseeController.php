@@ -8,6 +8,11 @@ use Illuminate\Validation\ValidationException;
 
 class AddresseeController extends Controller
 {
+    public function showIndex()
+    {
+        return view('new-addressee');
+    }
+
     public function storeAddressee(Request $request)
     {
         try {

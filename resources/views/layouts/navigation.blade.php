@@ -138,13 +138,13 @@
                         <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
-                        <span>{{ __('Add Transmittal') }}</span>
+                        <span>{{ __('    Transmittal') }}</span>
                     </div>
                 </div>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('new_transmittal') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+            <a href="{{ route('new.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">
                     <div class="col">
                         <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
