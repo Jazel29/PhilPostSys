@@ -36,15 +36,6 @@ class TransmittalController extends Controller
     
 
     public function store(Request $request) {
-        $existingTransmittal = Transmittals::where('mailTrackNum', $request->input('mail_tn'))->first();
-
-        if ($existingTransmittal) {
-            // Handle the case where mailTrackNum already exists
-            return redirect('/add_transmittal')
-                ->with('flash_mssg', 'Mail Track Number already exists!')
-                ->withInput($request->all()); // Retain all input values
-        }
-    
         // Create a new Transmittals record
         $transmittal = Transmittals::create([
             'mailTrackNum' => $request->input('mail_tn'),
@@ -55,16 +46,21 @@ class TransmittalController extends Controller
     
         // Get the array of return cards from the request
         $rrr_tns_json = $request->input('rrr_tns');
-
+    
         // Decode the JSON string into an array
         $rrr_tns = json_decode($rrr_tns_json);
     
-        // Create a new ReturnCards record for each return card
-        foreach ($rrr_tns as $returnCard) {
-            ReturnCards::create([
-                'trucknumber' => $request->input('mail_tn'),
-                'returncard' => $returnCard
-            ]);
+        // Check if $rrr_tns is not null and is an array
+        if (is_array($rrr_tns)) {
+            // Create a new ReturnCards record for each return card
+            foreach ($rrr_tns as $returnCard) {
+                ReturnCards::create([
+                    'trucknumber' => $request->input('mail_tn'),
+                    'returncard' => $returnCard
+                ]);
+            }
+        } else {
+            $rrr_tns = [];
         }
     
         // Redirect or respond as needed
@@ -98,14 +94,16 @@ class TransmittalController extends Controller
 
     public function edit($id){  
         $records = Transmittals::find($id);
+        $addressee = AddresseeList::find($records->recieverName);
         if (!$records) {
             return redirect()->route('/transmittals')->with('flash_message', 'Member not found');
         }
-        return view('edit-transmitttals', ['records' => $records]);
+        return view('edit-transmitttals', ['records' => $records, 'addressee' => $addressee]);
     }
 
     public function update(Request $request, $id)
     {
+        // dd($request->all()); // Inspect the data received by the controller
         try {
             $record = Transmittals::findOrFail($id);
     
@@ -113,7 +111,7 @@ class TransmittalController extends Controller
     
             $record->update($input);
     
-            return redirect('tracer')->with('flash_mssg', 'Transmittal updated successfully!');
+            return redirect('tracer')->with('flash_mssg', 'message!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
@@ -122,6 +120,11 @@ class TransmittalController extends Controller
     public function destroy($id)
     {
         Transmittals::destroy($id);
-        return redirect('tracer')->with('flash_mssg', 'Youth Info Deleted!');  
+        return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!');  
+    }
+    
+    public function deleteReturnCard($id){
+        ReturnCards::destroy($id);
+        return redirect()->back()->with('flash_mssg', 'Record Deleted Successfully! this');
     }
 }

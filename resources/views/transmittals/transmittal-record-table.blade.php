@@ -8,7 +8,6 @@
         line-height: 5px;
     }
 
-
     .bold-date {
         font-weight: bold;
         text-align: left;
@@ -134,12 +133,14 @@
         </div>
         <div class="col text-right">
             <button class="btn btn-outline-success" onclick="exportToExcel()">
-            &nbsp;<i class="fa-solid fa-table"></i> &nbsp; Export as Excel
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel-fill" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64"/>
+                </svg>
             </button>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-md-4">
+    <div class="row mt-4">
+        <div class="col-4">
             <div class="rounded-container">
                 <p>
                     <span class="tracking">Tracking Number </span>
@@ -158,7 +159,7 @@
             </span>
         </div>
         <!-- right side column -->
-        <div class="col-md-7">
+        <div class="col-7">
             <p class="labels-addressee">Addressee<br /></p>
             <span class="bold-addressee">
                 <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
@@ -168,11 +169,11 @@
             <div class="container-fluid">
                 <div class="row mt-1">
                     <!-- table -->
-                    <div class="container-fluid">
+                    <div class="container-fluid mt-5">
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <div class="rounded-entries">
-                                    <table class="table table-size mt-4" id="example">
+                                    <table class="table table-size mt-4 hover" id="example">
                                         <thead class="text-center">
                                             <tr>
                                                 <th scope="col">Items</th>
@@ -229,9 +230,13 @@
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
+
+
     } );
     function exportToExcel() {
         console.log('exportToExcel called');
+        var dataTable = $('#example').DataTable();
+        dataTable.page.len(-1).draw();
         // Collect table data
         var tableData = [];
 
@@ -250,7 +255,7 @@
             tableData.push(rowData);
         });
 
-        // Prepare data for sending to the server
+        //Prepare data for sending to the server
         var exportData = {
             records: {
                 mailTrackNum: "{{ $records->mailTrackNum }}",
@@ -274,11 +279,8 @@
                 $('#promptText').text('Excel exported successfully and is ready for download.');
                 $('#exportStatusPrompt').modal('show');
 
-                // Assuming response.path contains the file path
                 var filePath = response.path;
-
-                // Update the href attribute of the downloadLink
-                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
+                $('#downloadLink').attr('href', "{{ url('download-excel') }}" + filePath);
             },
             error: function (error) {
                 // Optional: Handle error response, if needed
