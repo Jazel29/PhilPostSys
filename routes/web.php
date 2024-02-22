@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm'])->name('transmittals.table');
     
 
-    Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
+    Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
