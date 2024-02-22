@@ -45,8 +45,8 @@ Route::middleware('auth')->group(function () {
 
     //store the test barcode in the database
     Route::get('/test', [BarCodeController::class, 'formTest']);
-    // Route::post('/store', [BarCodeController:: class, 'store'])->name('store');
     Route::post('/addReturn', [BarCodeController:: class, 'addReturnCard'])->name('addReturnCard');
+    Route::delete('/return-cards/{id}', [BarCodeController::class, 'destroy'])->name('return-cards.destroy');
 
     //Transmittal record routes
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
@@ -56,14 +56,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkMailTN', [TransmittalController::class, 'checkMailTN'])->name('checkMailTN');
 
     Route::get('/transmittals/{id}/edit', [TransmittalController::class, 'edit'])->name('edit');
-    Route::patch('/transmittals/{id}', [TransmittalController::class, 'update'])->name('transmittals.update');
+    Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update'])->name('transmittals.update');
+    Route::delete('/transmittals/{id}', [TransmittalController::class, 'destroy'])->name('transmittals.destroy');
+    Route::delete('/return/{id}', [TransmittalController::class, 'destroy'])->name('return.destroy');
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm'])->name('transmittals.table');
     
 
-    Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
+    Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
