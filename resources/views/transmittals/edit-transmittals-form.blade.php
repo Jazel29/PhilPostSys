@@ -1,4 +1,4 @@
-@if ($records)
+
 <style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
@@ -52,7 +52,7 @@
                     <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
                 <div class="row mt-2">
-                    <input value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <input name="receiver" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
                     <datalist id="datalistOptions">
                     <option value="Add New Addressee"></option>
                     </datalist>
@@ -142,11 +142,7 @@
     </div>
 </div>
     
-@else
-    <p>
-        no member found
-    </p>
-@endif
+
 <script>
     var rrr_tns = [];
     var count = 0;

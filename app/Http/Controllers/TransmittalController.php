@@ -7,6 +7,7 @@ use App\Models\Transmittals;
 use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use PhpParser\Node\Stmt\Return_;
 use PHPUnit\Framework\MockObject\Stub\ReturnArgument;
 
 class TransmittalController extends Controller
@@ -104,39 +105,45 @@ class TransmittalController extends Controller
         return view('edit-transmitttals', compact('records', 'addressee', 'rrr_tn'));
     }
     
+    
     public function update(Request $request, $id)
-{
-    try {
-        $record = Transmittals::find($id);    
-        if (!$record) {
-            return redirect()->back()->with('error', 'Transmittal not found');
+    {
+        try {
+            $record = Transmittals::find($id);   
+            if (!$record) {
+                return redirect()->back()->with('error', 'Transmittal not found');
+            }
+
+            $request->validate([
+                'mail_tn' => 'required|unique:transmittals,mailTrackNum,'.$id,
+                // Add validation rules for other fields if needed
+            ]);
+
+            // Retrieve other fields from the request
+            $mailTrackNum = $request->input('mail_tn');
+            $date = $request->input('date_posted');
+            $address = $request->input('receiver');
+            
+
+            // Retrieve the current truck number
+            $currentMailTrackNum = $record->mailTrackNum;
+
+            // Update the record with the new data
+            $record->update([
+                'mailTrackNum' => $mailTrackNum,
+                'date' => $date,
+                'address' => $address,
+            ]);
+            
+
+            // Update associated return cards' truck numbers
+            ReturnCards::where('trucknumber', $currentMailTrackNum)->update(['trucknumber' => $mailTrackNum]);
+
+            return redirect('/tracer')->with('success_edit', 'Transmittal information updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
-
-        $request->validate([
-            'mail_tn' => 'required|unique:transmittals,mailTrackNum,'.$id,
-            // Add validation rules for other fields if needed
-        ]);
-
-        // Retrieve other fields from the request
-        $mailTrackNum = $request->input('mail_tn');
-        $date = $request->input('date_posted');
-        $address = $request->input('receiver');
-
-        // Construct the input array with the fields to update
-        $input = [
-            'mailTrackNum' => $mailTrackNum,
-            'date' => $date,
-            'address' => $address,
-            // Add more fields here if needed
-        ];
-
-        $record->update($input);
-
-        return redirect('/tracer')->with('success_edit', 'Transmittal information updated successfully!');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
     }
-}
 
     public function destroy($id)
     {
