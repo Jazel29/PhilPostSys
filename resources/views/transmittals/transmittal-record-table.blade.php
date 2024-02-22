@@ -8,7 +8,6 @@
     line-height: 5px;
     }
 
-
     .bold-date {
         font-weight: bold;
         text-align: left;
@@ -130,8 +129,8 @@
             </button>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-md-4">
+    <div class="row mt-4">
+        <div class="col-4">
             <div class="rounded-container">
                 <p>
                     <span class="tracking">Tracking Number </span>
@@ -150,7 +149,7 @@
             </span>
         </div>
         <!-- right side column -->
-        <div class="col-md-7">
+        <div class="col-7">
             <p class="labels-addressee">Addressee<br /></p>
             <span class="bold-addressee">
                 <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
@@ -160,11 +159,11 @@
             <div class="container-fluid">
                 <div class="row mt-1">
                     <!-- table -->
-                    <div class="container-fluid">
+                    <div class="container-fluid mt-5">
                         <div class="row justify-content-center">
                             <div class="col-12">
                                 <div class="rounded-entries">
-                                    <table class="table table-size mt-4" id="example">
+                                    <table class="table table-size mt-4 hover" id="example">
                                         <thead class="text-center">
                                             <tr>
                                                 <th scope="col">Items</th>
@@ -218,9 +217,13 @@
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
+
+
     } );
     function exportToExcel() {
         console.log('exportToExcel called');
+        var dataTable = $('#example').DataTable();
+        dataTable.page.len(-1).draw();
         // Collect table data
         var tableData = [];
 
@@ -263,11 +266,8 @@
                 $('#promptText').text('Excel exported successfully and is ready for download.');
                 $('#exportStatusPrompt').modal('show');
 
-                // Assuming response.path contains the file path
                 var filePath = response.path;
-
-                // Update the href attribute of the downloadLink
-                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
+                $('#downloadLink').attr('href', "{{ url('download-excel') }}" + filePath);
             },
             error: function (error) {
                 // Optional: Handle error response, if needed

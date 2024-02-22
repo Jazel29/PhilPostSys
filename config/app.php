@@ -164,7 +164,6 @@ return [
         /*
          * Application Service Providers...
          */
-        Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,

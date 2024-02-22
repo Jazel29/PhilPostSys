@@ -46,21 +46,27 @@ class TransmittalController extends Controller
     
         // Get the array of return cards from the request
         $rrr_tns_json = $request->input('rrr_tns');
-
+    
         // Decode the JSON string into an array
         $rrr_tns = json_decode($rrr_tns_json);
     
-        // Create a new ReturnCards record for each return card
-        foreach ($rrr_tns as $returnCard) {
-            ReturnCards::create([
-                'trucknumber' => $request->input('mail_tn'),
-                'returncard' => $returnCard
-            ]);
+        // Check if $rrr_tns is not null and is an array
+        if (is_array($rrr_tns)) {
+            // Create a new ReturnCards record for each return card
+            foreach ($rrr_tns as $returnCard) {
+                ReturnCards::create([
+                    'trucknumber' => $request->input('mail_tn'),
+                    'returncard' => $returnCard
+                ]);
+            }
+        } else {
+            $rrr_tns = [];
         }
     
         // Redirect or respond as needed
         return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
     }
+    
 
     // fetch to the bladev views
     public function show($mailTrackNum){
