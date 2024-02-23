@@ -39,7 +39,7 @@ class AddresseeController extends Controller
                 'province' => $request->input('province')
             ]);
 
-            return redirect('add_transmittal')->with('record_added', 'Addressee Added Successfully');
+            return redirect()->back()->with('status', 'Addressee Added Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();

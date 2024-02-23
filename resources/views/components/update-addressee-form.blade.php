@@ -48,17 +48,17 @@
     <div>
         <h1 class="display-5"> Update Addressee </h1>
     </div>
-    <div class="mssg mt-2">
-        @if(session('status'))
-            <div class="alert alert-primary" role="alert">
-                <p>{{ session('status') }}</p>
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger" role="alert">
-                <p>{{ session('error') }}</p>
-            </div>
-        @endif
-    </div>
+<div class="mssg mt-2">
+    @if(session('status'))
+        <div class="alert alert-primary" role="alert">
+            <p>{{ session('status') }}</p>
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger" role="alert">
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
+</div>
 </div>
 
 <div class="row mt-3 m-4">
