@@ -203,17 +203,18 @@
     }
 
     function handleMailTrackingNumberCheck(response) {
-        var mailTnErrorElement = $('#mail_tn_error');
-        var submitButton = $('#submitBtn');
+            var mailTnErrorElement = $('#mail_tn_error');
+            var submitButton = $('#submitBtn');
 
-        if (response.exists) {
-            mailTnErrorElement.text('Mail Tracking Number already exists!');
-            submitButton.prop('disabled', true); // Disable the submit button
-        } else {
-            mailTnErrorElement.text('');
-            submitButton.prop('disabled', false); // Enable the submit button
+            if (response.exists) {
+                mailTnErrorElement.html('<i class="fa-solid fa-circle-exclamation fa-fade fa-sm"></i>   Transmittal Tracking Number already exists');
+                submitButton.prop('disabled', true); // Disable the submit button
+            } else {
+                mailTnErrorElement.text('');
+                submitButton.prop('disabled', false); // Enable the submit button
+            }
         }
-    }
+
 
     function handleMailTrackingNumberError(error) {
         console.error('Error checking Mail Tracking Number:', error);
