@@ -34,7 +34,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
     <!-- DataTables JavaScript (Bootstrap integration) -->
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>

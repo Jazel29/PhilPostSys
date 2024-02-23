@@ -3,7 +3,43 @@
         border: 2px solid red; 
     }
  
+    .container-dots {
+        width: 60px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+        border: 1px solid #909090; /* Border color */
+        border-radius: 20px; /* Half of the height to create a rounded rectangle */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .dots {
+        font-size: 24px; /* Adjust the font size as needed */
+        line-height: 1;
+    }
+
+    /* Add this style to apply ellipsis to the RRRTN column */
+    .ellipsis {
+        max-width: 100px; /* Adjust the max-width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Set font size to 14px for the entire table */
+    #transmittalstable {
+        font-size: 14px;
+    }
+
+    /* Add rounded corners to table rows on hover and change background color to blue */
+    #transmittalstable tbody tr:hover {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #0026C8, #2C54FF);
+        color: #FFFFFF;
+    }
 </style>
+
 <div class="mssg">
     <div class="mssg">
     @if(session('flash_mssg'))
@@ -30,6 +66,10 @@
                 <th>Action</th>
             </tr>
         </thead>
+
+        <div class="container-dots">
+            <div class="dots">•••</div>
+        </div>
         
         <!-- Table body --> 
         <tbody>
@@ -49,7 +89,7 @@
                     <td>{{ $record->date }}</td>
                     <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
                     <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
-                    <td>
+                    <td class="ellipsis"> <!-- Apply ellipsis to this column -->
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
                         @else
@@ -69,7 +109,7 @@
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white" title="Delete Record">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
                                     @method('DELETE')
                                     @csrf
                                     <button type="button" class="btn btn-warning delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
