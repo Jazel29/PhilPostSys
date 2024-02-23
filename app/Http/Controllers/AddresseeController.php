@@ -47,4 +47,16 @@ class AddresseeController extends Controller
 
         return response()->json(['addressees' => $addressees], 200);
     }
+
+    public function showAddresseeList(){
+        $addresseeAll = AddresseeList::select('*')->get();
+
+        return view('addressee.show-addressee')->with(['addresseeAll'=>$addresseeAll]);
+    }
+
+    public function destroy($id)
+    {
+        AddresseeList::destroy($id);
+        return redirect('show-addressee')->with('success', 'Record Deleted Successfully!');  
+    }
 }

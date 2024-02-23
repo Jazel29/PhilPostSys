@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
     Route::get('/new-addressee', [AddresseeController::class, 'showIndex'])->name('new.addressee');
+    Route::get('/show-addressee', [AddresseeController::class, 'showAddresseeList'])->name('show.addressee');
+    Route::delete('/remove-addressee/{id}', [AddresseeController::class, 'destroy'])->name('addressee.destroy');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
     Route::get('/download-excel/{filename}', [ExcelExportController::class, 'downloadExcel'])->name('download-excel');

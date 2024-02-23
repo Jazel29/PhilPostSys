@@ -60,10 +60,18 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
+                <!-- Existing hamburger button -->
                 <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            
+                <!-- Arrow to close/shrink the navigation -->
+                <button @click="open = false" class="ml-2 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
             </div>
@@ -147,10 +155,22 @@
             <a href="{{ route('new.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">
                     <div class="col">
-                        <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
+                        <i class="fa-solid fa-address-book"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
                         <span>{{ __('New Addressee') }}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('show.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-list"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('Addressee List') }}</span>
                     </div>
                 </div>
             </a>
