@@ -1,4 +1,4 @@
-<style>
+    <style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
         padding: 20px;
