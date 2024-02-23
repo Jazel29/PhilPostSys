@@ -4,6 +4,10 @@
         .flex {
             border-radius: 100px;
         }
+
+        .nav-text {
+            margin-left: -35px;
+        }
     </style>
 
     <!-- Primary Navigation Menu -->
@@ -56,10 +60,18 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
+                <!-- Existing hamburger button -->
                 <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            
+                <!-- Arrow to close/shrink the navigation -->
+                <button @click="open = false" class="ml-2 p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
             </div>
@@ -102,23 +114,65 @@
 <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-gray-900 bg-opacity-50 sm:hidden"></div>
 
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
-    <div class="text-center md:block hidden items-center text-black">
+    <div class="text-center md:block hidden items-center text-black mt-3">
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-            &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Dashboard') }}</span>
+            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col">
+                        <span class="text-19">{{ __('Dashboard') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('formTest') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-                &nbsp; &nbsp; <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Trace') }}</span>
+            <a href="{{ route('formTest') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col">
+                        <span class="text-19">{{ __('Trace') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('new_transmittal') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-                &nbsp; &nbsp; <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19">&nbsp; &nbsp; &nbsp; {{ __('Add Transmittal') }}</span>
+            <a href="{{ route('new_transmittal') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('    Transmittal') }}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('new.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-address-book"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('New Addressee') }}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('show.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-list"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('Addressee List') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
     </div>

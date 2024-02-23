@@ -19,12 +19,14 @@
               <img src="{{ asset('assets/PhilPostLogo.jfif') }}" alt="PhilPostLogo" class="">
             </div>
             <div class="mt-5 p-4 justify-content-center">
-              <div class="fw-bold">Please Click Login</div>
-              <button class="btn-secondary m-4 p-2 rounded-md mx-auto">
-                <a href="/login" class="text-white">Proceed to Login -></a>
-              </button>
-
-              @include('components.form')
+              <div class="fw-bold">Welcome to Transmittals Record System</div>
+              <div class="h5 mt-3 text-center">
+                <button class="btn-secondary m-4 p-2 rounded-md mx-auto">
+                  <a href="/login" class="text-white">
+                    Proceed to login
+                  </a>
+                </button>
+              </div>
             </div>
           </div>
       </div>
