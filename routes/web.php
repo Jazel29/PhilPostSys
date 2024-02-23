@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transmittals/{id}/edit', [TransmittalController::class, 'edit'])->name('edit');
     Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update'])->name('transmittals.update');
     Route::delete('/transmittals/{id}', [TransmittalController::class, 'destroy'])->name('transmittals.destroy');
-    Route::delete('/return/{id}', [TransmittalController::class, 'destroy'])->name('return.destroy');
+    Route::delete('/return/{id}', [TransmittalController::class, 'deleteReturnCard'])->name('return.destroy');
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
+    Route::get('/new-addressee', [AddresseeController::class, 'showIndex'])->name('new.addressee');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
     Route::get('/download-excel/{filename}', [ExcelExportController::class, 'downloadExcel'])->name('download-excel');

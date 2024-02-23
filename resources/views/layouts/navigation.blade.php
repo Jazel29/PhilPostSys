@@ -4,6 +4,10 @@
         .flex {
             border-radius: 100px;
         }
+
+        .nav-text {
+            margin-left: -35px;
+        }
     </style>
 
     <!-- Primary Navigation Menu -->
@@ -102,23 +106,53 @@
 <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-gray-900 bg-opacity-50 sm:hidden"></div>
 
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
-    <div class="text-center md:block hidden items-center text-black">
+    <div class="text-center md:block hidden items-center text-black mt-3">
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-            &nbsp; &nbsp; <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Dashboard') }}</span>
+            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col">
+                        <span class="text-19">{{ __('Dashboard') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('formTest') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-                &nbsp; &nbsp; <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19"> &nbsp; &nbsp; &nbsp; {{ __('Trace') }}</span>
+            <a href="{{ route('formTest') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col">
+                        <span class="text-19">{{ __('Trace') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('new_transmittal') }}" class="flex items-center p-1 py-2 hover:bg-gray-300 rounded-md w-full">
-                &nbsp; &nbsp; <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
-                <span class="text-19">&nbsp; &nbsp; &nbsp; {{ __('Add Transmittal') }}</span>
+            <a href="{{ route('new_transmittal') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('    Transmittal') }}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('new.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
+                    </div>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('New Addressee') }}</span>
+                    </div>
+                </div>
             </a>
         </div>
     </div>
