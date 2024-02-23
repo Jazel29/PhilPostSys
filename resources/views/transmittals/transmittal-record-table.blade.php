@@ -766,10 +766,6 @@
 
     .hover-row:hover .caret {
         display: inline;
-    .rounded-entries .rounded-entry {
-        border-radius: 15px; 
-        padding: 7px; 
-        background-color: #FFFFFF;
     }
 
     .fa-envelope {
