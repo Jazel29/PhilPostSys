@@ -64,7 +64,7 @@ class AddresseeController extends Controller
             ]);
 
             // Find the addressee based on the provided $id
-            $addressee = AddresseeList::find($request->input('id'));
+            $addressee = AddresseeList::find($request->input('addressee-id'));
 
             if (!$addressee) {
                 // Handle the case where the addressee is not found (you may want to show an error message or redirect)

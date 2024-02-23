@@ -766,10 +766,11 @@
 
     .hover-row:hover .caret {
         display: inline;
-    .rounded-entries .rounded-entry {
+        .rounded-entries .rounded-entry {
         border-radius: 15px; 
         padding: 7px; 
         background-color: #FFFFFF;
+        }
     }
 
     .fa-envelope {
@@ -788,184 +789,201 @@
 
 </style>
 
-<div class="container">
-    <div class="row mt-3">
-        <div class="col">
-            <h1 class="display-6">Transmittal Record</h1>
-        </div>
-        <div class="col text-right">
-            <button class="btn btn-outline-success" onclick="exportToExcel()">
-            &nbsp;<i class="fa-solid fa-table"></i> &nbsp; Export as Excel
-            </button>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-    <!-- First Column -->
-    <div class="col-md-3">
-        <div class="rounded-container">
-            <span class="tracking">Tracking Number</span>
-            <br>&nbsp;&nbsp;&nbsp;<span class="bold highlight"><i class="fa-solid fa-caret-right"></i>&nbsp; {{ $records->mailTrackNum }} &nbsp;<i class="fa-solid fa-caret-left"></i></span>
-        </div>
-        <p class="labelsdate"><br />Date Posted</p>
-        <p><span class="bold-date">{{ $records->date }}</span></p>
-        <hr class="custom-line" /><br>
-        <p class="labels-address">Address<br></p>
-        <span class="bold-address">
-            {{ $addressee->address }}<br>
-            {{ $addressee->city }},
-            {{ $addressee->province }}<br>
-            {{ $addressee->zip }}
-        </span>
-    </div>
-
-    <!-- Second Column -->
-    <div class="col-md-1">
-    </div>
-
-    <!-- Third Column -->
-    <div class="col-md-8">
-        <p class="labels-addressee">Addressee<br /></p>
-        <span class="bold-addressee">
-            <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
-            <br>{{ $addressee->name_primary }}
-            <br><span class="secondary">{{ $addressee->name_secondary }}</span>
-        </span>
-        <div class="container-fluid">
-            <div class="row mt-1">
-
-                <!-- table -->
-
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <table class="table table-size mt-4" id="example">
-                        <thead class="text-center">
-                            <tr>
-                                <th scope="col-items">Items</th>
-                                <th scope="col">RRR Tracking Numbers</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @if ($rrt_n->isEmpty())
-                                <tr>
-                                    <th>Empty Record</th>
-                                    <td>No RRRTN Found</td>
-                                </tr>
-                            @else
-                                @foreach ($rrt_n as $index => $rrt)
-                                    <tr class="hover-row">
-                                        <th scope="row-item">{{ $index + 1 }}</th>
-                                        <td><span class="caret"><i class="fa-solid fa-caret-right fa-fade"></i></span>&nbsp;{{ $rrt->returncard }} &nbsp;<span class="caret"><i class="fa-solid fa-caret-left fa-fade"></i></span></td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col">
+                <h1 class="display-6">Transmittal Record</h1>
+            </div>
+            <div class="col text-right">
+                <button class="btn btn-outline-success" onclick="exportToExcel()">
+                    <i class="fa-solid fa-table"></i>
+                    <span> Export as Excel</span>
+                </button>
             </div>
         </div>
 
-<div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header custom-header">
-        <h5 class="modal-title">Export Status</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="promptText"> </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="" id="downloadLink"><button type="button" class="btn btn-outline-success">Download Excel</button></a>
-      </div>
+        <div class="row mt-3">
+        <!-- First Column -->
+        <div class="col-md-3">
+        <div class="rounded-container">
+            <div class="row">
+                <div class="col">
+                    <span class="tracking">Tracking Number</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex justify-content-between">
+                        <span class="bold highlight">
+                            <i class="fa-solid fa-caret-right"></i>
+                            <span class="small-text">{{ $records->mailTrackNum }}</span>
+                            <i class="fa-solid fa-caret-left"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <p class="labelsdate"><br />Date Posted</p>
+            <p><span class="bold-date">{{ date('F j, Y', strtotime($records->date)) }}</span></p>
+            <hr class="custom-line" /><br>
+            <p class="labels-address">Address<br></p>
+            <span class="bold-address">
+                {{ $addressee->address }}<br>
+                {{ $addressee->city }},
+                {{ $addressee->province }}<br>
+                {{ $addressee->zip }}
+            </span>
+        </div>
+
+        <!-- Second Column -->
+        <div class="col-md-1">
+        </div>
+
+        <!-- Third Column -->
+        <div class="col-md-8">
+            <p class="labels-addressee">Addressee<br /></p>
+            <span class="bold-addressee">
+                <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
+                <br>{{ $addressee->name_primary }}
+                <br><span class="secondary">{{ $addressee->name_secondary }}</span>
+            </span>
+            <div class="container-fluid">
+                <div class="row mt-1">
+
+                    <!-- table -->
+
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <table class="table table-size mt-4" id="example">
+                            <thead class="text-center">
+                                <tr>
+                                    <th scope="col-items">Items</th>
+                                    <th scope="col">RRR Tracking Numbers</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @if ($rrt_n->isEmpty())
+                                    <tr>
+                                        <th>Empty Record</th>
+                                        <td>No RRRTN Found</td>
+                                    </tr>
+                                @else
+                                    @foreach ($rrt_n as $index => $rrt)
+                                        <tr class="hover-row">
+                                            <th scope="row-item">{{ $index + 1 }}</th>
+                                            <td><span class="caret"><i class="fa-solid fa-caret-right fa-fade"></i></span>&nbsp;{{ $rrt->returncard }} &nbsp;<span class="caret"><i class="fa-solid fa-caret-left fa-fade"></i></span></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    <div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header custom-header">
+            <h5 class="modal-title">Export Status</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p id="promptText"> </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            <a href="" id="downloadLink"><button type="button" class="btn btn-outline-success">Download Excel</button></a>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 
 
 
 
-<script>
-    $(document).ready(function() {
-        $('#example').dataTable();
-    });
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                "pageLength": 25, // Default number of records per page
+            });  
+        });
 
-    // (kevin) start - frontend javascript for table //
-            
-    $(document).ready(function() {
-    $(".hover-row").hover(
-        function() {
-            $(this).find('.caret').css('display', 'inline');
-        },
-        function() {
-            $(this).find('.caret').css('display', 'none');
-        }
-    );
-    });
+        // (kevin) start - frontend javascript for table //
+                
+        $(document).ready(function() {
+        $(".hover-row").hover(
+            function() {
+                $(this).find('.caret').css('display', 'inline');
+            },
+            function() {
+                $(this).find('.caret').css('display', 'none');
+            }
+        );
+        });
 
-    // (kevin) start - frontend javascript for table //
+        // (kevin) start - frontend javascript for table //
 
-    function exportToExcel() {
-        console.log('exportToExcel called');
-        // Collect table data
-        var tableData = [];
+        function exportToExcel() {
+            console.log('exportToExcel called');
+            // Collect table data
+            var tableData = [];
 
-        // Loop through each row in the table body
-        $('#example tbody tr').each(function () {
-            // Find the 'td' elements within the current row
-            var rowData = [];
+            // Loop through each row in the table body
+            $('#example tbody tr').each(function () {
+                // Find the 'td' elements within the current row
+                var rowData = [];
 
-            // Loop through each 'td' element in the current row
-            $(this).find('td').each(function () {
-                // Push the text content of each 'td' into the rowData array
-                rowData.push($(this).text());
+                // Loop through each 'td' element in the current row
+                $(this).find('td').each(function () {
+                    // Push the text content of each 'td' into the rowData array
+                    rowData.push($(this).text());
+                });
+
+                // Push the rowData array into the tableData array
+                tableData.push(rowData);
             });
 
-            // Push the rowData array into the tableData array
-            tableData.push(rowData);
-        });
+            // Prepare data for sending to the server
+            var exportData = {
+                records: {
+                    mailTrackNum: "{{ $records->mailTrackNum }}",
+                    date: "{{ $records->date }}",
+                    addresseePN: "{{ $addressee->name_primary }}",
+                    addresseeSN: "{{ $addressee->name_secondary }}",
+                    address: "{{ $addressee->address }}",
+                    zip: "{{ $addressee->zip }}",
+                    city: "{{ $addressee->city }}",
+                    province: "{{ $addressee->province }}"
+                },
+                rrtn: tableData.flat() // Flatten the array to store only the returncard values
+            };
 
-        // Prepare data for sending to the server
-        var exportData = {
-            records: {
-                mailTrackNum: "{{ $records->mailTrackNum }}",
-                date: "{{ $records->date }}",
-                addresseePN: "{{ $addressee->name_primary }}",
-                addresseeSN: "{{ $addressee->name_secondary }}",
-                address: "{{ $addressee->address }}",
-                zip: "{{ $addressee->zip }}",
-                city: "{{ $addressee->city }}",
-                province: "{{ $addressee->province }}"
-            },
-            rrtn: tableData.flat() // Flatten the array to store only the returncard values
-        };
+            // Use AJAX to trigger the controller function
+            $.ajax({
+                type: 'GET',
+                url: '/export-to-excel',
+                data: { exportData: JSON.stringify(exportData) },
+                success: function (response) {
+                    $('#promptText').text('Excel exported successfully and is ready for download.');
+                    $('#exportStatusPrompt').modal('show');
 
-        // Use AJAX to trigger the controller function
-        $.ajax({
-            type: 'GET',
-            url: '/export-to-excel',
-            data: { exportData: JSON.stringify(exportData) },
-            success: function (response) {
-                $('#promptText').text('Excel exported successfully and is ready for download.');
-                $('#exportStatusPrompt').modal('show');
+                    // Assuming response.path contains the file path
+                    var filePath = response.path;
 
-                // Assuming response.path contains the file path
-                var filePath = response.path;
-
-                // Update the href attribute of the downloadLink
-                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
-            },
-            error: function (error) {
-                // Optional: Handle error response, if needed
-                $('#promptText').text('Excel export failed. Please try again.');
-                console.error('Error exporting Excel:', error);
-            }
-        });
-    }
-    
-</script>
-
+                    // Update the href attribute of the downloadLink
+                    $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
+                },
+                error: function (error) {
+                    // Optional: Handle error response, if needed
+                    $('#promptText').text('Excel export failed. Please try again.');
+                    console.error('Error exporting Excel:', error);
+                }
+            });
+        }
+        
+    </script>
 
 

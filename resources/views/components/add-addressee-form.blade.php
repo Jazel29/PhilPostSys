@@ -50,10 +50,11 @@
             <h1 class="display-5"> Add New Addressee </h1>
         </div>
         <div class="col-4">
-            <a href="/add_addressee"><button type="button" class="btn btn-outline-primary">Edit Existing Addressee</button></a>
+            <a href="/update-addressee-form"><button type="button" class="btn btn-outline-primary">Edit Existing Addressee</button></a>
         </div>
     </div>
-    <div class="mssg mt-2">
+</div>
+<div class="mssg mt-2">
         @if(session('status'))
             <div class="alert alert-primary" role="alert">
                 <p>{{ session('status') }}</p>
@@ -64,7 +65,6 @@
             </div>
         @endif
     </div>
-</div>
 
 <div class="row mt-3 m-2">
     <form action="/add_addressee" method="post">
