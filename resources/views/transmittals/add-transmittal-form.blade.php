@@ -1,4 +1,4 @@
-<style>
+    <style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
         padding: 20px;
@@ -37,6 +37,12 @@
 
     .underline-link:hover {
         text-decoration: none; /* Remove underline on hover if needed */
+    }
+    .custom-header{
+        background-color: #0D6EFD;
+    }
+    .modal-title {
+    color: #ffffff;
     }
 </style>
 
@@ -148,18 +154,15 @@
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mb-3" id="confirmationModalLabel">Confirmation</h5>
-                <button type="button" class="close" onclick="closeModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header custom-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Add New Transmittal</h5>
             </div>
             <div class="modal-body">
                 Are you sure you want to submit this form?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary rounded-4 mr-1" onclick="closeModal()">Close</button>
-                <button type="button" class="btn btn-outline-primary rounded-4 ml-1" onclick="confirmSubmit()">Yes, Submit</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <button type="button" class="btn btn-outline-primary" onclick="confirmSubmit()">Yes, Submit</button>
             </div>
         </div>
     </div>

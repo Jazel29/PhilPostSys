@@ -3,7 +3,43 @@
         border: 2px solid red; 
     }
  
+    .container-dots {
+        width: 60px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+        border: 1px solid #909090; /* Border color */
+        border-radius: 20px; /* Half of the height to create a rounded rectangle */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .dots {
+        font-size: 24px; /* Adjust the font size as needed */
+        line-height: 1;
+    }
+
+    /* Add this style to apply ellipsis to the RRRTN column */
+    .ellipsis {
+        max-width: 100px; /* Adjust the max-width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Set font size to 14px for the entire table */
+    #transmittalstable {
+        font-size: 14px;
+    }
+
+    /* Add rounded corners to table rows on hover and change background color to blue */
+    #transmittalstable tbody tr:hover {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #0026C8, #2C54FF);
+        color: #FFFFFF;
+    }
 </style>
+
 <div class="mssg">
     <div class="mssg">
     @if(session('flash_mssg'))
@@ -30,6 +66,10 @@
                 <th>Action</th>
             </tr>
         </thead>
+
+        <div class="container-dots">
+            <div class="dots">•••</div>
+        </div>
         
         <!-- Table body --> 
         <tbody>
@@ -49,7 +89,7 @@
                     <td>{{ $record->date }}</td>
                     <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
                     <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
-                    <td>
+                    <td class="ellipsis"> <!-- Apply ellipsis to this column -->
                         @if ($rrt_n[$record->id]->isEmpty())
                             No Record Found
                         @else
@@ -63,27 +103,63 @@
                     <td class="">
                         <div class="d-flex">
                             <div class="">
-                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}" title="View Record">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white" title="Delete Record">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" style="" class="">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->id }}')"> Delete</button>
+                                    <button type="button" class="btn btn-warning delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
                                 </form>
                             </div>
                         </div>
                     </td>
                 </tr>              
             @endforeach
-        
             @endif
         </tbody>
     </table>
 </div>
+
+
+<!-- Modal for Delete Transmittal Record -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header custom-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Transmittal Record</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <form id="deleteForm" method="POST" action="">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add this script for handling the modal and form submission
+    $(document).ready(function() {
+        $('.delete-button').on('click', function() {
+            var deleteUrl = $(this).data('delete-url');
+            $('#deleteForm').attr('action', deleteUrl);
+            $('#deleteConfirmationModal').modal('show');
+        });
+        window.closeModal = function() {
+            $('#deleteConfirmationModal').modal('hide');
+        };
+    });
+</script>
 
 <style>
     /* Custom table styles */
@@ -126,7 +202,7 @@
     }
 
     .btn {
-        border-radius:15px;
+        border-radius:5px;
         padding-left: 7px;
         padding-right: 7px;
         padding-top: 4px;
@@ -151,6 +227,15 @@
     .input{
         padding-left: 10px;
     }
+    .text-color {
+        color: #BB2D3B;
+    }
+    .custom-header{
+        background-color: #BB2D3B;
+    }
+    .modal-title {
+    color: #ffffff;
+    }
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -163,7 +248,7 @@
         });
 
         $('.dataTables_filter input').attr('placeholder', 'Search');
-        $('#2').css('padding-top', '20px');
+        $('#2').css('padding-top', '20px');     
     });
 </script>
 <style>
