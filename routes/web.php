@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transmittals/{id}/edit', [TransmittalController::class, 'edit'])->name('edit');
     Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update'])->name('transmittals.update');
     Route::delete('/transmittals/{id}', [TransmittalController::class, 'destroy'])->name('transmittals.destroy');
-    Route::delete('/return/{id}', [TransmittalController::class, 'destroy'])->name('return.destroy');
+    Route::delete('/return/{id}', [TransmittalController::class, 'deleteReturnCard'])->name('return.destroy');
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');

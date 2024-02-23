@@ -28,17 +28,43 @@
 </style>
 
 <div class="ml-4">
+
+        {{--  This alert is for success edit --}}
+        @if(session('edit-ok'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ session('edit-ok') }}</p>
+        </div>
+        @endif
+        {{--  This alert is for deletion of RRRTN --}}
+        @if(session('rem-ok'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ session('rem-ok') }}</p>
+        </div>
+        @endif
+
+        {{-- alert for add return --}}
+        <div class="content mt-5">
+            <div class="d-flex justify-content-center">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+        
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    
     <div>
         <h1 class="display-5"> Update Transmittal</h1>
     </div>
-    <div class="mssg">
-        @if(session('flash_mssg'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_msg') }}</p>
-        </div>
-        @endif
-    </div>
+   
 </div>
+{{-- this form for update  --}}
 <form action="{{ url('transmittals/'. $records->id. '/update') }}" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     @method("PATCH")
@@ -65,13 +91,81 @@
             <div class="flex flex-col mt-4">
                 <div>
                     <div class="flex justify-end mt-3">
-                        <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600">Submit</button>
+                        <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
                     </div>
                 </div>
             </div> 
         </div>
     </div>
 </form>
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
+</div>
+
+<div class="content">
+    <div class="h5 d-flex justify-content-center">Return Card List</div>
+    <table class="table table-size mt-4 hover" id="example">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Items</th>
+                <th scope="col">RRR Tracking Numbers</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @if ($rrr_tn->isEmpty())
+                <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
+                </tr>
+            @else
+                @foreach ($rrr_tn as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                        <td>
+                            <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+    </table>
+</div>
+
+<!-- modal for add button -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3" action="/addReturn" method="POST">
+                @csrf
+                 <div class="col-auto">
+                   <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
+                   <label for="last-barcode" class="visually-hidden">Barcode</label>
+                   <input type="text" value="{{ $records->mailTrackNum }}" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
+                 </div>
+                 {{-- <div class="col-auto">
+                   <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
+                 </div> --}}
+               
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
     // Function to handle form submission
@@ -144,6 +238,11 @@
     
 
 <script>
+    $(document).ready(function() {
+        $('#example').dataTable();
+
+
+    } );
     var rrr_tns = [];
     var count = 0;
 
