@@ -128,8 +128,9 @@
                     <div class="col text-center">
                         <div class="card">
                             <div class="card-body">
-                              <h5 class="card-title fw-bold">No. of Transmittals</h5>
-                              <p class="card-text fs-1">{{ $totalTransmittals }}</p>
+                              <h5 class="card-title fw-bold">Most No. of Date Per Transmittals</h5>
+                              <p class="card-text fs-3">Total:{{ $tolNo }}</p>
+                              <p class="card-text fs-5">Date:{{ $freqDate }}</p>
                               <a href="/tracer" class="btn btn-primary">Show All</a>
                             </div>
                         </div>
@@ -137,8 +138,17 @@
                     <div class="col text-center">
                         <div class="card">
                             <div class="card-body">
-                              <h5 class="card-title fw-bold">No. of Transmittals</h5>
-                              <p class="card-text fs-1">{{ $totalTransmittals }}</p>
+                              <h5 class="card-title fw-bold">Top Transmittals (Department)</h5>
+                              <p class="card-text fs-1">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</p>
+                              <a href="/tracer" class="btn btn-primary">Show All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title fw-bold">No. of Addressee</h5>
+                              <p class="card-text fs-1">{{ $totalAddressees }}</p>
                               <a href="/tracer" class="btn btn-primary">Show All</a>
                             </div>
                         </div>
