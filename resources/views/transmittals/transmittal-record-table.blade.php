@@ -768,6 +768,12 @@
         display: inline;
     }
 
+    .rounded-entries .rounded-entry {
+        border-radius: 15px; 
+        padding: 7px; 
+        background-color: #FFFFFF;
+    }
+
     .fa-envelope {
         font-size: 29px;
     }
@@ -880,9 +886,6 @@
   </div>
 </div>
 
-
-
-
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
@@ -902,6 +905,17 @@
     });
 
     // (kevin) start - frontend javascript for table //
+
+        // search bar //
+        $(document).ready(function() {
+        $('#transmittalstable').DataTable({
+            "language": {
+                "search": "" }
+        });
+
+        $('.dataTables_filter input').attr('placeholder', 'Search');
+        $('#2').css('padding-top', '20px');
+        });
 
     function exportToExcel() {
         console.log('exportToExcel called');
@@ -960,8 +974,5 @@
             }
         });
     }
-    
+
 </script>
-
-
-
