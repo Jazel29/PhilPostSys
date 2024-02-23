@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon; 
 
 class ExcelExportController extends Controller
 {
@@ -19,9 +20,11 @@ class ExcelExportController extends Controller
         // Get the active sheet
         $sheet = $spreadsheet->getActiveSheet();
 
+        $formattedDate = Carbon::parse($exportData['records']['date'])->format('F j, Y');
+
         $data = [
             'D5' => $exportData['records']['mailTrackNum'] ?? '',
-            'A5' => $exportData['records']['date'] ?? '',
+            'A5' => $formattedDate,
             'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
             'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
             'A9' => $exportData['records']['address'] ?? '',
@@ -41,18 +44,81 @@ class ExcelExportController extends Controller
         }
 
         $rrtnLength = count($exportData['rrtn']);
-        $startRow = 18;
+        $startRow = 16;
+        $startCol2 = 'A';
         $startCol = 'A';
+        $lastRow= 0;
         $tnCount = 1;
+        $rowCount = 0;
+        $rowCount2 = 0;
 
-        foreach ($exportData['rrtn'] as $index => $rrtn) {
-            $row = $startRow + $index;
-            $col = $startCol;
-            $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
-            $tnCount++;
-            $col++;
+        if ($rrtnLength > 120) {
+            foreach ($exportData['rrtn'] as $index => $rrtn) {
+                if ($tnCount <= 128) 
+                {
+                    $rowCount++;
+                    $row = $startRow + $rowCount;
+                    $col = $startCol;
+    
+                    if ($row > 47) {
+                        $row = $startRow + $rowCount;
+                        $rowCount = 0;
+                        $startCol = chr(ord($col) + 1);
+                    }
+    
+
+                    $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
+                    $tnCount++;
+                    $lastRow = $row;
+                } 
+                else 
+                {
+                    $startRow = 48;
+    
+                    $rowCount2++;
+                    $row = $startRow + $rowCount2;
+                    $col = $startCol2;
+    
+                    if ($row > 90) {
+                        $row = $startRow + $rowCount2;
+                        $rowCount2 = 0;
+                        $startCol2 = chr(ord($col) + 1);
+                    }
+                    $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
+                    $tnCount++;
+                    $lastRow = $row;
+                }
+            }
+            
+        } else if ($rrtnLength <= 100) {
+            foreach ($exportData['rrtn'] as $index => $rrtn) {
+                $rowCount++;
+                $row = $startRow + $rowCount;
+                $col = $startCol;
+
+                if ($row > 40) {
+                    $row = $startRow + $rowCount;
+                    $rowCount = 0;
+                    $startCol = chr(ord($col) + 1);
+                }
+
+                $sheet->setCellValue($col . $row, $tnCount . '  .' . $rrtn);
+                $tnCount++;
+                $lastRow = $row;
+            }
+        }
+
+        if ($startCol2 != 'A' & $tnCount > 165) {
+            $lastRow = 91;
+        }
+
+        if ($startCol != 'A' & $tnCount <= 165) {
+            $lastRow = 41;
         }
         
+        $sheet->setCellValue('A' . ($lastRow + 2), "Very truly yours,");
+        $sheet->setCellValue('A' . $lastRow + 5, "NENITA B. PAN");
+        $sheet->setCellValue('A' . $lastRow + 6, "Postmaster");
 
         $directoryPath = public_path('tracer_exports');
 
@@ -76,5 +142,6 @@ class ExcelExportController extends Controller
 
         return response()->download($filePath);
     }
+    
 }
 

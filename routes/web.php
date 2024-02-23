@@ -52,18 +52,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
     Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
+    //checks if mailTrackNum already exists
+    Route::get('/checkMailTN', [TransmittalController::class, 'checkMailTN'])->name('checkMailTN');
+
     Route::get('/transmittals/{id}/edit', [TransmittalController::class, 'edit'])->name('edit');
-    Route::patch('/transmittals/{id}', [TransmittalController::class, 'update'])->name('transmittals.update');
+    Route::patch('/transmittals/{id}/update', [TransmittalController::class, 'update'])->name('transmittals.update');
     Route::delete('/transmittals/{id}', [TransmittalController::class, 'destroy'])->name('transmittals.destroy');
-    Route::delete('/return/{id}', [TransmittalController::class, 'destroy'])->name('return.destroy');
+    Route::delete('/return/{id}', [TransmittalController::class, 'deleteReturnCard'])->name('return.destroy');
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
     Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm'])->name('transmittals.table');
     
 
-    Route::post('/add_addressee', [AddresseeController::class, 'store'])->name('store');
+    Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
+    Route::get('/new-addressee', [AddresseeController::class, 'showIndex'])->name('new.addressee');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
     Route::get('/download-excel/{filename}', [ExcelExportController::class, 'downloadExcel'])->name('download-excel');

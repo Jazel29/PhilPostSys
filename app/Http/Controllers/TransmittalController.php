@@ -7,6 +7,8 @@ use App\Models\Transmittals;
 use App\Models\AddresseeList;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use PhpParser\Node\Stmt\Return_;
+use PHPUnit\Framework\MockObject\Stub\ReturnArgument;
 
 class TransmittalController extends Controller
 {
@@ -14,44 +16,58 @@ class TransmittalController extends Controller
     {
         $query = Transmittals::query()->get();
         $rrt_n = [];
-
+        $addressees = [];
+    
         foreach ($query as $record) {
             // Retrieve ReturnCards related to the current Transmittal's mailTrackNum
             $returnCards = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
             
+            // Retrieve AddresseeList related to the current Transmittal's recieverName
+            $addressee = AddresseeList::find($record->recieverName);
+    
             // Add the ReturnCards to the array
             $rrt_n[$record->id] = $returnCards;
+    
+            // Add the AddresseeList to the array
+            $addressees[$record->id] = $addressee;
         }
-
-        return view('tracer', compact('query', 'rrt_n'));
+    
+        return view('tracer', compact('query', 'rrt_n', 'addressees'));
     }
+    
 
-    public function store(Request $request)
-{
-    // Validate the incoming request data
-    $request->validate([
-        'mail_tn' => 'required|unique:transmittals,mailTrackNum', // Ensure mail tracking number is required and unique
-        'receiver' => 'required',
-        'address' => 'required',
-        'date_posted' => 'required|date', // Ensure date is required and in valid date format
-    ]);
-
-    try {
-        // Create a new Transmittals instance and save it to the database
+    public function store(Request $request) {
+        // Create a new Transmittals record
         $transmittal = Transmittals::create([
             'mailTrackNum' => $request->input('mail_tn'),
             'recieverName' => $request->input('receiver'),
             'recieverAddress' => $request->input('address'),
             'date' => $request->input('date_posted')
         ]);
-
-        // Redirect back to the tracer page with a success message
-        return redirect('/tracer')->with('flash_mssg', 'Successfully Created!');
-    } catch (\Exception $e) {
-        // If an exception occurs during the creation process, redirect back with an error message
-        return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
+    
+        // Get the array of return cards from the request
+        $rrr_tns_json = $request->input('rrr_tns');
+    
+        // Decode the JSON string into an array
+        $rrr_tns = json_decode($rrr_tns_json);
+    
+        // Check if $rrr_tns is not null and is an array
+        if (is_array($rrr_tns)) {
+            // Create a new ReturnCards record for each return card
+            foreach ($rrr_tns as $returnCard) {
+                ReturnCards::create([
+                    'trucknumber' => $request->input('mail_tn'),
+                    'returncard' => $returnCard
+                ]);
+            }
+        } else {
+            $rrr_tns = [];
+        }
+    
+        // Redirect or respond as needed
+        return redirect('/add_transmittal')->with('flash_mssg', 'Successfully Created!');
     }
-}
+    
 
     // fetch to the bladev views
     public function show($mailTrackNum){
@@ -63,28 +79,67 @@ class TransmittalController extends Controller
         }
         
         return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
+        
     }
+
+    public function checkMailTN(Request $request)
+    {
+        $mail_tn = $request->input('mail_tn');
+
+        $existingTransmittal = Transmittals::where('mailTrackNum', $mail_tn)->exists();
+
+        return response()->json(['exists' => $existingTransmittal]);
+    }
+
+    
 
     public function edit($id){  
         $records = Transmittals::find($id);
-        $addressee = AddresseeList::find($records->recieverName);
         if (!$records) {
-            return redirect()->route('/transmittals')->with('flash_message', 'Member not found');
+            return redirect()->route('/transmittals')->with('flash_message', 'Transmittal not found');
         }
-        return view('edit-transmitttals', ['records' => $records, 'addressee' => $addressee]);
+    
+        $addressee = AddresseeList::find($records->recieverName);
+        $rrr_tn = ReturnCards::where('trucknumber', $records->mailTrackNum)->get();
+    
+        return view('edit-transmitttals', compact('records', 'addressee', 'rrr_tn'));
     }
-
+    
+    
     public function update(Request $request, $id)
     {
-        // dd($request->all()); // Inspect the data received by the controller
         try {
-            $record = Transmittals::findOrFail($id);
-    
-            $input = $request->all();
-    
-            $record->update($input);
-    
-            return redirect('tracer')->with('flash_mssg', 'message!');
+            $record = Transmittals::find($id);   
+            if (!$record) {
+                return redirect()->back()->with('error', 'Transmittal not found');
+            }
+
+            $request->validate([
+                'mail_tn' => 'required|unique:transmittals,mailTrackNum,'.$id,
+                // Add validation rules for other fields if needed
+            ]);
+
+            // Retrieve other fields from the request
+            $mailTrackNum = $request->input('mail_tn');
+            $date = $request->input('date_posted');
+            $address = $request->input('receiver');
+            
+
+            // Retrieve the current truck number
+            $currentMailTrackNum = $record->mailTrackNum;
+
+            // Update the record with the new data
+            $record->update([
+                'mailTrackNum' => $mailTrackNum,
+                'date' => $date,
+                'address' => $address,
+            ]);
+            
+
+            // Update associated return cards' truck numbers
+            ReturnCards::where('trucknumber', $currentMailTrackNum)->update(['trucknumber' => $mailTrackNum]);
+
+            return redirect()->back()->with('edit-ok', 'Record Updated Successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
@@ -98,6 +153,6 @@ class TransmittalController extends Controller
     
     public function deleteReturnCard($id){
         ReturnCards::destroy($id);
-        return redirect()->back()->with('flash_mssg', 'Record Deleted Successfully! this');
+        return redirect()->back()->with('rem-okd', 'Record Deleted Successfully! this');
     }
 }

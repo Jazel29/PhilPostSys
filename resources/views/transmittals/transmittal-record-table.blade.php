@@ -2,26 +2,61 @@
     .table-size {
         width: 50%;
     }
-    .bold {
+    .bold-address {
+    font-weight: bold;
+    text-align: left;
+    line-height: 5px;
+    }
+
+    .bold-date {
         font-weight: bold;
         text-align: left;
+        line-height: 5px;
     }
 
     .bold-addressee {
         font-weight: bold;
         font-size: 24px;
+        line-height: 20px;
     }
-    
-    .labels {
+
+    .labels-address {
+        color: #9F9F9F;
+    }
+
+    .labels-addressee {
+        color: #9F9F9F;
+        margin-bottom: 10px;
+    }
+
+    .labelsdate {
+        color: #9F9F9F;
         text-align: left;
+        line-height: 20px;
+        padding-top: 5px;
     }
     
     .highlight {
-    background: linear-gradient(90deg, #0026C8, #2C54FF); 
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-size: 19px;
-    padding: 4px 6px;
+        background: linear-gradient(90deg, #0026C8, #2C54FF); 
+        border-radius: 10px;
+        color: #FFFFFF;
+        font-size: 19px;
+        padding: 4px 6px;
+    }
+
+    .abbrev {
+    border: 1px;
+    font-size: 31px;
+    font-family: 'ABC Diatype Bold', sans-serif;
+    background: linear-gradient(45deg, #0026C8, #2C54FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+    .secondary {
+        color: #909090;
+        font-size: 20px;
     }
 
     .tracking {
@@ -29,15 +64,18 @@
     }   
 
     .rounded-container {
-    border: 1px solid #ccc; 
-    border-radius: 20px; 
-    padding: 20px; 
-    background-color: #ffffff; 
+        border: 1px solid #ccc; 
+        border-radius: 20px; 
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 0px;
+        padding-left: 15px; 
+        background-color: #ffffff; 
     }
 
     .custom-line {
-    border: 90px; /* Remove default border */
-    margin-top: 20px; /* Adjust margin top as needed */
+    border: 90px; 
+    margin-top: 20px; 
     }
 
     .form-control {
@@ -63,14 +101,18 @@
     }  
 
     .table-size tbody tr {
-    border-radius: 10px; /* Adjust the radius value as needed */
+    border-radius: 10px; 
     }
 
     .rounded-entries .rounded-entry {
-    border-radius: 15px; /* Adjust the border radius as needed */
-    padding: 7px; /* Adjust the padding as needed */
-    background-color: #FFFFFF; /* Adjust the background color as needed */
-}
+    border-radius: 15px; 
+    padding: 7px; 
+    background-color: #FFFFFF;
+    }
+
+    .fa-envelope {
+        font-size: 29px;
+    }
 
 </style>
 
@@ -87,103 +129,74 @@
             </button>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-6">
-            <p>Tracking Number: <span class="bold">{{ $records->mailTrackNum }}</span></p>
+    <div class="row mt-4">
+        <div class="col-4">
+            <div class="rounded-container">
+                <p>
+                    <span class="tracking">Tracking Number </span>
+                    <span class="bold highlight">{{ $records->mailTrackNum }}</span>
+                </p>
+            </div>
+            <p class="labelsdate"><br />Date Posted</p>
+            <p><span class="bold-date">{{ $records->date }}</span></p>
+            <hr class="custom-line" /><br>
+            <p class="labels-address">Address<br></p>
+            <span class="bold-address">
+                {{ $addressee->address }}<br>
+                {{ $addressee->city }},
+                {{ $addressee->province }}<br>
+                {{ $addressee->zip }}
+            </span>
         </div>
-        <div class="col-6">
-            <p class="labels">Date Posted: <span class="bold">{{ $records->date }}</span></p>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-6">
-            <p>Addressee: 
-                <span class="bold">
-                    {{ $addressee->name_secondary }}, 
-                        {{ $addressee->name_primary }}
-                                    </span>
-            </p>
-        </div>
-        <div class="col-6">
-            <p class="labels">Address: 
-                <span class="bold">
-                    {{ $addressee->address }},
-                        {{ $addressee->zip }} 
-                        {{ $addressee->city }},
-                        {{ $addressee->province }}
-                                    </span>
-            </p>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="row mb-5">
-            <div class="col"></div> <!-- This column will occupy the left space -->
-            <div class="col-auto"> <!-- This column will display the content on the right side -->
-                <div>
-                    <div class="add">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add RRTN</button>
+        <!-- right side column -->
+        <div class="col-7">
+            <p class="labels-addressee">Addressee<br /></p>
+            <span class="bold-addressee">
+                <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
+                <br>{{ $addressee->name_primary }}
+                <br><span class="secondary">{{ $addressee->name_secondary }}</span>
+            </span>
+            <div class="container-fluid">
+                <div class="row mt-1">
+                    <!-- table -->
+                    <div class="container-fluid mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="rounded-entries">
+                                    <table class="table table-size mt-4 hover" id="example">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th scope="col">Items</th>
+                                                <th scope="col">RRR Tracking Numbers</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            @if ($rrt_n->isEmpty())
+                                                <tr>
+                                                    <th>Empty Record</th>
+                                                    <td>No RRRTN Found</td>
+                                                </tr>
+                                            @else
+                                                @foreach ($rrt_n as $index => $rrt)
+                                                    <tr>
+                                                        <th scope="row">{{ $index + 1 }}</th>
+                                                        <td>{{ $rrt->returncard }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-        <table id="example" class="table table-striped " cellspacing="0" width="90%">
-            <thead class="text-center">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">RRR Tracking Numbers</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @if ($rrt_n->isEmpty())
-                <tr>
-                    <th>Error</th>
-                    <td>No RRTN Found</td>
-                </tr>
-                
-                @else
-                    @foreach ($rrt_n as $index => $rrt)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $rrt->returncard }}</td>
-                        <td>
-                            <form method="POST" action="{{ route('return-cards.destroy', ['id' => $rrt->id]) }}" accept-charset="UTF-8" style="" class="">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-warning" title="remove rrtn" onclick="return confirm('Confirm delete?')"> Remove</button>
-                            </form>
-                            
-                        </td>
-                    </tr>
-                    @endforeach
-                @endif
-                
-            </tbody>
-        </table>
     </div>
 </div>
-<div class="modal" id="exportStatusPrompt" tabindex="-1">
+
+<div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -195,48 +208,22 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="" id="downloadLink">Download Excel</a>
+        <a href="" id="downloadLink"><button type="button" class="btn btn-outline-success">Download Excel</button></a>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Add new RRTN</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="/addReturn" class="m-3" method="POST">
-            @csrf
-            <div class="tracknum m-3">
-                <label for="tracknumber">Track Number:</label>
-                <input name="truckNumMail" class="rounded" type="text" value="{{ $records->mailTrackNum }}" readonly>
-            </div>
-            <div class="rrtn m-3">
-                <label for="rrtNumber">RRT Number: </label>
-                <input type="text" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="trackingNum">
-            </div>
-            <div class="sub">
-                <button class="btn btn-primary" type="submit">Add</button>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
+
+
     } );
     function exportToExcel() {
         console.log('exportToExcel called');
+        var dataTable = $('#example').DataTable();
+        dataTable.page.len(-1).draw();
         // Collect table data
         var tableData = [];
 
@@ -276,44 +263,19 @@
             url: '/export-to-excel',
             data: { exportData: JSON.stringify(exportData) },
             success: function (response) {
-                $('#promptText').text('Excel exported successfully!');
+                $('#promptText').text('Excel exported successfully and is ready for download.');
                 $('#exportStatusPrompt').modal('show');
 
-                // Assuming response.path contains the file path
                 var filePath = response.path;
-
-                // Update the href attribute of the downloadLink
-                $('#downloadLink').attr('href', "{{ url('/download-excel') }}" + filePath);
-
-                console.log("/download-excel" + response.path);
-                console.log('Excel exported successfully');
+                $('#downloadLink').attr('href', "{{ url('download-excel') }}" + filePath);
             },
             error: function (error) {
                 // Optional: Handle error response, if needed
+                $('#promptText').text('Excel export failed. Please try again.');
                 console.error('Error exporting Excel:', error);
             }
         });
     }
-    var barcode = '';
-        var interval;
-        document.addEventListener('keydown', function(evt) {
-            if (interval)
-                clearInterval(interval);
-            if (evt.code == 'Enter') {
-                if (barcode)
-                    handleBarcode(barcode);
-                barcode = '';
-                return;
-            }
-            if (evt.key != 'Shift')
-                barcode += evt.key;
-            interval = setInterval(() => barcode = '', 20);
-        });
-
-        function handleBarcode(scanned_barcode) {
-            document.querySelector('#last-barcode').value = scanned_barcode;
-        }
-   
     
 </script>
 

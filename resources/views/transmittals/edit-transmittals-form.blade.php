@@ -1,3 +1,4 @@
+
 <style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
@@ -25,65 +26,157 @@
         color: #333;
     }    
 </style>
-<div class="row">
-    <h1 class="display-5"> New Transmittal </h1>
-</div>
-<div class="mssg">
-    @if(session('flash_mssg'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_mssg') }}</p>
+
+<div class="ml-4">
+
+        {{--  This alert is for success edit --}}
+        @if(session('edit-ok'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ session('edit-ok') }}</p>
         </div>
-    @endif
+        @endif
+        {{--  This alert is for deletion of RRRTN --}}
+        @if(session('rem-ok'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ session('rem-ok') }}</p>
+        </div>
+        @endif
+
+        {{-- alert for add return --}}
+        <div class="content mt-5">
+            <div class="d-flex justify-content-center">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+        
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+    
+    <div>
+        <h1 class="display-5"> Update Transmittal</h1>
+    </div>
+   
 </div>
-<form action="{{ route('transmittals.update', ['id' => $records->id]) }}" method="POST" class="p-3">
+{{-- this form for update  --}}
+<form action="{{ url('transmittals/'. $records->id. '/update') }}" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     @method("PATCH")
-    <div class="row mt-4">
-        <div class="col-6">
-            <input placeholder="Select date" type="date" name="date_posted" id="date_posted" class="form-control" required value="{{ $records->date }}">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control" required value="{{ $records->mailTrackNum }}">
-            <i class="fas fa-calendar input-prefix" tabindex=0></i>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" name="receiver" required value="{{ $addressee->name_primary }}">
-            <datalist id="datalistOptions">
-                <option value="Add New Addressee"></option>
-            </datalist>
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-6">
-            <b>Address:</b><br>
-            <textarea  id="address" name="address" cols="64" rows="2"></textarea>
-        </div>
-    </div>
-    
-    {{-- comment ko muna kasi for testing --}}
-    {{-- <div class="row mt-5">
-        <div class="col" style="max-width: 500px;">
-                <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control">
-                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+    <div class="add-transmittal-form flex">
+        <div class="left-section w-1/2 ">
+            <div class="mx-4">          
+                <div class="row mt-4">
+                    <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
-                <div class="col-2">
-                <button type="button" id="add" class="btn btn-outline-success btn-sm" onclick="addTN()">Add</button>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row mt-5 custom-border" id="rrr_div"> --}}
-    </div>
-    <div class="row mt-3">
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-outline-success">Submit</button>
+                <div class="row mt-2">
+                    <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                </div>
+                <div class="row mt-2">
+                    <input name="receiver" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <datalist id="datalistOptions">
+                    <option value="Add New Addressee"></option>
+                    </datalist>
+                    <input class="form-control" type="hidden" name="receiver" id="receiver">
+                </div>
+                
+            </div>
+        </div>    
+        <div class="right-section w-1/2" id="addRRR_div">
+            <div class="flex flex-col mt-4">
+                <div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </form>
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
+</div>
+
+<div class="content">
+    <div class="h5 d-flex justify-content-center">Return Card List</div>
+    <table class="table table-size mt-4 hover" id="example">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Items</th>
+                <th scope="col">RRR Tracking Numbers</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @if ($rrr_tn->isEmpty())
+                <tr>
+                    <th>Empty Record</th>
+                    <td>No RRRTN Found</td>
+                </tr>
+            @else
+                @foreach ($rrr_tn as $index => $rrt)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $rrt->returncard }}</td>
+                        <td>
+                            <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+    </table>
+</div>
+
+<!-- modal for add button -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3" action="/addReturn" method="POST">
+                @csrf
+                 <div class="col-auto">
+                   <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
+                   <label for="last-barcode" class="visually-hidden">Barcode</label>
+                   <input type="text" value="{{ $records->mailTrackNum }}" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
+                 </div>
+                 {{-- <div class="col-auto">
+                   <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
+                 </div> --}}
+               
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    // Function to handle form submission
+    function submitForm() {
+        // Add logic to submit the form
+        // Example: You can use AJAX to send a request to the server
+
+        // After submission, close the modal
+        $('#submitConfirmationModal').modal('hide');
+    }
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
@@ -119,7 +212,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
+                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
                 </div>
             </form>
         </div>
@@ -129,61 +222,197 @@
 
 <div class="content mt-5">
     <div class="d-flex justify-content-center">
-        displahy the content here
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     </div>
 </div>
-   
+    
+
 <script>
+    $(document).ready(function() {
+        $('#example').dataTable();
 
-    document.getElementById('addresseeDataList').addEventListener('input', function() {
-    var addressValue = document.getElementById('address');
-    var selectedValue = this.value;
 
-    if (selectedValue === 'Add New Addressee') {
-        $('#newAddresseeModal').modal('show');
-        this.value = '';
-    } else {
-        // Get the selected option element
-        var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
-        console.log(selectedOption);
-        
-        // Check if the selected option exists
-        if (selectedOption) {
-            var selectedId = selectedOption.id;
-            var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
-            addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
-        }else {
-            addressValue.value = '';
+    } );
+    var rrr_tns = [];
+    var count = 0;
+
+    function removeTN(element, rrr_tn_value) {
+        // Remove the container from the DOM
+        element.parentNode.removeChild(element);
+
+        // Remove the corresponding rrr_tn_value from the rrr_tns array
+        var index = rrr_tns.indexOf(rrr_tn_value);
+        if (index !== -1) {
+            rrr_tns.splice(index, 1);
+        }
+
+        // Log the updated rrr_tns array (for testing purposes)
+        console.log(rrr_tns);
+        updateCounts();
+    }
+
+    function updateCounts() {
+    // Get all tn_containers in the rrr_div
+        var tnContainers = document.getElementById('rrr_div').getElementsByClassName('container');
+
+        // Update the counts based on the current index in the rrr_tns array
+        for (var i = 0; i < tnContainers.length; i++) {
+            var countElement = tnContainers[i].getElementsByTagName('p')[0];
+            countElement.innerText = (i + 1) + '. ' + rrr_tns[i];
         }
     }
-});
 
-function closeModal() {
-    $('#newAddresseeModal').modal('hide');
-}
+    function addTN() {
+        var rrr_tn_value = document.getElementById('rrr_tn').value;
 
-function saveNewAddressee() {
-    $('#newAddresseeModal').modal('hide');
-}
+        // Check if rrr_tn_value is truthy before appending
+        if (rrr_tn_value) {
+            // Add the rrr_tn_value to the rrr_tns array
+            rrr_tns.push(rrr_tn_value);
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Fetch addressees from the server
-    fetch('/get-addressees')
-        .then(response => response.json())
-        .then(data => {
-            const datalist = document.getElementById('datalistOptions');
-            addressees = data.addressees; // Store addressees globally for later access
+            // Get the current index in the rrr_tns array
+            var count = rrr_tns.length;
 
-            addressees.forEach(addressee => {
-                const option = document.createElement('option');
-                option.value = `${addressee.abbrev} - ${addressee.name_primary}`;
-                option.id = addressee.id;
-                datalist.appendChild(option);
+            // Create a new tn_container with the extracted value
+            var tn_container = document.createElement('div');
+            tn_container.className = 'container';
+            tn_container.innerHTML = '<span class="exit-button" onclick="removeTN(this.parentNode, \'' + rrr_tn_value + '\')">✖</span><p>' + count + ". " + rrr_tn_value + '</p>';
+
+            // Append the new tn_container to the rrr_div
+            document.getElementById('rrr_div').appendChild(tn_container);
+
+            // Clear the value of rrr_tn input field
+            document.getElementById('rrr_tn').value = '';
+
+            // Log the updated rrr_tns array (for testing purposes)
+            console.log(rrr_tns);
+        }
+    }
+
+
+    var rrr_tn_value = document.getElementById("rrr_tn");
+    rrr_tn_value.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addTN();
+        }
+    });
+
+    var mailTn = document.getElementById("mail_tn");
+    mailTn.addEventListener("keypress", function(evt) {
+        if (event.key === "Enter") {
+            evt.preventDefault();
+        }
+    });
+
+    function submitForm() {
+
+        // Set the rrr_tns array value to the hidden input
+        document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
+
+        // Submit the form
+        document.forms[0].submit();
+    }
+
+    
+    document.getElementById('addresseeDataList').addEventListener('input', function() {
+        var addressValue = document.getElementById('address');
+        var addresseeVal = document.getElementById('receiver');
+        var RRRdiv = document.getElementById('addRRR_div');
+        var popUp = document.getElementById('popover-content');
+        var tn = document.getElementById('mail_tn');
+        var selectedValue = this.value;
+
+        if (selectedValue === 'Add New Addressee') {
+            $('#newAddresseeModal').modal('show');
+            this.value = '';
+        } else {
+            // Get the selected option element
+            var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
+            
+            // Check if the selected option exists
+            if (selectedOption) {
+                selectedId = selectedOption.id;
+                var selectedAddressee = addressees.find(addressee => addressee.id == selectedId)
+                addressValue.value = selectedAddressee.address + " " + selectedAddressee.city + " " + selectedAddressee.zip + " " + selectedAddressee.province;
+                addresseeVal.value = selectedId;
+                RRRdiv.style.display = 'block';
+                popUp.style.display = 'none';
+            } else {
+                addressValue.value = '';
+                RRRdiv.style.display = 'none';
+                popUp.style.display = 'block';
+
+            }
+            
+            if(!selectedOption & selectedValue == '') {
+                popUp.style.display = 'none';
+            }
+        }
+    });
+
+
+    function closeModal() {
+        $('#newAddresseeModal').modal('hide');
+    }
+
+    function openModal() {
+        $('#newAddresseeModal').modal('show');
+    }
+
+    function saveNewAddressee() {
+        $('#newAddresseeModal').modal('hide');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Fetch addressees from the server
+        fetch('/get-addressees')
+            .then(response => response.json())
+            .then(data => {
+                const datalist = document.getElementById('datalistOptions');
+                addressees = data.addressees; // Store addressees globally for later access
+
+                addressees.forEach(addressee => {
+                    const option = document.createElement('option');
+                    option.value = `${addressee.abbrev} - ${addressee.name_primary}`;
+                    option.id = addressee.id;
+                    datalist.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching addressees:', error));
+    });
+    
+    $(document).ready(function () {
+        $('#mail_tn').on('blur', function () {
+            var mail_tn = $(this).val();
+
+            // Perform AJAX request to check existence
+            $.ajax({
+                type: 'GET',
+                url: '/checkMailTN', // Replace with your actual route
+                data: { mail_tn: mail_tn },
+                success: function (response) {
+                    if (response.exists) {
+                        $('#mail_tn_error').text('Mail Tracking Number already exists');
+                    } else {
+                        $('#mail_tn_error').text('');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking Mail Tracking Number:', error);
+                }
             });
-        })
-        .catch(error => console.error('Error fetching addressees:', error));
-});
-
-
+        });
+    });
 
 </script>
