@@ -14,6 +14,11 @@ PhiPostSys is a comprehensive post management system designed to facilitate effi
 
 ## Key Features
 * User-Friendly Interface: PhiPostSys boasts an intuitive and user-friendly interface, ensuring that users of all skill levels can navigate the system effortlessly. The layout is designed for maximum efficiency and ease of use.
+* Viewing Posts: Users can easily browse through existing posts, sorted by date, category, author, or other custom criteria. The system provides quick search and filter options to locate specific posts efficiently.
+* Adding Posts: Creating and publishing new posts is a streamlined process with PhiPostSys. Users can compose content directly within the system, with support for text, images, videos, and other multimedia elements. The system offers formatting tools to enhance the presentation of posts.
+* Report Generation: PhiPostSys enables users to generate detailed reports on post performance, engagement metrics, and audience demographics. These reports provide valuable insights into the effectiveness of content strategies, helping users make informed decisions to optimize their posting strategies.
+* Analytics Integration: The system seamlessly integrates with analytics platforms to provide real-time performance data and actionable insights. Users can track key metrics such as engagement rates, click-through rates, and conversion rates to measure the impact of their posts.
+
 
 
 ## About Laravel
