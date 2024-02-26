@@ -34,8 +34,13 @@
                         <tbody class="text-center">
                             @if ($addresseeAll->isEmpty())
                                 <tr>
-                                    <th>Empty Record</th>
-                                    <td>Addressee</td>
+                                    <th scope="row-item">----</th>
+                                    <th scope="row-item">----</th>
+                                    <th scope="row-item">----</th>
+                                    <th scope="row-item">No Record Found</th>
+                                    <th scope="row-item">----</th>
+                                    <th scope="row-item">----</th>
+                                    <th scope="row-item">----</th>
                                 </tr>
                             @else
                                 @foreach ($addresseeAll as $index => $addressee)
