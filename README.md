@@ -1,5 +1,5 @@
 
-
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/PHLPOST-Logo_white_stroke.png" width="400" alt="Laravel Logo"></a></p>
 
 ## About PhilPostSys
 
