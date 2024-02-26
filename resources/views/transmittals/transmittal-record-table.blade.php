@@ -766,12 +766,12 @@
 
     .hover-row:hover .caret {
         display: inline;
-        .rounded-entries .rounded-entry {
+    }
+    .rounded-entries .rounded-entry {
         border-radius: 15px; 
         padding: 7px; 
         background-color: #FFFFFF;
         }
-    }
 
     .fa-envelope {
         font-size: 29px;
@@ -850,7 +850,7 @@
             <div class="container-fluid">
                 <div class="row mt-1">
 
-                    <!-- table -->
+                <!-- table -->
 
             <div class="container-fluid">
                 <div class="row justify-content-center">

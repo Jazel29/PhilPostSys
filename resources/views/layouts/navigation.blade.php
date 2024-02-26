@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="px-10 bg-white border-b shadow-sm border-gray-100 sticky top-0 z-50">
+<nav x-data="{ open: false }" class="px-10 bg-white border-b shadow-sm border-gray-100 sticky top-0 z-40">
 
     <style>
         .flex {
@@ -110,9 +110,7 @@
         </div>
     </div>
 </nav>
-
 <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-gray-900 bg-opacity-50 sm:hidden"></div>
-
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
     <div class="text-center md:block hidden items-center text-black mt-3">
         <div class="hover:bg-gray-300 rounded-md mx-3">

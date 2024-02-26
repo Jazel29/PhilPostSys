@@ -640,7 +640,32 @@
     .highlight {
         border: 2px solid red; 
     }
- 
+    #flashMessage.alert-primary {
+        background-color:#0D6EFD; 
+        color: #fff;
+        text-align: center; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+        position: relative; /* Add relative positioning for overlay */
+        z-index: 50;
+        border-radius: 15px !important;
+    }
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity as needed */
+        display: none; /* Initially hidden */
+        z-index: 40; /* Below flash message */
+    }
+
+    .btn {
+        border-radius: 15px !important;
+    }
     .container-dots {
         width: 60px; /* Adjust the width as needed */
         height: 40px; /* Adjust the height as needed */
@@ -678,15 +703,18 @@
     }
 </style>
 
-<div class="mssg">
+<div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
     <div class="mssg">
-    @if(session('flash_mssg'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_mssg') }}</p>
-        </div>
-    @endif
+        @if(session('flash_mssg'))
+            <div id="flashMessage" class="alert alert-primary" role="alert">
+                <p>{{ session('flash_mssg') }}</p>
+            </div>
+        @endif
+    </div>
 </div>
-</div>
+
+<div id="overlay"></div><!-- Add overlay div -->
+
 <div class="row">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
@@ -737,19 +765,19 @@
                         
                     </td>
                     
-                    <td class="">
+                    <td>
                         <div class="d-flex">
-                            <div class="">
-                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                            <div>
+                                <a class="btn btn-primary text-white" href="{{ url('/transmittals/' . $record->id) }}" title="View Record">View</a>
                             </div>
-                            <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                            <div class="ms-3">
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white" title="Update Record">Update</a>
                             </div>
-                            <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
+                            <div class="ms-3">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-warning" title="Delete Student" onclick="return confirm('Confirm delete? {{ $record->id }}')"> Delete</button>
+                                    <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -762,6 +790,132 @@
     </table>
 </div>
 
+
+<!-- Modal for Delete Transmittal Record -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header custom-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Transmittal Record</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <form id="deleteForm" method="POST" action="">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        if ($('#flashMessage').length > 0) {
+            $('#overlay').fadeIn('slow');
+        }
+
+        setTimeout(function() {
+            $('#flashMessage').fadeOut('slow');
+            $('#overlay').fadeOut('slow');
+        }, 2000);
+    });
+    
+    $(document).ready(function() {
+        $('.delete-button').on('click', function() {
+            var deleteUrl = $(this).data('delete-url');
+            $('#deleteForm').attr('action', deleteUrl);
+            $('#deleteConfirmationModal').modal('show');
+        });
+        window.closeModal = function() {
+            $('#deleteConfirmationModal').modal('hide');
+        };
+    });
+</script>
+
+<style>
+    /* Custom table styles */
+    .table-wrapper th {
+        border-radius: 0px;
+        overflow: hidden;
+    }
+
+    .text-center {
+        border-radius: 50px;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 1px;
+        text-align: left;
+    }
+
+    .custom-table th {
+        background-color: #f2f2f2;
+    }
+
+    .custom-table tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn {
+        border-radius:5px;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .custom-search-input,
+    .custom-filter-select {
+        width: 500px;
+        padding: 5px;
+        font-size: 16px; 
+        border-radius: 11px; 
+        border: 1px solid #ccc; 
+        box-shadow: none; 
+    }
+
+    .search-bar-container,
+    .filter-container {
+        margin-bottom: 20px; 
+    }
+
+    .input{
+        padding-left: 10px;
+    }
+    .text-color {
+        color: #BB2D3B;
+    }
+    .custom-header{
+        background-color: #BB2D3B;
+    }
+    .modal-title {
+    color: #ffffff;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#transmittalstable').DataTable({

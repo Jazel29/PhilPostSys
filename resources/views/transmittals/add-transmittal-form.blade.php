@@ -44,34 +44,77 @@
     .modal-title {
     color: #ffffff;
     }
+    #flashMessage.alert-primary {
+        background-color: #0D6EFD; 
+        color: #fff;
+        text-align: center; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+    }
+    #flashMessage.alert-primary {
+        background-color:#0D6EFD; 
+        color: #fff;
+        text-align: center; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+        position: relative; /* Add relative positioning for overlay */
+        z-index: 50; /* Ensure flash message is above overlay */
+        border-radius: 15px !important;
+    }
+
+    /* Add a blur overlay */
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity as needed */
+        display: none; /* Initially hidden */
+        z-index: 40; /* Below flash message */
+    }
+    .btn {
+        border-radius: 15px !important;
+    }
 </style>
 
-<div class="ml-4">
-    <div>
-        <h1 class="display-5"> Add New Transmittal </h1>
-    </div>
+
+<div class="mssg position-fixed top-8 start-50 translate-middle-x w-1/4 z-50">
     <div class="mssg">
         @if(session('flash_mssg'))
-        <div class="alert alert-primary" role="alert">
-            <p>{{ session('flash_msg') }}</p>
-        </div>
+            <div id="flashMessage" class="alert alert-primary" role="alert">
+                <p>{{ session('flash_mssg') }}</p>
+            </div>
         @endif
     </div>
 </div>
+
+<div id="overlay"></div> <!-- Add overlay div -->
+
+<div class="ml-8">
+    <div class="row">
+        <h1 class="display-5"> Add New Transmittal </h1>
+    </div>
+</div>
+
 <form action="/addRecord" id="addAddresseeForm" method="POST" class="p-3 needs-validation" onsubmit="event.preventDefault(); showConfirmationModal();">
     @csrf
     <div class="add-transmittal-form flex">
-        <div class="left-section w-1/2 ">
+        <div class="left-section w-1/2">
             <div class="mx-4">          
                 <div class="row mt-4">
-                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>
                 <div class="row mt-2">
-                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>
                 <div id="mail_tn_error" class="text-danger mt-2"></div>
                 <div class="row mt-2">
-                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                     <datalist id="datalistOptions">
                         <option value="Add New Addressee"></option>
                     </datalist>
@@ -92,7 +135,7 @@
             <div class="flex flex-col mt-4">
                 <div>
                     <div class="flex flex-row">
-                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0;">
+                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
                         <div>
                             <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
                         </div>
@@ -186,6 +229,17 @@
 </div>
    
 <script>
+    $(document).ready(function() {
+        if ($('#flashMessage').length > 0) {
+            $('#overlay').fadeIn('slow');
+        }
+
+        setTimeout(function() {
+            $('#flashMessage').fadeOut('slow');
+            $('#overlay').fadeOut('slow');
+        }, 2000);
+    });
+
     $(document).ready(function () {
         $('#mail_tn').on('blur', checkMailTrackingNumber);
     });
@@ -222,7 +276,6 @@
     }
 
     function confirmSubmit() {
-        $('#confirmationModal').modal('hide');
         document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
         document.getElementById('addAddresseeForm').submit();
     }
