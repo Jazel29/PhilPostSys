@@ -27,14 +27,7 @@ PhiPostSys is a comprehensive post management system designed to facilitate effi
 
 ## Installation
 *git clone https://github.com/0roc4n/PhilPostSys.git
-*composer install
-* create database "philpost"
-*cp .env.example .env
-* open .env and modify database connection
-*php artisan key:generate
-*php artisan migrate
-*php artisan serve
-*npm run dev
+
 
 
 
