@@ -720,7 +720,7 @@
 </div>
 
 <div class="newtb">
-    <table id="transmittalstable" class="table table-striped " cellspacing="0" width="90%">
+    <table id="transmittalstable" class="table" cellspacing="0" width="90%">
         <thead class="text-center">
             <tr> 
                 <th>Transmittal TN</th>
@@ -732,9 +732,9 @@
             </tr>
         </thead>
 
-        <div class="container-dots">
+        <!-- <div class="container-dots">
             <div class="dots">•••</div>
-        </div>
+        </div> -->
         
         <!-- Table body --> 
         <tbody>
@@ -770,11 +770,11 @@
                             <div>
                                 <a class="btn btn-primary text-white" href="{{ url('/transmittals/' . $record->id) }}" title="View Record">View</a>
                             </div>
-                            <div class="ms-3">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white" title="Update Record">Update</a>
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
                             </div>
-                            <div class="ms-3">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8">
+                            <div class="ms-3 mt-2">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
                                     @method('DELETE')
                                     @csrf
                                     <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
@@ -919,6 +919,7 @@
 <script>
     $(document).ready(function() {
         $('#transmittalstable').DataTable({
+            "info": false,
             "language": {
                 "search": "" }
         });
