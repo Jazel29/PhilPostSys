@@ -17,7 +17,24 @@ PhiPostSys is a comprehensive post management system designed to facilitate effi
 * Viewing Posts: Users can easily browse through existing posts, sorted by date, category, author, or other custom criteria. The system provides quick search and filter options to locate specific posts efficiently.
 * Adding Posts: Creating and publishing new posts is a streamlined process with PhiPostSys. Users can compose content directly within the system, with support for text, images, videos, and other multimedia elements. The system offers formatting tools to enhance the presentation of posts.
 * Report Generation: PhiPostSys enables users to generate detailed reports on post performance, engagement metrics, and audience demographics. These reports provide valuable insights into the effectiveness of content strategies, helping users make informed decisions to optimize their posting strategies.
-* Analytics Integration: The system seamlessly integrates with analytics platforms to provide real-time performance data and actionable insights. Users can track key metrics such as engagement rates, click-through rates, and conversion rates to measure the impact of their posts.
+
+## Pre Requesite
+* Composer (Pref the latest)
+* PHP 8.2+
+* Node JS
+* VS Code
+* XAMPP or Workbench ( MySQL )
+
+## Installation
+*git clone https://github.com/0roc4n/PhilPostSys.git
+*composer install
+* create database "philpost"
+*cp .env.example .env
+* open .env and modify database connection
+*php artisan key:generate
+*php artisan migrate
+*php artisan serve
+*npm run dev
 
 
 
