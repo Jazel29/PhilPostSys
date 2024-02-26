@@ -13,7 +13,7 @@
 PhiPostSys is a comprehensive post management system designed to facilitate efficient viewing, adding, and report generation functionalities for users across various platforms. This system is specifically designed to address and lessen the workload of philpost employee (post master).
 
 ## Key Features
-* jejejw
+* User-Friendly Interface: PhiPostSys boasts an intuitive and user-friendly interface, ensuring that users of all skill levels can navigate the system effortlessly. The layout is designed for maximum efficiency and ease of use.
 
 
 ## About Laravel
