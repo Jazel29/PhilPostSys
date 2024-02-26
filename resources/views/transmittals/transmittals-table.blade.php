@@ -687,12 +687,12 @@
     @endif
 </div>
 </div>
-<div class="row">
+<div class="row mb-5">
     <h1 class="display-5"> Trace Transmittals </h1>
 </div>
 
 <div class="newtb">
-    <table id="transmittalstable" class="table table-striped " cellspacing="0" width="90%">
+    <table id="transmittalstable" class="table" cellspacing="0" width="90%">
         <thead class="text-center">
             <tr> 
                 <th>Transmittal TN</th>
@@ -704,9 +704,9 @@
             </tr>
         </thead>
 
-        <div class="container-dots">
+        <!-- <div class="container-dots">
             <div class="dots">•••</div>
-        </div>
+        </div> -->
         
         <!-- Table body --> 
         <tbody>
@@ -740,12 +740,12 @@
                     <td class="">
                         <div class="d-flex">
                             <div class="">
-                                <a class="btn btn-primary m-2 text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
+                                <a class="btn btn-primary text-white" href="{{ url('/transmittals/' . $record->id) }}">View</a>
                             </div>
-                            <div class="ms-3 mt-2">
+                            <div class="ms-3">
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
                             </div>
-                            <div class="ms-3 mt-2">
+                            <div class="ms-3">
                                 <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
                                     @method('DELETE')
                                     @csrf
@@ -765,6 +765,7 @@
 <script>
     $(document).ready(function() {
         $('#transmittalstable').DataTable({
+            "info": false,
             "language": {
                 "search": "" }
         });

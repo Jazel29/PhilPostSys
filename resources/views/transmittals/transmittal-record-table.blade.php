@@ -908,7 +908,12 @@
             $('#example').DataTable({
                 "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                 "pageLength": 25, // Default number of records per page
-            });  
+                "info": null, // Hide the "Showing x to y of z entries" text
+            });
+            var lengthLabel = $('#example_length label');
+            lengthLabel.html(lengthLabel.html().replace('Show', '').replace('entries', ''));
+            var lengthLabel = $('#example_filter label');
+            lengthLabel.html(lengthLabel.html().replace('Search:', ''));  
         });
 
         // (kevin) start - frontend javascript for table //
