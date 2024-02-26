@@ -10,7 +10,10 @@
 
 ## About PhilPostSys
 
-PhiPostSys is a comprehensive post management system designed to facilitate efficient viewing, adding, and report generation functionalities for users across various platforms. Whether you're managing a blog, a social media platform, or an enterprise communication network, PhiPostSys streamlines the process of handling posts, enhancing productivity, and providing insightful analytics.
+PhiPostSys is a comprehensive post management system designed to facilitate efficient viewing, adding, and report generation functionalities for users across various platforms. This system is specifically designed to address and lessen the workload of philpost employee (post master).
+
+## Key Features
+ * test
 
 
 ## About Laravel
