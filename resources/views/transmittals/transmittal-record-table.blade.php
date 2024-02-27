@@ -902,18 +902,15 @@
 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
                 "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                 "pageLength": 25, // Default number of records per page
-                "info": null, // Hide the "Showing x to y of z entries" text
-            });
-            var lengthLabel = $('#example_length label');
-            lengthLabel.html(lengthLabel.html().replace('Show', '').replace('entries', ''));
-            var lengthLabel = $('#example_filter label');
-            lengthLabel.html(lengthLabel.html().replace('Search:', ''));  
+            });  
         });
 
         // (kevin) start - frontend javascript for table //

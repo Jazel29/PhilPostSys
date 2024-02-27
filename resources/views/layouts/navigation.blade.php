@@ -132,7 +132,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col">
-                        <span class="text-19">{{ __('Trace') }}</span>
+                        <span class="text-19">{{ __('Trace Transmittals') }}</span>
                     </div>
                 </div>
             </a>
@@ -144,7 +144,7 @@
                         <i class="fa-solid fa-pen-nib"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
-                        <span>{{ __('    Transmittal') }}</span>
+                        <span>{{ __('Add New Transmittal') }}</span>
                     </div>
                 </div>
             </a>
@@ -156,7 +156,7 @@
                         <i class="fa-solid fa-address-book"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
-                        <span>{{ __('New Addressee') }}</span>
+                        <span>{{ __('Add New Addressee') }}</span>
                     </div>
                 </div>
             </a>
