@@ -38,8 +38,8 @@ class AddresseeController extends Controller
                 'zip' => $request->input('zip'),
                 'province' => $request->input('province')
             ]);
-
-            return redirect()->back()->with('status', 'Addressee Added Successfully');
+            
+            return redirect()->back()->with('flash_mssg', 'Addressee Added Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();
