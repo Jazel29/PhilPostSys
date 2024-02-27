@@ -6,7 +6,7 @@
 
 /* =============== Globals ============== */
 * {
-  font-family: "RockoFLF", sans-serif;
+  /*font-family: "RockoFLF", sans-serif;*/
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -677,7 +677,4 @@ body {
         </div>
     </div>
 
-
-
-    
 </x-app-layout>

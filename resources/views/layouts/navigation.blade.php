@@ -117,7 +117,7 @@
             <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">
                     <div class="col">
-                        <i class="fa-solid fa-house"></i> <!-- Replace with icon from CDN -->
+                        <i class="fa-solid fa-chart-simple"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col">
                         <span class="text-19">{{ __('Dashboard') }}</span>
@@ -131,8 +131,8 @@
                     <div class="col">
                         <i class="fa-solid fa-magnifying-glass"></i> <!-- Replace with icon from CDN -->
                     </div>
-                    <div class="col">
-                        <span class="text-19">{{ __('Trace Transmittals') }}</span>
+                    <div class="col" style="white-space: nowrap;">
+                        <span>{{ __('Trace Transmittals') }}</span>
                     </div>
                 </div>
             </a>
@@ -153,7 +153,7 @@
             <a href="{{ route('new.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">
                     <div class="col">
-                        <i class="fa-solid fa-address-book"></i> <!-- Replace with icon from CDN -->
+                        <i class="fa-solid fa-plus"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
                         <span>{{ __('Add New Addressee') }}</span>
@@ -165,7 +165,7 @@
             <a href="{{ route('show.addressee') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">
                     <div class="col">
-                        <i class="fa-solid fa-list"></i> <!-- Replace with icon from CDN -->
+                        <i class="fa-solid fa-book"></i> <!-- Replace with icon from CDN -->
                     </div>
                     <div class="col" style="white-space: nowrap;">
                         <span>{{ __('Addressee List') }}</span>

@@ -767,8 +767,8 @@
                     
                     <td>
                         <div class="d-flex">
-                            <div>
-                                <a class="btn btn-primary text-white" href="{{ url('/transmittals/' . $record->id) }}" title="View Record">View</a>
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn btn-primary text-white">View</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
