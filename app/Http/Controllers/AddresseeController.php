@@ -94,10 +94,11 @@ class AddresseeController extends Controller
 
         return view('addressee.show-addressee')->with(['addresseeAll'=>$addresseeAll]);
     }
-
+    
     public function destroy($id)
     {
         AddresseeList::destroy($id);
-        return redirect('show-addressee')->with('success', 'Record Deleted Successfully!');  
+        return redirect('show-addressee')->with('flash_mssg', 'Record Deleted Successfully!');  
     }
 }
+
