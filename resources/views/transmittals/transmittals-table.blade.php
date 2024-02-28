@@ -668,7 +668,21 @@
     }
 
     .btn-view {
-        background: linear-gradient(45deg, #FCBE00, #FFE593);;
+        padding: 10px;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #FCBE00, #FFE593);
+    }
+
+    .btn-update {
+        padding: 10px;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #1BBC73, #86EEBF);
+    }
+
+    .btn-delete {
+        padding: 10px;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #EE1A2E, #F8A2AA);
     }
 
     .container-dots {
@@ -851,13 +865,13 @@
                                 <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn-view">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn-update">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
+                                    <button type="button" class="btn-delete" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
                                 </form>
                             </div>
                         </div>
