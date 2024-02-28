@@ -99,9 +99,10 @@
 </nav>
 <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-gray-900 bg-opacity-50 sm:hidden"></div>
 <div class="fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
-    <div class="text-center md:block hidden items-center text-black mt-3">
-        <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
+            
+        <div class="text-center md:block hidden items-center text-black mt-3">
+            <div class="hover:bg-gray-300 rounded-md mx-3">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full {{ request()->routeIs('dashboard') ? 'bg-blue-500' : '' }}">
                 <div class="row">
                     <div class="col hidden md:block">
                         <i class="fa-solid fa-chart-simple"></i>
@@ -112,6 +113,7 @@
                 </div>
             </a>
         </div>
+
         <div class="hover:bg-gray-300 rounded-md mx-3">
             <a href="{{ route('formTest') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full">
                 <div class="row">

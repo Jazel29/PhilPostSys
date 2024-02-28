@@ -681,7 +681,7 @@
     }
 
     .btn-update {
-        color: #000000;
+        color: #FCBE00;
         padding: 10px;
         border: 1px solid #FCBE00;
         border-radius: 15px;
@@ -697,7 +697,7 @@
     }
 
     .btn-danger {
-        color: #000000;
+        color: #EE1A2E;
         padding: 10px;
         border: 1px solid #EE1A2E;
         border-radius: 15px;
