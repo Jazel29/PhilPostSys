@@ -7,6 +7,7 @@
 /* =============== Globals ============== */
 * {
   /*font-family: "RockoFLF", sans-serif;*/
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -251,7 +252,7 @@ body {
 }
 
 .cardBox .card .iconBx {
-  font-size: 50px;
+  font-size: 40px;
   color: var(--black2);
 }
 
@@ -511,7 +512,7 @@ body {
                         <!-- Right Column for Icon -->
                         
                         <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
+                          <i class="fa-solid fa-envelope-open-text"></i>
                         </div>
                     </div>
                 </div>
@@ -528,7 +529,7 @@ body {
 
                         <!-- Right Column for Icon -->
                         <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
+                          <i class="fa-solid fa-paper-plane"></i>
                         </div>
                     </div>
                 </div>
@@ -543,7 +544,7 @@ body {
 
                         <!-- Right Column for Icon -->
                         <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
+                          <i class="fa-solid fa-building-columns"></i>
                         </div>
                     </div>
                 </div>

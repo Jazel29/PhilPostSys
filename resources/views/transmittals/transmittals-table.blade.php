@@ -663,26 +663,53 @@
         z-index: 40; /* Below flash message */
     }
 
-    .btn {
-        border-radius: 15px !important;
+    .btn-view {
+        color: #2C54FF;
+        padding: 10px;
+        border: 1px solid #2C54FF;
+        border-radius: 15px;
+        background: transparent;
+        transition: all 0.3s ease;
     }
 
-    .btn-view {
-        padding: 10px;
-        border-radius: 15px;
-        background: linear-gradient(45deg, #FCBE00, #FFE593);
+    .btn-view:hover {
+    font-weight: bold;
+    color: #FFF;
+    padding: 10px; 
+    border-radius: 50px; 
+    background: #2C54FF;
     }
 
     .btn-update {
+        color: #000000;
         padding: 10px;
+        border: 1px solid #FCBE00;
         border-radius: 15px;
-        background: linear-gradient(45deg, #1BBC73, #86EEBF);
+        transition: all 0.3s ease;
     }
 
-    .btn-delete {
+    .btn-update:hover {
+        font-weight: bold;
+        color: #FFF;
         padding: 10px;
+        border-radius: 50px;
+        background: #FCBE00;
+    }
+
+    .btn-danger {
+        color: #000000;
+        padding: 10px;
+        border: 1px solid #EE1A2E;
         border-radius: 15px;
-        background: linear-gradient(45deg, #EE1A2E, #F8A2AA);
+        transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        font-weight: bold;
+        color: #FFF;
+        padding: 10px;
+        border-radius: 50px;
+        background: #EE1A2E;
     }
 
     .container-dots {
@@ -758,14 +785,6 @@
         display: flex;
         justify-content: center;
         gap: 10px;
-    }
-
-    .btn {
-        border-radius:5px;
-        padding-left: 7px;
-        padding-right: 7px;
-        padding-top: 4px;
-        padding-bottom: 4px;
     }
 
     .custom-search-input,
@@ -862,16 +881,16 @@
                     <td>
                         <div class="d-flex">
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn-view">View</a>
+                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn btn-view">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn-update">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="button" class="btn-delete" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
+                                    <button type="button" class="btn btn-danger delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
                                 </form>
                             </div>
                         </div>
