@@ -68,13 +68,6 @@
     .btn {
         border-radius: 15px !important;
     }
-    .border-title {
-        border-top-left-radius: 5px; 
-        border-top-right-radius: 5px;
-        background-color: #2ba7cc;
-        color: #ffffff;
-
-    }
 </style>
 
 <div class="ml-4">
@@ -105,45 +98,37 @@
             <input class="form-control" type="hidden" name="addressee-id" id="addressee-id">
         </div>
 
-        <div class="list-addressee-form border rounded-md">
-            <div class="p-2 mb-3 border-title" 
-                <h1> Addressee Information: </h1>
-            </div>
-            <div class="row mx-3">
+        <div class="list-addressee-form border rounded-md p-3">
+            <div class="row">
+                <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
                 <div class="col-md-3">
                     <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Abbreviation" required disabled>
                 </div>
                 <div class="col-md-9">
                     <div class="flex flex-col">
                         <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Name Line 1" required disabled>
-                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-4 rounded-md text-19 form-border" placeholder="Addressee Name Line 2" disabled>
+                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Name Line 2" disabled>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-7 border rounded-md">
-            <div class="p-2 mb-3 border-title" 
-                <h1> Addressee Addressee: </h1>
-            </div>
-
-            <div class="mx-4">
-                <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay" disabled>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border " placeholder="City/Municipality" required disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Zip Code" required disabled>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" name="province" id="province" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Province" required disabled>
-                    </div>
+        <div class="mt-7 border rounded-md p-3">
+            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
+            <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay" disabled>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border " placeholder="City/Municipality" required disabled>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Zip Code" required disabled>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="province" id="province" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Province" required disabled>
                 </div>
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button type="button" class="btn btn-outline-secondary mr-4" onclick="clearForm()">Clear</button>
             <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
         </div>
     </form>
