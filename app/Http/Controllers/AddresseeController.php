@@ -38,8 +38,8 @@ class AddresseeController extends Controller
                 'zip' => $request->input('zip'),
                 'province' => $request->input('province')
             ]);
-
-            return redirect()->back()->with('status', 'Addressee Added Successfully');
+            
+            return redirect()->back()->with('flash_mssg', 'Addressee Added Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();
@@ -82,7 +82,7 @@ class AddresseeController extends Controller
                 'province' => $request->input('province')
             ]);
 
-            return redirect('update-addressee-form')->with('status', 'Addressee Updated Successfully');
+            return redirect('update-addressee-form')->with('flash_mssg', 'Addressee Updated Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();
@@ -94,10 +94,11 @@ class AddresseeController extends Controller
 
         return view('addressee.show-addressee')->with(['addresseeAll'=>$addresseeAll]);
     }
-
+    
     public function destroy($id)
     {
         AddresseeList::destroy($id);
-        return redirect('show-addressee')->with('success', 'Record Deleted Successfully!');  
+        return redirect('show-addressee')->with('flash_mssg', 'Record Deleted Successfully!');  
     }
 }
+

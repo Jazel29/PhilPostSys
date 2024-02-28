@@ -141,6 +141,7 @@
                         </div>
                     </div>
                     <div class="mt-4 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                        <div id="rrrtn_error" class="text-danger mt-2"></div>
                         <input type="hidden" name="rrr_tns" id="rrr_tns_input">
                     </div>
                     <div class="flex justify-end mt-3">
@@ -301,18 +302,29 @@
 
     function addTN() {
         var rrr_tn_value = $('#rrr_tn').val();
+        var rrrtn_error = $('#rrrtn_error');
 
-        if (rrr_tn_value) {
-            rrr_tns.push(rrr_tn_value);
+        // Check if the value already exists in the list
+        if (rrr_tns.includes(rrr_tn_value)) {
+            //alert('RRR Tracking Number already exists.'); // Prompt user with alert message
+            rrrtn_error.html('<i class="fa-solid fa-circle-exclamation fa-fade fa-sm"></i>   RRR Tracking Number already exists');
+            return; // Exit the function if the value already exists
+        }else{
+            rrrtn_error.text('');
+            if (rrr_tn_value) {
+                rrr_tns.push(rrr_tn_value);
 
-            var count = rrr_tns.length;
-            var tn_container = createTNContainer(count, rrr_tn_value);
+                var count = rrr_tns.length;
+                var tn_container = createTNContainer(count, rrr_tn_value);
 
-            document.getElementById('rrr_div').appendChild(tn_container);
+                document.getElementById('rrr_div').appendChild(tn_container);
 
-            $('#rrr_tn').val('');
-            console.log(rrr_tns);
+                $('#rrr_tn').val('');
+                console.log(rrr_tns);
+            }
         }
+
+        
     }
 
     function createTNContainer(count, rrr_tn_value) {

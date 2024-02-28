@@ -117,6 +117,7 @@
                 <tr>
                     <th>Empty Record</th>
                     <td>No RRRTN Found</td>
+                    <td>------</td>
                 </tr>
             @else
                 @foreach ($rrr_tn as $index => $rrt)
