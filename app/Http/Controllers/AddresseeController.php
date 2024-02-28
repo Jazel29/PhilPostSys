@@ -82,7 +82,7 @@ class AddresseeController extends Controller
                 'province' => $request->input('province')
             ]);
 
-            return redirect('update-addressee-form')->with('status', 'Addressee Updated Successfully');
+            return redirect('update-addressee-form')->with('flash_mssg', 'Addressee Updated Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();

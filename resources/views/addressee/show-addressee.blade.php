@@ -913,8 +913,8 @@
                         <thead class="text-center">
                             <tr>
                                 <th scope="col-items">Items</th>
-                                <th scope="col">Department Name</th>
                                 <th scope="col">Abbrev</th>
+                                <th scope="col">Department Name</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">ZIP Code</th>
@@ -931,8 +931,8 @@
                                 @foreach ($addresseeAll as $index => $addressee)
                                     <tr class="hover-row">
                                         <th scope="row-item">{{ $index + 1 }}</th>
+                                        <th scope="row-item">{{ $addressee->abbrev }}</th>
                                         <th class="textStyle">{{ $addressee->name_primary }}</th>
-                                        <th class="textStyle" scope="row-item">{{ $addressee->abbrev }}</th>
                                         <th class="textStyle" scope="row-item">{{ $addressee->address }}</th>
                                         <th class="textStyle" scope="row-item">{{ $addressee->city }}</th>
                                         <th class="textStyle" scope="row-item">{{ $addressee->zip}}</th>
