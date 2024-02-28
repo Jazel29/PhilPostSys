@@ -112,7 +112,7 @@
             </div>
         </div>
 
-         <div class="mt-7 border rounded-md p-3">
+        <div class="mt-7 border rounded-md p-3">
             <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
    
             <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay ">
