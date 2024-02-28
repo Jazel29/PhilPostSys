@@ -68,10 +68,17 @@
     .btn {
         border-radius: 15px !important;
     }
+    .box-with-shadow {
+        box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    }
+    .border {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+    }
 </style>
 
 <div class="ml-4">
-    <div class="mb-8 mx-3">
+    <div class="mb-2 mx-3">
         <h1 class="display-5"> Update Addressee </h1>
     </div>
     <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
@@ -90,12 +97,12 @@
 <div class="row mt-3 m-4">
     <form action="/update-addressee-submit" method="post">
         @csrf
-        <div class="row mt-2 mb-10 mx-0">
-            <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Select Addressee" style="border-color:#a0aec0;" required>
+        <div class="row mt-2 mb-3 mx-0">
+            <input class="form-control rounded-md box-with-shadow text-19" list="datalistOptions" id="addresseeDataList" placeholder="Select Addressee" style="border-color:#a0aec0;" required>
             <datalist id="datalistOptions">
                 <option value="Existing Addressee"></option>
             </datalist>
-            <input class="form-control" type="hidden" name="addressee-id" id="addressee-id">
+            <input class="form-control " type="hidden" name="addressee-id" id="addressee-id">
         </div>
 
         <div class="list-addressee-form border rounded-md p-3">
@@ -113,18 +120,18 @@
             </div>
         </div>
 
-        <div class="mt-7 border rounded-md p-3">
+        <div class="mt-3 border rounded-md p-3">
             <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
             <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay" disabled>
             <div class="row">
                 <div class="col-md-4">
-                    <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border " placeholder="City/Municipality" required disabled>
+                    <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border" placeholder="City/Municipality" required disabled>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Zip Code" required disabled>
+                    <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Zip Code" required disabled>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="province" id="province" class="form-control mb-2 rounded-md text-19 form-border " placeholder="Province" required disabled>
+                    <input type="text" name="province" id="province" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Province" required disabled>
                 </div>
             </div>
         </div>
