@@ -6,7 +6,7 @@
 
 /* =============== Globals ============== */
 * {
-  font-family: "RockoFLF", sans-serif;
+  /*font-family: "RockoFLF", sans-serif;*/
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -491,10 +491,7 @@ body {
 }
 
 </style>
-    
-
-    <div class="ml-60 mt-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">  
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <!-- ======================= Cards ================== -->
@@ -677,7 +674,4 @@ body {
         </div>
     </div>
 
-
-
-    
 </x-app-layout>
