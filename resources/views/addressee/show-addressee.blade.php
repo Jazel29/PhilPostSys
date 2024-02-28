@@ -925,7 +925,7 @@
                         <tbody class="text-center">
                             @if ($addresseeAll->isEmpty())
                                 <tr class="border-b">
-                                    <td class="textStyle" textcolspan="6">No Addressee Record Found</td>
+                                    <td class="textStyle" colspan="8">No Addressee Record Found</td>
                                 </tr>
                             @else
                                 @foreach ($addresseeAll as $index => $addressee)
