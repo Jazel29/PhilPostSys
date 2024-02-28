@@ -2,7 +2,7 @@
 
     /* start - table */
 
-    table.dataTable th.dt-left,
+        table.dataTable th.dt-left,
         table.dataTable td.dt-left {
         text-align: left;
         }
@@ -666,6 +666,11 @@
     .btn {
         border-radius: 15px !important;
     }
+
+    .btn-view {
+        background: linear-gradient(45deg, #FCBE00, #FFE593);;
+    }
+
     .container-dots {
         width: 60px; /* Adjust the width as needed */
         height: 40px; /* Adjust the height as needed */
@@ -698,146 +703,10 @@
     /* Add rounded corners to table rows on hover and change background color to blue */
     #transmittalstable tbody tr:hover {
         border-radius: 10px;
-        background: linear-gradient(90deg, #0026C8, #2C54FF);
-        color: #FFFFFF;
+        background: #EAEAEA;
+        color: #111;
     }
-</style>
 
-<div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
-    <div class="mssg">
-        @if(session('flash_mssg'))
-            <div id="flashMessage" class="alert alert-primary" role="alert">
-                <p>{{ session('flash_mssg') }}</p>
-            </div>
-        @endif
-    </div>
-</div>
-
-<div id="overlay"></div><!-- Add overlay div -->
-
-<div class="row">
-    <h1 class="display-5"> Trace Transmittals </h1>
-</div>
-
-<div class="newtb">
-    <table id="transmittalstable" class="table" cellspacing="0" width="90%">
-        <thead class="text-center">
-            <tr> 
-                <th>Transmittal TN</th>
-                <th>Date Posted</th>
-                <th>Addressee</th>
-                <th>Address</th>
-                <th>RRR TN</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <!-- <div class="container-dots">
-            <div class="dots">•••</div>
-        </div> -->
-        
-        <!-- Table body --> 
-        <tbody>
-            @if ($query->isEmpty())
-                <tr class="border-b">
-                    <td colspan="6">No Record Found</td>
-                </tr>
-            @else
-            @foreach ($query as $record)
-                @php
-                    // Retrieve AddresseeList and ReturnCards for the current record
-                    $addressee = $addressees[$record->id] ?? null;
-                    $returnCards = $rrt_n[$record->id] ?? collect();
-                @endphp
-                <tr>
-                    <th scope="row">{{ $record->mailTrackNum }}</th>
-                    <td>{{ $record->date }}</td>
-                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
-                    <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
-                    <td class="ellipsis"> <!-- Apply ellipsis to this column -->
-                        @if ($rrt_n[$record->id]->isEmpty())
-                            No Record Found
-                        @else
-                            @foreach ($rrt_n[$record->id] as $item)
-                                {{ $item->returncard }}
-                            @endforeach
-                        @endif
-                        
-                    </td>
-                    
-                    <td>
-                        <div class="d-flex">
-                            <div>
-                                <a class="btn btn-primary text-white" href="{{ url('/transmittals/' . $record->id) }}" title="View Record">View</a>
-                            </div>
-                            <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
-                            </div>
-                            <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                </tr>              
-            @endforeach
-        
-            @endif
-        </tbody>
-    </table>
-</div>
-
-
-<!-- Modal for Delete Transmittal Record -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header custom-header">
-                <h5 class="modal-title" id="deleteConfirmationModalLabel">Transmittal Record</h5>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this record?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                <form id="deleteForm" method="POST" action="">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-        if ($('#flashMessage').length > 0) {
-            $('#overlay').fadeIn('slow');
-        }
-
-        setTimeout(function() {
-            $('#flashMessage').fadeOut('slow');
-            $('#overlay').fadeOut('slow');
-        }, 2000);
-    });
-    
-    $(document).ready(function() {
-        $('.delete-button').on('click', function() {
-            var deleteUrl = $(this).data('delete-url');
-            $('#deleteForm').attr('action', deleteUrl);
-            $('#deleteConfirmationModal').modal('show');
-        });
-        window.closeModal = function() {
-            $('#deleteConfirmationModal').modal('hide');
-        };
-    });
-</script>
-
-<style>
     /* Custom table styles */
     .table-wrapper th {
         border-radius: 0px;
@@ -913,6 +782,140 @@
     color: #ffffff;
     }
 </style>
+
+<div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
+    <div class="mssg">
+        @if(session('flash_mssg'))
+            <div id="flashMessage" class="alert alert-primary" role="alert">
+                <p>{{ session('flash_mssg') }}</p>
+            </div>
+        @endif
+    </div>
+</div>
+
+<div id="overlay"></div><!-- Add overlay div -->
+
+<div class="row">
+    <h1 class="display-5"> Trace Transmittals </h1>
+</div>
+
+<div class="newtb">
+    <table id="transmittalstable" class="table" cellspacing="0" width="90%">
+        <thead class="text-center">
+            <tr> 
+                <th>Transmittal TN</th>
+                <th>Date Posted</th>
+                <th>Addressee</th>
+                <th>Address</th>
+                <th>RRR TN</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <!-- <div class="container-dots">
+            <div class="dots">•••</div>
+        </div> -->
+        
+        <!-- Table body --> 
+        <tbody>
+            @if ($query->isEmpty())
+                <tr class="border-b">
+                    <td colspan="6">No Record Found</td>
+                </tr>
+            @else
+            @foreach ($query as $record)
+                @php
+                    // Retrieve AddresseeList and ReturnCards for the current record
+                    $addressee = $addressees[$record->id] ?? null;
+                    $returnCards = $rrt_n[$record->id] ?? collect();
+                @endphp
+                <tr>
+                    <th scope="row">{{ $record->mailTrackNum }}</th>
+                    <td>{{ $record->date }}</td>
+                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
+                    <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
+                    <td class="ellipsis"> <!-- Apply ellipsis to this column -->
+                        @if ($rrt_n[$record->id]->isEmpty())
+                            No Record Found
+                        @else
+                            @foreach ($rrt_n[$record->id] as $item)
+                                {{ $item->returncard }}
+                            @endforeach
+                        @endif
+                        
+                    </td>
+                    
+                    <td>
+                        <div class="d-flex">
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn-view">View</a>
+                            </div>
+                            <div class="ms-3 mt-2">
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-success text-white">Update</a>
+                            </div>
+                            <div class="ms-3 mt-2">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>              
+            @endforeach
+        
+            @endif
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+<!-- Modal for Delete Transmittal Record -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header custom-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Transmittal Record</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <form id="deleteForm" method="POST" action="">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function() {
+        if ($('#flashMessage').length > 0) {
+            $('#overlay').fadeIn('slow');
+        }
+
+        setTimeout(function() {
+            $('#flashMessage').fadeOut('slow');
+            $('#overlay').fadeOut('slow');
+        }, 2000);
+    });
+    
+    $(document).ready(function() {
+        $('.delete-button').on('click', function() {
+            var deleteUrl = $(this).data('delete-url');
+            $('#deleteForm').attr('action', deleteUrl);
+            $('#deleteConfirmationModal').modal('show');
+        });
+        window.closeModal = function() {
+            $('#deleteConfirmationModal').modal('hide');
+        };
+    });
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
