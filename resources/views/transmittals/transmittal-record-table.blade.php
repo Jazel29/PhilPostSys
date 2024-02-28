@@ -755,6 +755,7 @@
 
     .hover-row:hover {
         background: linear-gradient(90deg, #0026C8, #2C54FF);
+        box-shadow: 0 0 20px #0026C8;
         color: #FFFFFF;
         border-radius: 100px;
     }

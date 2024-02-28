@@ -109,6 +109,7 @@
                 <div class="row mt-4">
                     <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>
+                
                 <div class="row mt-2">
                     <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>

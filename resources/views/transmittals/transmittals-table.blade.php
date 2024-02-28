@@ -741,7 +741,6 @@
         font-size: 14px;
     }
 
-    /* Add rounded corners to table rows on hover and change background color to blue */
     #transmittalstable tbody tr:hover {
         border-radius: 10px;
         background: #EAEAEA;
@@ -814,13 +813,29 @@
     .modal-title {
     color: #ffffff;
     }
+
+    .trash_icon {
+        color: #fff;
+    }
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
     <div class="mssg">
         @if(session('flash_mssg'))
+
             <div id="flashMessage" class="alert alert-primary" role="alert">
-                <p>{{ session('flash_mssg') }}</p>
+            <div id="trash_icon">
+                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/skkahier.json"
+                    trigger="in"
+                    delay="1"
+                    state="in-trash-empty"
+                    primaryColor="#ffffff"
+                    style="width:30px; height:30px">
+                </lord-icon>
+            </div>
+                <p>&nbsp; {{ session('flash_mssg') }} </p>
             </div>
         @endif
     </div>
