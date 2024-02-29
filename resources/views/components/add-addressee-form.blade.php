@@ -100,6 +100,11 @@
             <div class="row">
                 <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
 
+                <div class="form-outline" data-mdb-input-init>
+                    <input type="text" id="form12" class="form-control" />
+                    <label class="form-label" for="form12">Example label</label>
+                </div>
+
                 <div class="col-md-3">
                     <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control rounded-md text-19 form-border no-margin" placeholder="Addressee Abbreviation" required>
                 </div>

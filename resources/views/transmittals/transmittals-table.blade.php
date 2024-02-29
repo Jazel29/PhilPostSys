@@ -355,7 +355,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 200px;
+            width: 500px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
@@ -984,8 +984,8 @@
             { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
         ]
     });
-
-    $('.dataTables_filter input').attr('placeholder', ' Search');
+    
+    $('.dataTables_filter input').attr('placeholder', 'Search');
     // $('.dataTables_length label').contents().filter(function() {
     //     return this.nodeType === 3; // Filter out text nodes
     // }).remove();
