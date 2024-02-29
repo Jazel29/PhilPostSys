@@ -103,6 +103,9 @@
                 <div class="col-md-3">
                     <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control rounded-md text-19 form-border no-margin" placeholder="Addressee Abbreviation" required>
                 </div>
+
+                
+
                 <div class="col-md-9">
                     <div class="flex flex-col">
                         <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Name Line 1" required>
@@ -113,7 +116,7 @@
         </div>
 
         <div class="mt-7 border rounded-md p-3">
-            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
+            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Address : </h1>
    
             <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay ">
             <div class="row">
