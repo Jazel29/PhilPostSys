@@ -495,76 +495,78 @@ body {
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                 <!-- ======================= Cards ================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div class="row">
-                        <!-- Left Column for Number and Title -->
-                        <div class="col">
-                            <a href="/tracer">
-                            <div class="numbers">{{ $totalTransmittals }}</div>
-                            <div class="cardName">No. of Transmittals</div>
-                        </div></a>
+              <div class="cardBox">
+                  <div class="card">
+                      <div class="row">
+                          <!-- Left Column for Number and Title -->
+                          <div class="col">
+                              <a href="/tracer">
+                              <div class="numbers">{{ $totalTransmittals }}</div>
+                              <div class="cardName">No. of Transmittals</div>
+                          </div></a>
 
-                        <!-- Right Column for Icon -->
-                        
-                        <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
-                        </div>
-                    </div>
-                </div>
+                          <!-- Right Column for Icon -->
+                          
+                          <div class="col-auto iconBx">
+                              <i class="fa-solid fa-person-circle-check"></i>
+                          </div>
+                      </div>
+                  </div>
 
-                <div class="card">
-                    <div class="row">
-                        <!-- Left Column for Number and Title -->
-                        <div class="col">
-                            <a href="/tracer">
-                            <div class="numbers">{{ $tolNo }}</div>
-                            <div class="cardName">Most No. of Transmittals</div>
-                            <div class="cardName">Date : {{ $freqDate }}</div>
-                        </div></a>
+                  <div class="card">
+                      <div class="row">
+                          <!-- Left Column for Number and Title -->
+                          <div class="col">
+                              <a href="/tracer">
+                              <div class="numbers">{{ $tolNo }}</div>
+                              <div class="cardName">Most No. of Transmittals</div>
+                              <div class="cardName">Date : {{ $freqDate }}</div>
+                          </div></a>
 
-                        <!-- Right Column for Icon -->
-                        <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
-                        </div>
-                    </div>
-                </div>
+                          <!-- Right Column for Icon -->
+                          <div class="col-auto iconBx">
+                              <i class="fa-solid fa-person-circle-check"></i>
+                          </div>
+                      </div>
+                  </div>
 
-                <div class="card">
-                    <div class="row">
-                        <!-- Left Column for Number and Title -->
-                        <div class="col"><a href="/tracer">
-                            <div class="numbers">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</div>
-                            <div class="cardName">Top Transmittals</div>
-                        </div></a>
+                  <div class="card">
+                      <div class="row">
+                          <!-- Left Column for Number and Title -->
+                          <div class="col"><a href="/tracer">
+                              <div class="numbers">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</div>
+                              <div class="cardName">Top Transmittals</div>
+                          </div></a>
 
-                        <!-- Right Column for Icon -->
-                        <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
-                        </div>
-                    </div>
-                </div>
+                          <!-- Right Column for Icon -->
+                          <div class="col-auto iconBx">
+                              <i class="fa-solid fa-person-circle-check"></i>
+                          </div>
+                      </div>
+                  </div>
 
-                <div class="card">
-                    <div class="row">
-                        <!-- Left Column for Number and Title -->
-                        <div class="col">
-                        <a href="/show-addressee">
-                            <div class="numbers">{{ $totalAddressees }}</div>
-                            <div class="cardName">No. of Addressees</div>
-                        </div></a>
+                  <div class="card">
+                      <div class="row">
+                          <!-- Left Column for Number and Title -->
+                          <div class="col">
+                          <a href="/show-addressee">
+                              <div class="numbers">{{ $totalAddressees }}</div>
+                              <div class="cardName">No. of Addressees</div>
+                          </div></a>
 
-                        <!-- Right Column for Icon -->
-                        <div class="col-auto iconBx">
-                            <i class="fa-solid fa-person-circle-check"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                          <!-- Right Column for Icon -->
+                          <div class="col-auto iconBx">
+                              <i class="fa-solid fa-person-circle-check"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-9">
                 <div class="ml-4 p-6 text-gray-700 font-bold">
                     Monthly Return Count and Return Rate
                 </div>
+                
 
                 <!-- Include ApexCharts script -->
                 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -670,6 +672,28 @@ body {
                         chart.render();
                     </script>
                 </div>
+                </div>
+                <div class="col mt-4 me-4">
+                  <div class="h5 text-center">Top Transmittals (Deparment)</div>
+                  <div class="card mt-3 shadow rounded-lg" style="height: 300px;">
+                      <div class="h7 mt-1 fw-bold p-2">Ranking</div>
+                    <div class="card-body">
+                      @if($mostUsedAddresses->isEmpty())
+                        <p class="text-center">Empty Addresee</p>
+                      @else
+                      @foreach($mostUsedAddresses as $topdept)
+                          <div class="row">
+                              <div class="col">{{ $topdept->abbrev }}</div>
+                              <div class="col text-end">{{ $topdept->address_count }}</div>
+                          </div>
+                      @endforeach
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                
             </div>
         </div>
     </div>
