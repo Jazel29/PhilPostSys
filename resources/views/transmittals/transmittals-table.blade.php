@@ -824,17 +824,17 @@
         @if(session('flash_mssg'))
 
             <div id="flashMessage" class="alert alert-primary" role="alert">
-            <div id="trash_icon">
-                <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
                 <lord-icon
                     src="https://cdn.lordicon.com/skkahier.json"
                     trigger="in"
-                    delay="1"
+                    delay="4"
                     state="in-trash-empty"
-                    primaryColor="#ffffff"
-                    style="width:30px; height:30px">
+                    colors="primary:#ffffff"
+                    style="width:17px; height:17px">
                 </lord-icon>
-            </div>
+
                 <p>&nbsp; {{ session('flash_mssg') }} </p>
             </div>
         @endif

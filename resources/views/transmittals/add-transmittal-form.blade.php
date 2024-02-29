@@ -163,6 +163,7 @@
             </div>
             <div class="mssg">
                 @if(session('record_added'))
+                
                     <div class="alert alert-primary" role="alert">
                         <p>{{ session('record_added') }}</p>
                     </div>
@@ -217,6 +218,16 @@
 <div class="content mt-5">
     <div class="d-flex justify-content-center">
         @if (session('success'))
+        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+            src="https://cdn.lordicon.com/lomfljuq.json"
+            trigger="in"
+            delay="5"
+            state="in-check"
+            colors="primary:#ffffff"
+            style="width:30px; height:30px">
+            </lord-icon>
+
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>

@@ -102,7 +102,7 @@
             
         <div class="text-center md:block hidden items-center text-black mt-3">
             <div class="hover:bg-gray-300 rounded-md mx-3">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md w-full {{ request()->routeIs('dashboard') ? 'bg-blue-500' : '' }}">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-2 hover:bg-gray-300 rounded-md {{ request()->routeIs('dashboard') ? 'bg-blue-500' : '' }}">
                 <div class="row">
                     <div class="col hidden md:block">
                         <i class="fa-solid fa-chart-simple"></i>

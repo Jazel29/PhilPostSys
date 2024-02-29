@@ -814,11 +814,21 @@
             </div>
             <div class="row">
                 <div class="col">
+
+                
+
                     <div class="d-flex justify-content-between">
                         <span class="bold highlight">
-                            <i class="fa-solid fa-caret-right"></i>
-                            <span class="small-text">{{ $records->mailTrackNum }}</span>
-                            <i class="fa-solid fa-caret-left"></i>
+                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                            <p class="small-text"> <lord-icon
+                                src="https://cdn.lordicon.com/bqavqyaq.json"
+                                trigger="in"
+                                delay="4"
+                                state="in-ticket"
+                                colors="primary:#ffffff"
+                                style="width:20px; height:20px">
+                            </lord-icon> {{ $records->mailTrackNum }} <i class="fa-solid fa-caret-left"></i></p>
+                            
                         </span>
                     </div>
                 </div>
@@ -852,6 +862,8 @@
                 <div class="row mt-1">
 
                 <!-- table -->
+
+            
 
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -903,7 +915,7 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
     <script>
@@ -927,7 +939,7 @@
         );
         });
 
-    // (kevin) start - frontend javascript for table //
+    // (kevin) end - frontend javascript for table //
 
         // search bar //
         $(document).ready(function() {
