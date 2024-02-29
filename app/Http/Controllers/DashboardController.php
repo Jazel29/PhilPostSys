@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Transmittals;
 use App\Models\AddresseeList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class DashboardController extends Controller
 {
@@ -35,9 +37,20 @@ class DashboardController extends Controller
         // Find the most frequently used abbreviation
         $mostUsedAbbreviation = $abbreviationCounts->search($mostUsedAbbreviationCount);
 
+        // Retrieve the top 5 most used addresses with their counts
+        $mostUsedAddresses = Transmittals::select('addressee_lists.abbrev', DB::raw('COUNT(*) as address_count'))
+            ->join('addressee_lists', 'transmittals.recieverName', '=', 'addressee_lists.id')
+            ->groupBy('transmittals.recieverName', 'addressee_lists.abbrev')
+            ->orderByDesc('address_count')
+            ->limit(8)
+            ->get();
+                
+
         return view('dashboard')->with(['totalTransmittals'=>$transmittalsTotal, 'freqDate' => $mostUsedDate, 'tolNo'=>$mostUsedDateCount, 'totalAddressees' => $addresseesTotal,
         'mostUsedAbbreviation' => $mostUsedAbbreviation,
-        'mostUsedAbbreviationCount' => $mostUsedAbbreviationCount]);
+        'mostUsedAbbreviationCount' => $mostUsedAbbreviationCount,
+        'mostUsedAddresses' => $mostUsedAddresses
+    ]);
     }
 
 }
