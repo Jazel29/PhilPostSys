@@ -80,6 +80,11 @@
     .btn {
         border-radius: 15px !important;
     }
+
+    .input-border {
+        border-color: #a0aec0;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
 </style>
 
 
@@ -103,19 +108,19 @@
 
 <form action="/addRecord" id="addAddresseeForm" method="POST" class="p-3 needs-validation" onsubmit="event.preventDefault(); showConfirmationModal();">
     @csrf
-    <div class="add-transmittal-form flex">
-        <div class="left-section w-1/2">
+    <div class="add-transmittal-form flex flex-col md:flex-row">
+        <div class="left-section w-full md:w-1/2">
             <div class="mx-4">          
                 <div class="row mt-4">
-                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
+                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19 input-border" required>
                 </div>
                 
                 <div class="row mt-2">
-                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
+                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19 input-border" required>
                 </div>
                 <div id="mail_tn_error" class="text-danger mt-2"></div>
                 <div class="row mt-2">
-                    <input class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
+                    <input class="form-control rounded-md text-19 input-border" list="datalistOptions" id="addresseeDataList" placeholder="Addressee"required>
                     <datalist id="datalistOptions">
                         <option value="Add New Addressee"></option>
                     </datalist>
@@ -132,8 +137,8 @@
                 </div>
             </div>
         </div>    
-        <div class="right-section w-1/2" id="addRRR_div">
-            <div class="flex flex-col mt-4">
+        <div class="right-section w-full md:w-1/2 mt-4" id="addRRR_div">
+            <div class="flex flex-col">
                 <div>
                     <div class="flex flex-row">
                         <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
@@ -141,7 +146,7 @@
                             <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
                         </div>
                     </div>
-                    <div class="mt-4 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                    <div class="mt-5 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
                         <div id="rrrtn_error" class="text-danger mt-2"></div>
                         <input type="hidden" name="rrr_tns" id="rrr_tns_input">
                     </div>
