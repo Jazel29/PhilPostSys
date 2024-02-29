@@ -355,7 +355,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 200px;
+            width: 500px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
@@ -911,7 +911,7 @@
                                 <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
+                                    <button type="button" class="btn btn-danger delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -984,8 +984,8 @@
             { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
         ]
     });
-
-    $('.dataTables_filter input').attr('placeholder', ' Search');
+    
+    $('.dataTables_filter input').attr('placeholder', 'Search');
     // $('.dataTables_length label').contents().filter(function() {
     //     return this.nodeType === 3; // Filter out text nodes
     // }).remove();

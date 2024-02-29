@@ -506,13 +506,13 @@ body {
                               <div class="cardName">No. of Transmittals</div>
                           </div></a>
 
-                          <!-- Right Column for Icon -->
-                          
-                          <div class="col-auto iconBx">
-                              <i class="fa-solid fa-person-circle-check"></i>
-                          </div>
-                      </div>
-                  </div>
+                        <!-- Right Column for Icon -->
+                        
+                        <div class="col-auto iconBx">
+                          <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                    </div>
+                </div>
 
                   <div class="card">
                       <div class="row">
@@ -524,12 +524,12 @@ body {
                               <div class="cardName">Date : {{ $freqDate }}</div>
                           </div></a>
 
-                          <!-- Right Column for Icon -->
-                          <div class="col-auto iconBx">
-                              <i class="fa-solid fa-person-circle-check"></i>
-                          </div>
-                      </div>
-                  </div>
+                        <!-- Right Column for Icon -->
+                        <div class="col-auto iconBx">
+                          <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                    </div>
+                </div>
 
                   <div class="card">
                       <div class="row">
@@ -539,12 +539,12 @@ body {
                               <div class="cardName">Top Transmittals</div>
                           </div></a>
 
-                          <!-- Right Column for Icon -->
-                          <div class="col-auto iconBx">
-                              <i class="fa-solid fa-person-circle-check"></i>
-                          </div>
-                      </div>
-                  </div>
+                        <!-- Right Column for Icon -->
+                        <div class="col-auto iconBx">
+                          <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                    </div>
+                </div>
 
                   <div class="card">
                       <div class="row">
