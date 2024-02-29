@@ -71,6 +71,87 @@
     .box-with-shadow {
         box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
     }
+
+    .form-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        font-size: 1rem;
+        padding: 1rem;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        width: 100%;
+        transition: border-color 0.3s;
+        background-color: transparent;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #0026C8; /* Change focus border color */
+    }
+    
+    .form-control + label {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        transition: top 0.3s, font-size 0.3s;
+        pointer-events: none; /* Ensure label doesn't interfere with input */
+    }
+    
+    .form-control:focus + label,
+    .form-control:not(:placeholder-shown) + label {
+        top: 0.25rem;
+        font-size: 0.75rem;
+        color: #0026C8; /* Change label color on focus or when input is not empty */
+    }
+
+    .input-bx{
+    position: relative;
+
+
+    }
+    .input-bx input{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #7f8fa6;
+        border-radius: 15px;
+        outline: none;
+        font-size: 1rem;
+        transition: 0.6s;
+    }
+
+    .input-bx span{
+        position: absolute;
+        top: 1px;
+        left: 20px;
+        padding: 10px;
+        font-size: 1rem;
+        color: #7f8fa6;
+        pointer-events: none;
+        transition: 0.1s;
+    }
+    .input-bx input:valid ~ span,
+    .input-bx input:focus ~ span{
+        color: #3742fa;
+        transform: translateX(5px) translateY(-9px);
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 0 10px;
+        background: #fff;
+    }
+
+    .input-bx input:valid,
+    .input-bx input:focus{
+        color: #000;
+        border: 1px solid #0026C8;
+
+    }
+    .text-color {
+        color: #000;
+    }
+
 </style>
 
 <div class="ml-4">
@@ -94,23 +175,34 @@
     <form action="/update-addressee-submit" method="post">
         @csrf
         <div class="row mt-2 mb-3 mx-0">
-            <input class="form-control rounded-md box-with-shadow text-19" list="datalistOptions" id="addresseeDataList" placeholder="Select Addressee" style="border-color:#a0aec0;" required>
-            <datalist id="datalistOptions">
-                <option value="Existing Addressee"></option>
-            </datalist>
-            <input class="form-control " type="hidden" name="addressee-id" id="addressee-id">
+            <div class="input-bx col-md-12">        
+                <input type="text" class="form-control rounded-md form-border text-19" list="datalistOptions" id="addresseeDataList" required>
+                <span>Select Addressee</span>
+                <datalist id="datalistOptions">
+                    <option value="Existing Addressee"></option>
+                </datalist>
+                <input class="form-control text-color" type="hidden" name="addressee-id" id="addressee-id">
+            </div>
         </div>
 
         <div class="list-addressee-form border rounded-md p-3">
             <div class="row">
                 <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
-                <div class="col-md-3">
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Abbreviation" required disabled>
+                
+                <div class="input-bx col-md-3">
+                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <span>Addressee Abbreviation</span>
                 </div>
                 <div class="col-md-9">
                     <div class="flex flex-col">
-                        <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Name Line 1" required disabled>
-                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Addressee Name Line 2" disabled>
+                        <div class="input-bx">
+                            <input type="text" name="namePrimary" id="namePrimary" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                            <span>Addressee Name Line 1</span>
+                        </div>
+                        <div class="input-bx">    
+                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" disabled>
+                            <span>Addressee Name Line 2</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,16 +210,25 @@
 
         <div class="mt-3 border rounded-md p-3">
             <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
-            <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Floor/Bldg/Street/Barangay" disabled>
+            <div class="input-bx">
+                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" disabled>
+                <span>Floor/Bldg/Street/Barangay</span>
+            </div>
+
+            
+            
             <div class="row">
-                <div class="col-md-4">
-                    <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border" placeholder="City/Municipality" required disabled>
+                <div class="col-md-4 input-bx">
+                    <input type="text" name="city" id="city" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <span>City/Municipality</span>
                 </div>
-                <div class="col-md-4">
-                    <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Zip Code" required disabled>
+                <div class="col-md-4 input-bx">
+                    <input type="text" name="zip" id="zip" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <span>Zip Code</span>
                 </div>
-                <div class="col-md-4">
-                    <input type="text" name="province" id="province" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Province" required disabled>
+                <div class="col-md-4 input-bx">
+                    <input type="text" name="province" id="province" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <span>Province</span>
                 </div>
             </div>
         </div>

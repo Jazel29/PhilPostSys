@@ -331,12 +331,13 @@
         }
         .dataTables_wrapper .dataTables_length {
         float: left;
+        margin-bottom: 30px;
         }
         .dataTables_wrapper .dataTables_length select {
         border: 1px solid #aaa;
-        width: 90px;
+        width: 80px;
         border-radius: 15px;
-        padding-left: 10px;
+        /* padding-left: 10px; */
         background-color: transparent;
         }
         .dataTables_wrapper .dataTables_filter {
@@ -348,9 +349,7 @@
             border: 1px solid #aaa;
             width: 100%;
             border-radius: 15px;
-            padding: 5px;
             background-color: transparent;
-            margin-left: 3px;
         }
 
         .dataTables_wrapper .dataTables_filter input::placeholder {
@@ -629,10 +628,13 @@
         }
         }
         @media screen and (max-width: 640px) {
-        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_length{
+            float: none;
+            text-align: start;
+        }
         .dataTables_wrapper .dataTables_filter {
             float: none;
-            text-align: center;
+            text-align: end;
         }
         .dataTables_wrapper .dataTables_filter {
             margin-top: 0.5em;
@@ -684,7 +686,7 @@
         background: linear-gradient(90deg, #0026C8, #2C54FF); 
         border-radius: 10px;
         color: #FFFFFF;
-        font-size: 19px;
+        font-size: 15px;
         padding: 4px 6px;
     }
 
@@ -704,7 +706,7 @@
     }
 
     .tracking {
-    padding: 11px;
+    padding: 15px;
     color: #9F9F9F;
     }   
 
@@ -713,9 +715,7 @@
         border-radius: 20px; 
         padding-top: 15px;
         padding-bottom: 15px;
-        padding-right: 0px;
-        padding-left: 15px; 
-        background-color: #ffffff; 
+        background-color: #ffffff;
     }
 
     .custom-line {
@@ -792,7 +792,7 @@
 
     <div class="container">
         <div class="row mt-3">
-            <div class="col">
+            <div class="col my-2">
                 <h1 class="display-6">Transmittal Record</h1>
             </div>
             <div class="col text-right">
@@ -805,100 +805,74 @@
 
         <div class="row mt-3">
         <!-- First Column -->
-        <div class="col-md-3">
-        <div class="rounded-container">
-            <div class="row">
-                <div class="col">
-                    <span class="tracking">Tracking Number</span>
+        <div class="col-lg-4">
+            <div class="rounded-container">
+                <span class="tracking mx-2">Tracking Number</span>
+                <div class="d-flex justify-content-between mx-4 py-1">
+                    <span class="bold highlight">
+                        <p class="">
+                        <i class="fa-solid fa-caret-right"></i>
+                        {{ $records->mailTrackNum }}
+                        <i class="fa-solid fa-caret-left"></i>
+                        </p>  
+                    </span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-
-                
-
-                    <div class="d-flex justify-content-between">
-                        <span class="bold highlight">      
-                            <i class="fa-solid fa-caret-right"></i> {{ $records->mailTrackNum }} <i class="fa-solid fa-caret-left"></i></p>   
-                        </span>
-                    </div>
-                </div>
+                <p class="labelsdate"><br />Date Posted</p>
+                <p><span class="bold-date">{{ date('F j, Y', strtotime($records->date)) }}</span></p>
+                <hr class="custom-line" /><br>
+                <p class="labels-address">Address<br></p>
+                <span class="bold-address">
+                    {{ $addressee->address }}<br>
+                    {{ $addressee->zip }} 
+                    {{ $addressee->city }},
+                    {{ $addressee->province }}
+                </span>
+                <hr class="custom-line" /><br>
             </div>
-        </div>
-            <p class="labelsdate"><br />Date Posted</p>
-            <p><span class="bold-date">{{ date('F j, Y', strtotime($records->date)) }}</span></p>
-            <hr class="custom-line" /><br>
-            <p class="labels-address">Address<br></p>
-            <span class="bold-address">
-                {{ $addressee->address }}<br>
-                {{ $addressee->city }},
-                {{ $addressee->province }}<br>
-                {{ $addressee->zip }}
-            </span>
-        </div>
-
-        <!-- Second Column -->
-        <div class="col-md-1">
-        </div>
 
         <!-- Third Column -->
-        <div class="col-md-8">
-            <p class="labels-addressee">Addressee<br /></p>
-            <span class="bold-addressee">
-                <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
-                <br>{{ $addressee->name_primary }}
-                <br><span class="secondary">{{ $addressee->name_secondary }}</span>
-            </span>
+        <div class="col-lg-8">
             <div class="container-fluid">
                 <div class="row mt-1">
-
-                <!-- table -->
-
-                <div class="row mt-5">
-                <div class="col-md-12">
-                  <!--  Bar -->
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search"
-                    />
-                    <button class="btn btn-outline-success" type="button">
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <table class="table table-size mt-4" id="example">
-                            <thead class="text-center">
-                                <tr>
-                                    <th scope="col-items">Items</th>
-                                    <th scope="col">RRR Tracking Numbers</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @if ($rrt_n->isEmpty())
-                                    <tr>
-                                        <th>Empty Record</th>
-                                        <td>No RRRTN Found</td>
-                                    </tr>
-                                @else
-                                    @foreach ($rrt_n as $index => $rrt)
-                                        <tr class="hover-row">
-                                            <th scope="row-item">{{ $index + 1 }}</th>
-                                            <td><span class="caret"><i class="fa-solid fa-caret-right fa-fade"></i></span>&nbsp;{{ $rrt->returncard }} &nbsp;<span class="caret"><i class="fa-solid fa-caret-left fa-fade"></i></span></td>
+                    <p class="labels-addressee">Addressee<br /></p>
+                    <span class="bold-addressee">
+                        <span class="abbrev"><i class="fa-solid fa-envelope"></i> {{ $addressee->abbrev }}</span>
+                        <br>{{ $addressee->name_primary }}
+                        <br><span class="secondary">{{ $addressee->name_secondary }}</span>
+                    </span>
+                    <div class="container-fluid my-5">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <table class="table table-size mt-5" id="example">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th scope="col-items">Items</th>
+                                            <th scope="col">RRR Tracking Numbers</th>
                                         </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        @if ($rrt_n->isEmpty())
+                                            <tr>
+                                                <th>Empty Record</th>
+                                                <td>No RRRTN Found</td>
+                                            </tr>
+                                        @else
+                                            @foreach ($rrt_n as $index => $rrt)
+                                                <tr class="hover-row">
+                                                    <th scope="row-item">{{ $index + 1 }}</th>
+                                                    <td><span class="caret"><i class="fa-solid fa-caret-right fa-fade"></i></span>&nbsp;{{ $rrt->returncard }} &nbsp;<span class="caret"><i class="fa-solid fa-caret-left fa-fade"></i></span></td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
     <div class="modal" id="exportStatusPrompt" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
@@ -928,6 +902,7 @@
             $('#example').DataTable({
                 "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                 "pageLength": 25, // Default number of records per page
+                "info": false,
             });  
         });
 
@@ -948,13 +923,21 @@
 
         // search bar //
         $(document).ready(function() {
-        $('#transmittalstable').DataTable({
-            "language": {
+            $('#transmittalstable').DataTable({
+                "info": false,
+                "responsive": true,
+                "language": {
                 "search": "" }
-        });
+            });
 
-        $('.dataTables_filter input').attr('placeholder', 'Search');
-        $('#2').css('padding-top', '20px');
+            $('.dataTables_filter input').attr('placeholder', '  Search');
+            $('.dataTables_length label').contents().filter(function() {
+                return this.nodeType === 3; // Filter out text nodes
+            }).remove();
+            $('.dataTables_filter label').contents().filter(function() {
+                return this.nodeType === 3; // Filter out text nodes
+            }).remove();
+
         });
 
         function exportToExcel() {

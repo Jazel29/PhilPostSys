@@ -1,24 +1,20 @@
 <x-app-layout>
-    <div class="flex">
-        <div class="mt-4 ml-60 w-1/2 mb-7">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('profile.partials.update-profile-information-form')
-                    </div>
-                </div>
-
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        @include('profile.partials.delete-user-form')
-                    </div>
+    <div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg sm:mx-2">
+            <div class="p-6 text-gray-900">
+                    @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
-        </div>
-        <div class="w-1/2 mt-4 mr-4">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+
+            <div class="bg-white overflow-hidden shadow-sm mt-3 sm:rounded-lg sm:mx-2">
+            <div class="p-6 text-gray-900">
                     @include('profile.partials.update-password-form')
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm mt-3 mb-3 sm:rounded-lg sm:mx-2">
+            <div class="p-6 text-gray-900">
+                    @include('profile.partials.delete-user-form')
                 </div>
             </div>
         </div>
