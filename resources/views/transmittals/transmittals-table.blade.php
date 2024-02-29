@@ -326,6 +326,14 @@
         /*
         * Control feature layout
         */
+        .dataTables_length label {
+        font-size: 0;
+        line-height: 0;
+        color: transparent;
+        }
+        .dataTables_length label::before {
+        content: none;
+        }
         .dataTables_wrapper {
         position: relative;
         clear: both;
@@ -624,11 +632,14 @@
             margin-top: 0.5em;
         }
         }
-        @media screen and (max-width: 640px) {
-        .dataTables_wrapper .dataTables_length,
+        @media screen and (max-width: 767px) {
         .dataTables_wrapper .dataTables_filter {
             float: none;
-            text-align: center;
+            text-align: end;
+        }
+        .dataTables_wrapper .dataTables_length {
+            float: none;
+            text-align: start;
         }
         .dataTables_wrapper .dataTables_filter {
             margin-top: 0.5em;
@@ -809,12 +820,12 @@
 
 <div id="overlay"></div><!-- Add overlay div -->
 
-<div class="row">
-    <h1 class="display-5"> Trace Transmittals </h1>
+<div class="row mb-5">
+    <h1 class="display-5">Trace Transmittals</h1>
 </div>
 
-<div class="newtb">
-    <table id="transmittalstable" class="table" cellspacing="0" width="90%">
+<div class="newtb mt-5">
+    <table id="transmittalstable" class="table table-auto" cellspacing="0">
         <thead class="text-center">
             <tr> 
                 <th>Transmittal TN</th>
@@ -825,11 +836,6 @@
                 <th>Action</th>
             </tr>
         </thead>
-
-        <!-- <div class="container-dots">
-            <div class="dots">•••</div>
-        </div> -->
-        
         <!-- Table body --> 
         <tbody>
             @if ($query->isEmpty())
@@ -930,20 +936,28 @@
         };
     });
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#transmittalstable').DataTable({
-            "info": false,
-            "language": {
-                "search": "" }
-        });
-
-        $('.dataTables_filter input').attr('placeholder', ' Search');
-        $('#2').css('padding-top', '1px');
+   $(document).ready(function() {
+    $('#transmittalstable').DataTable({
+        "info": false,
+        "language": {
+            "search": ""
+        },
+        "scrollX": true,    // Enable horizontal scrolling
+        "fixedHeader": true, // Enable fixed header (optional, adds a fixed header when scrolling)
+        "columnDefs": [
+            { responsivePriority: 1, targets: 0 }, // Set priority for columns to determine visibility on smaller screens
+            { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
+        ]
     });
+
+    $('.dataTables_filter input').attr('placeholder', ' Search');
+    // $('.dataTables_length label').contents().filter(function() {
+    //     return this.nodeType === 3; // Filter out text nodes
+    // }).remove();
+    $('#2').css('padding-top', '1px');
+});
+
 </script>
 <style>
     .highlight {
