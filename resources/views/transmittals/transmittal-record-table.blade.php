@@ -856,16 +856,7 @@
 
                 <div class="row mt-5">
                 <div class="col-md-12">
-                  <!--  Bar -->
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search"
-                    />
-                    <button class="btn btn-outline-success" type="button">
-                      Search
-                    </button>
+                  
                   </div>
                 </div>
               </div>

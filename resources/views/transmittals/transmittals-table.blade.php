@@ -355,7 +355,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 500px;
+            width: 200px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
@@ -886,7 +886,7 @@
                 <tr>
                     <th scope="row">{{ $record->mailTrackNum }}</th>
                     <td>{{ $record->date }}</td>
-                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
+                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}</td>
                     <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
                     <td class="ellipsis"> <!-- Apply ellipsis to this column -->
                         @if ($rrt_n[$record->id]->isEmpty())
@@ -984,8 +984,8 @@
             { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
         ]
     });
-    
-    $('.dataTables_filter input').attr('placeholder', 'Search');
+
+    $('.dataTables_filter input').attr('placeholder', ' Search');
     // $('.dataTables_length label').contents().filter(function() {
     //     return this.nodeType === 3; // Filter out text nodes
     // }).remove();
