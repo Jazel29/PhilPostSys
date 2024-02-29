@@ -7,6 +7,7 @@
 /* =============== Globals ============== */
 * {
   /*font-family: "RockoFLF", sans-serif;*/
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -251,7 +252,7 @@ body {
 }
 
 .cardBox .card .iconBx {
-  font-size: 50px;
+  font-size: 40px;
   color: var(--black2);
 }
 

@@ -109,6 +109,7 @@
                 <div class="row mt-4">
                     <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>
+                
                 <div class="row mt-2">
                     <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);" required>
                 </div>
@@ -162,6 +163,7 @@
             </div>
             <div class="mssg">
                 @if(session('record_added'))
+                
                     <div class="alert alert-primary" role="alert">
                         <p>{{ session('record_added') }}</p>
                     </div>
@@ -216,6 +218,16 @@
 <div class="content mt-5">
     <div class="d-flex justify-content-center">
         @if (session('success'))
+        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+            src="https://cdn.lordicon.com/lomfljuq.json"
+            trigger="in"
+            delay="5"
+            state="in-check"
+            colors="primary:#ffffff"
+            style="width:30px; height:30px">
+            </lord-icon>
+
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>

@@ -674,26 +674,53 @@
         z-index: 40; /* Below flash message */
     }
 
-    .btn {
-        border-radius: 15px !important;
+    .btn-view {
+        color: #2C54FF;
+        padding: 10px;
+        border: 1px solid #2C54FF;
+        border-radius: 15px;
+        background: transparent;
+        transition: all 0.3s ease;
     }
 
-    .btn-view {
-        padding: 10px;
-        border-radius: 15px;
-        background: linear-gradient(45deg, #FCBE00, #FFE593);
+    .btn-view:hover {
+    font-weight: bold;
+    color: #FFF;
+    padding: 10px; 
+    border-radius: 50px; 
+    background: #2C54FF;
     }
 
     .btn-update {
+        color: #FCBE00;
         padding: 10px;
+        border: 1px solid #FCBE00;
         border-radius: 15px;
-        background: linear-gradient(45deg, #1BBC73, #86EEBF);
+        transition: all 0.3s ease;
     }
 
-    .btn-delete {
+    .btn-update:hover {
+        font-weight: bold;
+        color: #FFF;
         padding: 10px;
+        border-radius: 50px;
+        background: #FCBE00;
+    }
+
+    .btn-danger {
+        color: #EE1A2E;
+        padding: 10px;
+        border: 1px solid #EE1A2E;
         border-radius: 15px;
-        background: linear-gradient(45deg, #EE1A2E, #F8A2AA);
+        transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        font-weight: bold;
+        color: #FFF;
+        padding: 10px;
+        border-radius: 50px;
+        background: #EE1A2E;
     }
 
     .container-dots {
@@ -725,7 +752,6 @@
         font-size: 14px;
     }
 
-    /* Add rounded corners to table rows on hover and change background color to blue */
     #transmittalstable tbody tr:hover {
         border-radius: 10px;
         background: #EAEAEA;
@@ -771,14 +797,6 @@
         gap: 10px;
     }
 
-    .btn {
-        border-radius:5px;
-        padding-left: 7px;
-        padding-right: 7px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
-
     .custom-search-input,
     .custom-filter-select {
         width: 500px;
@@ -806,13 +824,29 @@
     .modal-title {
     color: #ffffff;
     }
+
+    .trash_icon {
+        color: #fff;
+    }
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
     <div class="mssg">
         @if(session('flash_mssg'))
+
             <div id="flashMessage" class="alert alert-primary" role="alert">
-                <p>{{ session('flash_mssg') }}</p>
+
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/skkahier.json"
+                    trigger="in"
+                    delay="4"
+                    state="in-trash-empty"
+                    colors="primary:#ffffff"
+                    style="width:17px; height:17px">
+                </lord-icon>
+
+                <p>&nbsp; {{ session('flash_mssg') }} </p>
             </div>
         @endif
     </div>
@@ -868,13 +902,13 @@
                     <td>
                         <div class="d-flex">
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn-view">View</a>
+                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn btn-view">View</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn-update">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
-                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}" accept-charset="UTF-8" class="">
+                                <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}">
                                     @method('DELETE')
                                     @csrf
                                     <button type="button" class="btn btn-danger delete-button bg-red-600" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
