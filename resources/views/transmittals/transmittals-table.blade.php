@@ -886,7 +886,7 @@
                 <tr>
                     <th scope="row">{{ $record->mailTrackNum }}</th>
                     <td>{{ $record->date }}</td>
-                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}
+                    <td>{{ $addressee->name_primary }}, {{ $addressee->name_secondary }}</td>
                     <td>{{ $addressee->address }}, {{ $addressee->zip }} {{ $addressee->city }}, {{ $addressee->province }}</td>
                     <td class="ellipsis"> <!-- Apply ellipsis to this column -->
                         @if ($rrt_n[$record->id]->isEmpty())
