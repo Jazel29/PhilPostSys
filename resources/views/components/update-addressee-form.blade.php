@@ -154,8 +154,8 @@
 
 </style>
 
-<div class="ml-4">
-    <div class="mb-2 mx-3">
+<div>
+    <div class="mb-2">
         <h1 class="display-5"> Update Addressee </h1>
     </div>
     <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
@@ -171,10 +171,10 @@
 
 <div id="overlay"></div><!-- Add overlay div -->
 
-<div class="row mt-3 m-4">
+<div class="row mt-3">
     <form action="/update-addressee-submit" method="post">
         @csrf
-        <div class="row mt-2 mb-3 mx-0">
+        <div class="row mt-2 mb-3">
             <div class="input-bx col-md-12">        
                 <input type="text" class="form-control rounded-md form-border text-19" list="datalistOptions" id="addresseeDataList" required>
                 <span>Select Addressee</span>
