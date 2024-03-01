@@ -908,7 +908,7 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <h1 class="display-5 ml-10 mb-7 "> List of Addressee </h1>
-                <div class="mx-5">
+                <div class="mt-5">
                     <table class="table table-size mt-8 table-striped" id="example">
                         <thead class="text-center">
                             <tr>
@@ -1006,11 +1006,24 @@
     $(document).ready(function() {
         $('#example').dataTable({
             "info": false,
+            "responsive": true,
             "language": {
-                "search": "" }
-    });
+                "search": "" },
+            "scrollX": true,    // Enable horizontal scrolling
+            "fixedHeader": true, // Enable fixed header (optional, adds a fixed header when scrolling)
+            "columnDefs": [
+                { responsivePriority: 1, targets: 0 }, // Set priority for columns to determine visibility on smaller screens
+                { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
+            ]
+        });
         $('.dataTables_filter input').attr('placeholder', ' Search');
         $('#2').css('padding-top', '1px');
+        $('.dataTables_length label').contents().filter(function() {
+                return this.nodeType === 3; // Filter out text nodes
+        }).remove();
+        $('.dataTables_filter label').contents().filter(function() {
+            return this.nodeType === 3; // Filter out text nodes
+        }).remove();
     });
 
 </script> 
