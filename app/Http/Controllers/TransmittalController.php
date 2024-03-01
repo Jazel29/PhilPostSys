@@ -147,8 +147,25 @@ class TransmittalController extends Controller
 
     public function destroy($id)
     {
-        Transmittals::destroy($id);
-        return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!');  
+        // Find the Transmittal by ID
+        $transmittal = Transmittals::find($id);
+
+        if ($transmittal) {
+            // Check if there are associated return cards with the truck number
+            $returnCards = ReturnCards::where('trucknumber', $transmittal->mailTrackNum)->exists();
+
+            if ($returnCards) {
+                // Delete associated return cards
+                ReturnCards::where('trucknumber', $transmittal->mailTrackNum)->delete();
+            }
+
+            // Then delete the transmittal itself
+            $transmittal->delete();
+
+            return redirect('tracer')->with('flash_mssg', 'Record Deleted Successfully!');
+        } else {
+            return redirect('tracer')->with('error_mssg', 'Transmittal Record Not Found!');
+        }
     }
     
     public function deleteReturnCard($id){
