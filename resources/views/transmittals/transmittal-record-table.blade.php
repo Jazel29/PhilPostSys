@@ -818,17 +818,8 @@
                 
 
                     <div class="d-flex justify-content-between">
-                        <span class="bold highlight">
-                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                            <p class="small-text"> <lord-icon
-                                src="https://cdn.lordicon.com/bqavqyaq.json"
-                                trigger="in"
-                                delay="4"
-                                state="in-ticket"
-                                colors="primary:#ffffff"
-                                style="width:20px; height:20px">
-                            </lord-icon> {{ $records->mailTrackNum }} <i class="fa-solid fa-caret-left"></i></p>
-                            
+                        <span class="bold highlight">      
+                            <i class="fa-solid fa-caret-right"></i> {{ $records->mailTrackNum }} <i class="fa-solid fa-caret-left"></i></p>   
                         </span>
                     </div>
                 </div>
@@ -863,7 +854,12 @@
 
                 <!-- table -->
 
-            
+                <div class="row mt-5">
+                <div class="col-md-12">
+                  
+                  </div>
+                </div>
+              </div>
 
             <div class="container-fluid">
                 <div class="row justify-content-center">
