@@ -172,35 +172,24 @@
 <div id="overlay"></div><!-- Add overlay div -->
 
 <div class="row mt-3">
-    <form action="/update-addressee-submit" method="post">
+    <form action="{{ url('update-addressee-submit/'. $record->id) }}" method="post">
         @csrf
-        <div class="row mt-2 mb-3">
-            <div class="input-bx col-md-12">        
-                <input type="text" class="form-control rounded-md form-border text-19" list="datalistOptions" id="addresseeDataList" required>
-                <span>Select Addressee</span>
-                <datalist id="datalistOptions">
-                    <option value="Existing Addressee"></option>
-                </datalist>
-                <input class="form-control text-color" type="hidden" name="addressee-id" id="addressee-id">
-            </div>
-        </div>
-
         <div class="list-addressee-form border rounded-md p-3">
             <div class="row">
-                <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
+                <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information: </h1>
                 
                 <div class="input-bx col-md-3">
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->abbrev }}" required>
                     <span>Addressee Abbreviation</span>
                 </div>
                 <div class="col-md-9">
                     <div class="flex flex-col">
                         <div class="input-bx">
-                            <input type="text" name="namePrimary" id="namePrimary" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                            <input type="text" name="namePrimary" id="namePrimary" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->name_primary }}" required>
                             <span>Addressee Name Line 1</span>
                         </div>
                         <div class="input-bx">    
-                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" disabled>
+                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" value="{{ $record->name_secondary }}">
                             <span>Addressee Name Line 2</span>
                         </div>
                     </div>
@@ -209,9 +198,9 @@
         </div>
 
         <div class="mt-3 border rounded-md p-3">
-            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee : </h1>
+            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee: </h1>
             <div class="input-bx">
-                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" disabled>
+                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->address }}">
                 <span>Floor/Bldg/Street/Barangay</span>
             </div>
 
@@ -219,15 +208,15 @@
             
             <div class="row">
                 <div class="col-md-4 input-bx">
-                    <input type="text" name="city" id="city" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <input type="text" name="city" id="city" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->city }}" required>
                     <span>City/Municipality</span>
                 </div>
                 <div class="col-md-4 input-bx">
-                    <input type="text" name="zip" id="zip" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <input type="text" name="zip" id="zip" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->zip }}" required>
                     <span>Zip Code</span>
                 </div>
                 <div class="col-md-4 input-bx">
-                    <input type="text" name="province" id="province" class="form-control form-border mb-2 rounded-md text-19" required disabled>
+                    <input type="text" name="province" id="province" class="form-control form-border mb-2 rounded-md text-19" required value="{{ $record->province }}">
                     <span>Province</span>
                 </div>
             </div>
