@@ -1,6 +1,8 @@
 <x-app-layout>
 <style>
-        table.dataTable th.dt-left,
+    /* start - table */
+
+    table.dataTable th.dt-left,
         table.dataTable td.dt-left {
         text-align: left;
         }
@@ -158,6 +160,7 @@
         }
         table.dataTable tbody tr {
         background-color: #ffffff;
+        border-radius: 50px;
         }
         table.dataTable tbody tr.selected {
         background-color: #b0bed9;
@@ -323,6 +326,14 @@
         /*
         * Control feature layout
         */
+        .dataTables_length label {
+        font-size: 0;
+        line-height: 0;
+        color: transparent;
+        }
+        .dataTables_length label::before {
+        content: none;
+        }
         .dataTables_wrapper {
         position: relative;
         clear: both;
@@ -339,21 +350,16 @@
         }
         .dataTables_wrapper .dataTables_filter {
             float: right;
-            text-align: right;
+            text-align: left;
         }
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 100%;
+            width: 200px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
             margin-left: 3px;
-        }
-
-        .dataTables_wrapper .dataTables_filter input::placeholder {
-            /* Set an empty string as the placeholder */
-            content: '';
         }
 
         .dataTables_wrapper .dataTables_info {
@@ -626,18 +632,21 @@
             margin-top: 0.5em;
         }
         }
-        @media screen and (max-width: 640px) {
-        .dataTables_wrapper .dataTables_length,
+        @media screen and (max-width: 767px) {
         .dataTables_wrapper .dataTables_filter {
             float: none;
-            text-align: center;
+            text-align: end;
+        }
+        .dataTables_wrapper .dataTables_length {
+            float: none;
+            text-align: start;
         }
         .dataTables_wrapper .dataTables_filter {
             margin-top: 0.5em;
         }
         }
 
-    /* end - table */
+        /* end of table */
 
     .table-size {
         width: 50%;
@@ -903,114 +912,68 @@
 
 <div id="overlay"></div><!-- Add overlay div -->
 
-<div class="py-3 ml-60 ">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900">
-                <h1 class="display-5 ml-10 mb-7 "> List of Addressee </h1>
-                <div class="mx-5">
-                    <table class="table table-size mt-8 table-striped" id="example">
-                        <thead class="text-center">
-                            <tr>
-                                <th scope="col-items">Items</th>
-                                <th scope="col">Abbrev</th>
-                                <th scope="col">Department Name</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">City</th>
-                                <th scope="col">ZIP Code</th>
-                                <th scope="col">Province</th>
-                                <th scope="col">Action</th>
+<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="p-6 text-gray-900">
+        <h1 class="display-5 mb-7 "> List of Addressee </h1>
+        <div class="mt-5">
+            <table class="table table-size mt-8 table-striped" id="example">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col-items">Items</th>
+                        <th scope="col">Abbrev</th>
+                        <th scope="col">Department Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">ZIP Code</th>
+                        <th scope="col">Province</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if ($addresseeAll->isEmpty())
+                        <tr class="border-b">
+                            <td class="textStyle" colspan="8">No Addressee Record Found</td>
+                        </tr>
+                    @else
+                        @foreach ($addresseeAll as $index => $addressee)
+                            <tr class="hover-row">
+                                <th scope="row-item">{{ $index + 1 }}</th>
+                                <th scope="row-item">{{ $addressee->abbrev }}</th>
+                                <th class="textStyle">{{ $addressee->name_primary }}</th>
+                                <th class="textStyle" scope="row-item">{{ $addressee->address }}</th>
+                                <th class="textStyle" scope="row-item">{{ $addressee->city }}</th>
+                                <th class="textStyle" scope="row-item">{{ $addressee->zip}}</th>
+                                <th class="textStyle" scope="row-item">{{ $addressee->province }}</th>
                             </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @if ($addresseeAll->isEmpty())
-                                <tr class="border-b">
-                                    <td class="textStyle" colspan="8">No Addressee Record Found</td>
-                                </tr>
-                            @else
-                                @foreach ($addresseeAll as $index => $addressee)
-                                    <tr class="hover-row">
-                                        <th scope="row-item">{{ $index + 1 }}</th>
-                                        <th scope="row-item">{{ $addressee->abbrev }}</th>
-                                        <th class="textStyle">{{ $addressee->name_primary }}</th>
-                                        <th class="textStyle" scope="row-item">{{ $addressee->address }}</th>
-                                        <th class="textStyle" scope="row-item">{{ $addressee->city }}</th>
-                                        <th class="textStyle" scope="row-item">{{ $addressee->zip}}</th>
-                                        <th class="textStyle" scope="row-item">{{ $addressee->province }}</th>
-                                       
-                                        <td>
-                                            <form method="POST" action="{{ route('addressee.destroy', $addressee->id) }}" accept-charset="UTF-8">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="button" class="btn btn-sm btn-danger delete-button bg-red-600" data-delete-url="{{ route('addressee.destroy', $addressee->id) }}" title="Delete Record">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<!-- Modal for Delete Transmittal Record -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header custom-header">
-                <h5 class="modal-title" id="deleteConfirmationModalLabel">Addressee Record</h5>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this record?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                <form id="deleteForm" method="POST" action="">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
 <script>
-    $(document).ready(function() {
-        if ($('#flashMessage').length > 0) {
-            $('#overlay').fadeIn('slow');
-        }
-
-        setTimeout(function() {
-            $('#flashMessage').fadeOut('slow');
-            $('#overlay').fadeOut('slow');
-        }, 2000);
-    });
-    
-    $(document).ready(function() {
-        $('.delete-button').on('click', function() {
-            var deleteUrl = $(this).data('delete-url');
-            $('#deleteForm').attr('action', deleteUrl);
-            $('#deleteConfirmationModal').modal('show');
-        });
-        window.closeModal = function() {
-            $('#deleteConfirmationModal').modal('hide');
-        };
-    });
-
     $(document).ready(function() {
         $('#example').dataTable({
             "info": false,
+            "responsive": true,
             "language": {
-                "search": "" }
-    });
+                "search": "" },
+            "scrollX": true,    // Enable horizontal scrolling
+            "fixedHeader": true, // Enable fixed header (optional, adds a fixed header when scrolling)
+            "columnDefs": [
+                { responsivePriority: 1, targets: 0 }, // Set priority for columns to determine visibility on smaller screens
+                { responsivePriority: 2, targets: 5 }  // Adjust targets as per your requirement
+            ]
+        });
         $('.dataTables_filter input').attr('placeholder', ' Search');
         $('#2').css('padding-top', '1px');
+        $('.dataTables_length label').contents().filter(function() {
+                return this.nodeType === 3; // Filter out text nodes
+        }).remove();
+        $('.dataTables_filter label').contents().filter(function() {
+            return this.nodeType === 3; // Filter out text nodes
+        }).remove();
     });
 
 </script> 
