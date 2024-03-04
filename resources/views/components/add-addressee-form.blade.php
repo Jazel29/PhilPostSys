@@ -86,11 +86,11 @@
         width: 100%;
         transition: border-color 0.3s;
         background-color: transparent;
-    }
+      }
     
     .form-control:focus {
         outline: none;
-        border-color: #0026C8; /* Change focus border color */
+        border-color: #0026C8;
     }
     
     .form-control + label {
@@ -98,7 +98,7 @@
         top: 1rem;
         left: 1rem;
         transition: top 0.3s, font-size 0.3s;
-        pointer-events: none; /* Ensure label doesn't interfere with input */
+        pointer-events: none;
     }
     
     .form-control:focus + label,
@@ -142,7 +142,6 @@
         padding: 0 10px;
         background: #fff;
     }
-
     .input-bx input:valid,
     .input-bx input:focus{
         color: #000;
@@ -151,8 +150,8 @@
 
 </style>
 
-<div class="mb-8 mx-3">
-    <div class="flex justify-between items-center ">
+<div class="mb-8">
+    <div class="flex justify-between items-center">
         <h1 class="display-5"> Add New Addressee </h1>
         <div>
             <a href="/update-addressee-form"><button type="button" class="btn btn-outline-primary">Edit Existing Addressee</button></a>
@@ -171,57 +170,55 @@
 
 <div id="overlay"></div><!-- Add overlay div -->
 
-<div class="row mt-3 mx-2">
+<div class="row mt-3">
     <form action="/add_addressee" method="post" id="addresseeForm">
         @csrf
         <div class="list-addressee-form border rounded-md p-3">
             <div class="row">
                 <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
 
-                <div class="input-bx col-md-3">
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control rounded-md text-19 form-border no-margin" required>
+                <div class="input-bx col-md-3 mb-2">
+                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control rounded-md text-19 form-border no-margin" place required>
                     <span>Addressee Abbreviation</span>
                 </div>
                 <div class="input-bx col-md-9">
-                    <div class="flex flex-col">
+                    <div>
                         <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2 rounded-md text-19 form-border" required>
                         <span>Addressee Name Line 1</span>
                     </div>
-
-                <div class="input-bx col-md-9">
-                    <div class="flex flex-col">
+                    <div class="input-bx">
                         <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 rounded-md text-19 form-border">
                         <span>Addressee Name Line 2</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="mt-7 border rounded-md p-3">
             <h1 class="text-gray-700 mb-3 ml-1"> Addressee Address : </h1>
 
-            <div class="input-bx col-md-9">
-                    <div class="flex flex-col">
-                        <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border">
-                        <span>Building/Floor/Street/Barangay/Sitio/Purok</span>
-                    </div>
+            <div class="input-bx col-md-12">
+                <div class="flex flex-col">
+                    <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" not>
+                    <span>Building/Floor/Street/Barangay/Sitio/Purok</span>
+                </div>
 
-            <div class="row">
-                
-                <div class="col-md-4">
-                    <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border" placeholder="City/Municipality" required>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border" placeholder="Zip Code" required>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" name="province" id="province" class="form-control rounded-md text-19 form-border" placeholder="Province" required>
+                <div class="row">
+                    <div class="col-md-4 input-bx">
+                        <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border" required>
+                        <span>City/Municipality</span>
+                    </div>
+                    <div class="col-md-4 input-bx">
+                        <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border" required>
+                        <span>Zip Code </span>
+                    </div>
+                    <div class="col-md-4 input-bx">
+                        <input type="text" name="province" id="province" class="form-control rounded-md text-19 form-border" required>
+                        <span>Province</span>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="flex justify-end mt-3">
             <button type="button" class="btn btn-outline-secondary mr-4" onclick="clearForm()">Clear</button>
             <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
@@ -238,7 +235,7 @@
         setTimeout(function() {
             $('#flashMessage').fadeOut('slow');
             $('#overlay').fadeOut('slow');
-        }, 2000);
+        }, 1000);
     });
     function clearForm() {
         // Clear all input fields inside the form
