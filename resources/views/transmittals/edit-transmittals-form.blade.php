@@ -160,13 +160,16 @@
         }
         table.dataTable tbody tr {
         background-color: #ffffff;
+        
         }
         table.dataTable tbody tr.selected {
         background-color: #b0bed9;
         }
         table.dataTable tbody th,
         table.dataTable tbody td {
-        padding: 8px 10px;
+        padding: 1px 10px;
+        font-size: 15px;
+        vertical-align: middle;
         }
         table.dataTable.row-border tbody th,
         table.dataTable.row-border tbody td,
@@ -348,7 +351,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 100%;
+            width: 300px;
             border-radius: 15px;
             background-color: transparent;
         }
@@ -731,15 +734,6 @@
         <h1 class="display-5">Update Transmittal</h1>
     </div>
 
-    <div class="right-section w-1/2" id="addRRR_div">
-            <div class="flex flex-col mt-4">
-                <div>
-                    <div class="flex justify-end mt-3">
-                        <button type="submit" class="btn btn-update border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 </div>
 {{-- this form for update  --}}
@@ -772,7 +766,15 @@
                 </div>
             </div>
         </div>
-       
+        <div class="right-section w-1/2" id="addRRR_div">
+            <div class="flex flex-col mt-4">
+                <div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
     </div>
 </form>
 <div class="d-flex justify-content-end">
@@ -780,7 +782,7 @@
 </div>
 
 <div class="content">
-    <div class="h5 d-flex justify-content-center">Return Card List</div>
+    <div class="h2 d-flex justify-content-center">Return Card List</div>
     <table class="table table-size mt-4 hover" id="example">
         <thead class="text-center">
         <tr>
