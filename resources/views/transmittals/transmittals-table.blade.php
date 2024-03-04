@@ -825,9 +825,6 @@
     color: #ffffff;
     }
 
-    .trash_icon {
-        color: #fff;
-    }
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">

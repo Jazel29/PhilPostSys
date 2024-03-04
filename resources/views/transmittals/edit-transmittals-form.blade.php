@@ -1,8 +1,8 @@
 <style>
 
-    /* start - table */
+   /* start - table */
 
-        table.dataTable th.dt-left,
+   table.dataTable th.dt-left,
         table.dataTable td.dt-left {
         text-align: left;
         }
@@ -160,7 +160,6 @@
         }
         table.dataTable tbody tr {
         background-color: #ffffff;
-        border-radius: 50px;
         }
         table.dataTable tbody tr.selected {
         background-color: #b0bed9;
@@ -204,7 +203,8 @@
         }
         table.dataTable.hover tbody tr:hover,
         table.dataTable.display tbody tr:hover {
-        background-color: #f6f6f6;
+        background-color: #2C54FF;
+        color: #ffffff;
         }
         table.dataTable.hover tbody tr:hover.selected,
         table.dataTable.display tbody tr:hover.selected {
@@ -332,26 +332,30 @@
         }
         .dataTables_wrapper .dataTables_length {
         float: left;
+        margin-bottom: 30px;
         }
         .dataTables_wrapper .dataTables_length select {
         border: 1px solid #aaa;
-        width: 90px;
+        width: 80px;
         border-radius: 15px;
-        padding-left: 10px;
+        /* padding-left: 10px; */
         background-color: transparent;
         }
         .dataTables_wrapper .dataTables_filter {
             float: right;
-            text-align: left;
+            text-align: right;
         }
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 200px;
+            width: 100%;
             border-radius: 15px;
-            padding: 5px;
             background-color: transparent;
-            margin-left: 3px;
+        }
+
+        .dataTables_wrapper .dataTables_filter input::placeholder {
+            /* Set an empty string as the placeholder */
+            content: '';
         }
 
         .dataTables_wrapper .dataTables_info {
@@ -625,17 +629,20 @@
         }
         }
         @media screen and (max-width: 640px) {
-        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_length{
+            float: none;
+            text-align: start;
+        }
         .dataTables_wrapper .dataTables_filter {
             float: none;
-            text-align: center;
+            text-align: end;
         }
         .dataTables_wrapper .dataTables_filter {
             margin-top: 0.5em;
         }
         }
 
-        /* end of table */
+    /* end - table */
 
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
@@ -662,6 +669,30 @@
         font-size: 18px;
         color: #333;
     }    
+
+    .tracking {
+        width: 20px;
+    }
+
+    .form-control {
+        border-radius: 15px;
+    }
+
+    .form-date {
+        width: 150px;
+        padding-left: 0px;
+    }
+
+    .btn {
+        border-radius: 15px;
+    }
+
+    .input-group {
+        width: 250px;
+        padding-left: 2px;
+    }
+
+
 </style>
 
 <div class="ml-4">
@@ -695,11 +726,21 @@
                 @endif
             </div>
         </div>
-    
+
     <div>
-        <h1 class="display-5"> Update Transmittal</h1>
+        <h1 class="display-5">Update Transmittal</h1>
     </div>
-   
+
+    <div class="right-section w-1/2" id="addRRR_div">
+            <div class="flex flex-col mt-4">
+                <div>
+                    <div class="flex justify-end mt-3">
+                        <button type="submit" class="btn btn-update border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </div>
 {{-- this form for update  --}}
 <form action="{{ url('transmittals/'. $records->id. '/update') }}" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
@@ -707,32 +748,31 @@
     @method("PATCH")
     <div class="add-transmittal-form flex">
         <div class="left-section w-1/2 ">
-            <div class="mx-4">          
+            <div class="mx-4">
                 <div class="row mt-4">
-                    <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
+                    <div class="form-date">
+                        <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required readonly>
+                    </div>
+
+                    <div class="input-group">
+                        <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control tracking rounded-md text-19" style="border-color:#a0aec0;" required disabled>
+                        <button id="editIcon" class="btn btn-outline-secondary" type="button">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                    </div>
+
                 </div>
-                <div class="row mt-2">
-                    <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
-                </div>
+
                 <div class="row mt-2">
                     <input name="receiver" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
                     <datalist id="datalistOptions">
-                    <option value="Add New Addressee"></option>
+                        <option value="Add New Addressee"></option>
                     </datalist>
                     <input class="form-control" type="hidden" name="receiver" id="receiver">
                 </div>
-                
             </div>
-        </div>    
-        <div class="right-section w-1/2" id="addRRR_div">
-            <div class="flex flex-col mt-4">
-                <div>
-                    <div class="flex justify-end mt-3">
-                        <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
-                    </div>
-                </div>
-            </div> 
         </div>
+       
     </div>
 </form>
 <div class="d-flex justify-content-end">
@@ -743,34 +783,34 @@
     <div class="h5 d-flex justify-content-center">Return Card List</div>
     <table class="table table-size mt-4 hover" id="example">
         <thead class="text-center">
-            <tr>
-                <th scope="col">Items</th>
-                <th scope="col">RRR Tracking Numbers</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th scope="col">Items</th>
+            <th scope="col">RRR Tracking Numbers</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody class="text-center">
-            @if ($rrr_tn->isEmpty())
+        @if ($rrr_tn->isEmpty())
+            <tr>
+                <th>Empty Record</th>
+                <td>No RRRTN Found</td>
+                <td>------</td>
+            </tr>
+        @else
+            @foreach ($rrr_tn as $index => $rrt)
                 <tr>
-                    <th>Empty Record</th>
-                    <td>No RRRTN Found</td>
-                    <td>------</td>
+                    <th scope="row">{{ $index + 1 }}</th>
+                    <td>{{ $rrt->returncard }}</td>
+                    <td>
+                        <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
+                        </form>
+                    </td>
                 </tr>
-            @else
-                @foreach ($rrr_tn as $index => $rrt)
-                    <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
-                        <td>{{ $rrt->returncard }}</td>
-                        <td>
-                            <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
+            @endforeach
+        @endif
         </tbody>
     </table>
 </div>
@@ -778,32 +818,32 @@
 <!-- modal for add button -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" action="/addReturn" method="POST">
+                    @csrf
+                    <div class="col-auto">
+                        <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
+                        <label for="last-barcode" class="visually-hidden">Barcode</label>
+                        <input type="text" value="{{ $records->mailTrackNum }}" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
+                    </div>
+                    {{-- <div class="col-auto">
+                      <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
+                    </div> --}}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-            <form class="row g-3" action="/addReturn" method="POST">
-                @csrf
-                 <div class="col-auto">
-                   <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
-                   <label for="last-barcode" class="visually-hidden">Barcode</label>
-                   <input type="text" value="{{ $records->mailTrackNum }}" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
-                 </div>
-                 {{-- <div class="col-auto">
-                   <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
-                 </div> --}}
-               
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <script>
     // Function to handle form submission
@@ -814,6 +854,40 @@
         // After submission, close the modal
         $('#submitConfirmationModal').modal('hide');
     }
+
+    $(document).ready(function() {
+        // Initially, disable the input field
+        $('#mail_tn').prop('disabled', true);
+
+        // Flag to track if the input field is being edited
+        var isEditing = false;
+
+        // When the edit icon is clicked
+        $('#editIcon').click(function() {
+            // Enable the input field for editing
+            $('#mail_tn').prop('disabled', false);
+            // Focus on the input field
+            $('#mail_tn').focus();
+            // Set editing flag to true
+            isEditing = true;
+        });
+
+        // When the user clicks outside the input field or the edit icon
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#mail_tn').length && !$(e.target).closest('#editIcon').length) {
+                // Disable the input field regardless of editing status
+                $('#mail_tn').prop('disabled', true);
+                // Reset editing flag
+                isEditing = false;
+            }
+        });
+
+        // When submitting the form
+        $('form').submit(function() {
+            // Re-enable the input field before form submission
+            $('#mail_tn').prop('disabled', false);
+        });
+    });
 </script>
 
 <!-- Modal -->
@@ -873,12 +947,51 @@
         @endif
     </div>
 </div>
-    
 
 <script>
+
+    // edit button - start //
+    
+    $(document).ready(function() {
+    // Initially, disable the input field
+    $('#mail_tn').prop('disabled', true);
+
+    // Flag to track if the input field is being edited
+    var isEditing = false;
+
+        // When the edit icon is clicked
+        $('#editIcon').click(function() {
+            // Enable the input field for editing
+            $('#mail_tn').prop('disabled', false);
+            // Focus on the input field
+            $('#mail_tn').focus();
+            // Set editing flag to true
+            isEditing = true;
+        });
+
+        // When the user clicks outside the input field or the edit icon
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#mail_tn').length && !$(e.target).closest('#editIcon').length) {
+                // If not currently editing and input field is empty, disable it
+                if (!isEditing && $('#mail_tn').val() === '') {
+                    $('#mail_tn').prop('disabled', true);
+                }
+                // Reset editing flag
+                isEditing = false;
+            }
+        });
+
+        // When submitting the form
+        $('form').submit(function() {
+            // Re-enable the input field before form submission
+            $('#mail_tn').prop('disabled', false);
+        });
+    });
+
+    // edit button - end //
+
     $(document).ready(function() {
         $('#example').dataTable();
-
 
     } );
     var rrr_tns = [];
@@ -937,7 +1050,6 @@
         }
     }
 
-
     var rrr_tn_value = document.getElementById("rrr_tn");
     rrr_tn_value.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -962,7 +1074,6 @@
         document.forms[0].submit();
     }
 
-    
     document.getElementById('addresseeDataList').addEventListener('input', function() {
         var addressValue = document.getElementById('address');
         var addresseeVal = document.getElementById('receiver');
@@ -1029,7 +1140,7 @@
             })
             .catch(error => console.error('Error fetching addressees:', error));
     });
-    
+
     $(document).ready(function () {
         $('#mail_tn').on('blur', function () {
             var mail_tn = $(this).val();

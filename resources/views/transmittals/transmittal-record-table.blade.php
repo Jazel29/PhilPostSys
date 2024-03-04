@@ -793,7 +793,7 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col my-2">
-                <h1 class="display-6">Transmittal Record</h1>
+            <a href="/tracer"><i class="fa-solid fa-arrow-left"></i></a><h1 class="display-6">Transmittal Record</h1>
             </div>
             <div class="col text-right">
                 <button class="btn btn-outline-success" onclick="exportToExcel()">
@@ -802,6 +802,7 @@
                 </button>
             </div>
         </div>
+    </div>
 
         <div class="row mt-3">
         <!-- First Column -->
