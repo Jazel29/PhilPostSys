@@ -167,7 +167,10 @@
         }
         table.dataTable tbody th,
         table.dataTable tbody td {
-        padding: 8px 10px;
+        padding: 7px 10px;
+        vertical-align: middle;
+        line-height: 15px;
+        font-size: 13px;
         }
         table.dataTable.row-border tbody th,
         table.dataTable.row-border tbody td,
@@ -676,7 +679,8 @@
 
     .btn-view {
         color: #2C54FF;
-        padding: 10px;
+        padding: 7px;
+        font-size: 14px;
         border: 1px solid #2C54FF;
         border-radius: 15px;
         background: transparent;
@@ -685,15 +689,17 @@
 
     .btn-view:hover {
     font-weight: bold;
+    font-size: 14px;
     color: #FFF;
-    padding: 10px; 
+    padding: 7px; 
     border-radius: 50px; 
     background: #2C54FF;
     }
 
     .btn-update {
+        font-size: 14px;
         color: #FCBE00;
-        padding: 10px;
+        padding: 7px;
         border: 1px solid #FCBE00;
         border-radius: 15px;
         transition: all 0.3s ease;
@@ -701,15 +707,17 @@
 
     .btn-update:hover {
         font-weight: bold;
+        font-size: 14px;
         color: #FFF;
-        padding: 10px;
+        padding: 7px;
         border-radius: 50px;
         background: #FCBE00;
     }
 
     .btn-danger {
+        font-size: 14px;
         color: #EE1A2E;
-        padding: 10px;
+        padding: 7px;
         border: 1px solid #EE1A2E;
         border-radius: 15px;
         transition: all 0.3s ease;
@@ -717,8 +725,9 @@
 
     .btn-danger:hover {
         font-weight: bold;
+        font-size: 14px;
         color: #FFF;
-        padding: 10px;
+        padding: 7px;
         border-radius: 50px;
         background: #EE1A2E;
     }
@@ -825,9 +834,6 @@
     color: #ffffff;
     }
 
-    .trash_icon {
-        color: #fff;
-    }
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
