@@ -381,7 +381,7 @@
         border: 1px solid transparent;
         border-radius: 15px;
         }
-        
+
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         color: #333 !important;
@@ -790,17 +790,22 @@
     color: #ffffff;
     }
 
+
     .fa-circle-chevron-left {
-        font-size: 30px;
+        margin-right: 20px;
+        font-size: 25px;
     }
+
 
 </style>
 
     <div class="container">
-        <div class="row mt-3">
-            <div class="col my-2">
-            <a href="/tracer"><i class="fa-solid fa-circle-chevron-left"></i></a><h1 class="display-6">Transmittal Record</h1>
-            </div>
+    <div class="row mt-3">
+        <div class="col my-2 d-flex align-items-center">
+            <a href="/tracer"><i class="fa-solid fa-circle-chevron-left mr-2"></i></a>
+            <h1 class="display-6">Transmittal Record</h1>
+        </div>
+
             <div class="col text-right">
                 <button class="btn btn-outline-success" onclick="exportToExcel()">
                     <i class="fa-solid fa-table"></i>
