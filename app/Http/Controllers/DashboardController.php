@@ -42,7 +42,7 @@ class DashboardController extends Controller
             ->join('addressee_lists', 'transmittals.recieverName', '=', 'addressee_lists.id')
             ->groupBy('transmittals.recieverName', 'addressee_lists.abbrev')
             ->orderByDesc('address_count')
-            ->limit(8)
+            ->limit(5)
             ->get();
                 
 
