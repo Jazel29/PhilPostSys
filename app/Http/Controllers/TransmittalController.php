@@ -124,7 +124,7 @@ class TransmittalController extends Controller
             $date = $request->input('date_posted');
             $address = $request->input('receiver');
             
-
+            
             // Retrieve the current truck number
             $currentMailTrackNum = $record->mailTrackNum;
 
@@ -132,7 +132,7 @@ class TransmittalController extends Controller
             $record->update([
                 'mailTrackNum' => $mailTrackNum,
                 'date' => $date,
-                'address' => $address,
+                'recieverName' => $address,
             ]);
             
 
