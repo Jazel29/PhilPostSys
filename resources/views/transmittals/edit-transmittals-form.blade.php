@@ -762,10 +762,10 @@
                         <th scope="row">{{ $index + 1 }}</th>
                         <td>{{ $rrt->returncard }}</td>
                         <td>
-                            <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
+                            <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
                             </form>
                         </td>
                     </tr>

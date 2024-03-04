@@ -153,9 +153,6 @@
 <div class="mb-8">
     <div class="flex justify-between items-center">
         <h1 class="display-5"> Add New Addressee </h1>
-        <div>
-            <a href="/update-addressee-form"><button type="button" class="btn btn-outline-primary">Edit Existing Addressee</button></a>
-        </div>
     </div>
 </div>
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
