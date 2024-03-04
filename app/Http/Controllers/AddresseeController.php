@@ -13,9 +13,13 @@ class AddresseeController extends Controller
         return view('new-addressee');
     }
 
-    public function showUpdateAddressee()
+    public function showUpdateAddressee($addressee_id)
     {
-        return view('update-addressee');
+        $record = AddresseeList::find($addressee_id);   
+        if (!$record) {
+            return redirect()->back()->with('error', 'Addressee not found');
+        }
+        return view('update-addressee', compact('record'));
     }
 
     public function storeAddressee(Request $request)
@@ -52,9 +56,15 @@ class AddresseeController extends Controller
         return response()->json(['addressees' => $addressees], 200);
     }
 
-    public function updateAddressee(Request $request)
+    public function updateAddressee(Request $request, $addressee_id)
     {
         try {
+            $addressee = AddresseeList::find($addressee_id);
+            if (!$addressee) {
+                // Handle the case where the addressee is not found (you may want to show an error message or redirect)
+                return redirect()->back()->with('error', 'Addressee not found');
+            }
+
             $request->validate([
                 'nameAbbrev' => 'required',
                 'namePrimary' => 'required',
@@ -62,14 +72,6 @@ class AddresseeController extends Controller
                 'zip' => 'required',
                 'province' => 'required',
             ]);
-
-            // Find the addressee based on the provided $id
-            $addressee = AddresseeList::find($request->input('addressee-id'));
-
-            if (!$addressee) {
-                // Handle the case where the addressee is not found (you may want to show an error message or redirect)
-                return redirect()->back()->with('error', 'Addressee not found');
-            }
 
             // Update the addressee's information
             $addressee->update([
@@ -82,7 +84,7 @@ class AddresseeController extends Controller
                 'province' => $request->input('province')
             ]);
 
-            return redirect('update-addressee-form')->with('flash_mssg', 'Addressee Updated Successfully');
+            return redirect()->back()->with('flash_mssg', 'Addressee Updated Successfully');
         } catch (ValidationException $e) {
             // If validation fails, redirect back with errors and input data
             return redirect()->back()->withErrors($e->errors())->withInput();
