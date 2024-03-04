@@ -347,7 +347,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 100%;
+            width: 300px;
             border-radius: 15px;
             background-color: transparent;
         }
@@ -381,6 +381,7 @@
         border: 1px solid transparent;
         border-radius: 15px;
         }
+        
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         color: #333 !important;
@@ -784,16 +785,21 @@
     .btn-outline-secondary {
         border-radius: 15px;
     }
+
     .modal-title {
     color: #ffffff;
-}
+    }
+
+    .fa-circle-chevron-left {
+        font-size: 30px;
+    }
 
 </style>
 
     <div class="container">
         <div class="row mt-3">
             <div class="col my-2">
-                <h1 class="display-6">Transmittal Record</h1>
+            <a href="/tracer"><i class="fa-solid fa-circle-chevron-left"></i></a><h1 class="display-6">Transmittal Record</h1>
             </div>
             <div class="col text-right">
                 <button class="btn btn-outline-success" onclick="exportToExcel()">
@@ -802,6 +808,7 @@
                 </button>
             </div>
         </div>
+    </div>
 
         <div class="row mt-3">
         <!-- First Column -->
@@ -930,7 +937,7 @@
                 "search": "" }
             });
 
-            $('.dataTables_filter input').attr('placeholder', '  Search');
+            $('.dataTables_filter input').attr('placeholder', 'Search');
             $('.dataTables_length label').contents().filter(function() {
                 return this.nodeType === 3; // Filter out text nodes
             }).remove();
