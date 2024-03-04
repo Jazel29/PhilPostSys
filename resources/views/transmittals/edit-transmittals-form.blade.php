@@ -715,11 +715,20 @@
                     <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required>
                 </div>
                 <div class="row mt-2">
-                    <input name="receiver" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" class="form-control rounded-md text-19" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" style="border-color:#a0aec0;" required>
+                    <input class="form-control rounded-md text-19 input-border" list="datalistOptions" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" id="addresseeDataList" placeholder="Addressee"required>
                     <datalist id="datalistOptions">
-                    <option value="Add New Addressee"></option>
+                        <option value="Add New Addressee"></option>
                     </datalist>
                     <input class="form-control" type="hidden" name="receiver" id="receiver">
+                </div>
+                <div id="popover-content" class="mt-2 text-danger" style="display: none;">
+                    Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
+                </div>
+                <div class="row mt-4">
+                   <div class="text-gray-500">
+                        Address:
+                   </div> 
+                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;">{{old('addresseeDataList', $addressee->name_secondary . '-'. $addressee->city. '-'. $addressee->province)}}</textarea>
                 </div>
                 
             </div>
@@ -773,6 +782,48 @@
             @endif
         </tbody>
     </table>
+</div>
+
+<!--  modal for creating new addressee-->
+<div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
+            </div>
+            <div class="mssg">
+                @if(session('record_added'))
+                
+                    <div class="alert alert-primary" role="alert">
+                        <p>{{ session('record_added') }}</p>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#newAddresseeModal').modal('show');
+                        });
+                    </script>
+                @endif
+            </div>
+            <form action="/add_addressee" method="post">
+                @csrf
+                <div class="modal-body">
+                    <!-- Add your form fields for adding a new addressee here -->
+                    <!-- Example: -->
+                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
+                    <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
+                    <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
+                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
+                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
+                    <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
+                    <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- modal for add button -->
@@ -881,6 +932,74 @@
 
 
     } );
+
+    function closeModal() {
+        $('#newAddresseeModal').modal('hide');
+        $('#confirmationModal').modal('hide');
+    }
+
+    function openModal() {
+        $('#newAddresseeModal').modal('show');
+    }
+
+    function saveNewAddressee() {
+        $('#newAddresseeModal').modal('hide');
+    }
+
+    document.getElementById('addresseeDataList').addEventListener('input', handleAddresseeDataListInput);
+    document.addEventListener('DOMContentLoaded', fetchAddressees);
+    function handleAddresseeDataListInput() {
+        var addressValue = document.getElementById('address');
+        var addresseeVal = document.getElementById('receiver');
+        var RRRdiv = document.getElementById('addRRR_div');
+        var popUp = document.getElementById('popover-content');
+        var tn = document.getElementById('mail_tn');
+        var selectedValue = this.value;
+
+        if (selectedValue === 'Add New Addressee') {
+            $('#newAddresseeModal').modal('show');
+            this.value = '';
+        } else {
+            var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
+
+            if (selectedOption) {
+                var selectedId = selectedOption.id;
+                var selectedAddressee = addressees.find(addressee => addressee.id == selectedId);
+                addressValue.value = `${selectedAddressee.address} ${selectedAddressee.city} ${selectedAddressee.zip} ${selectedAddressee.province}`;
+                addresseeVal.value = selectedId;
+                RRRdiv.style.display = 'block';
+                popUp.style.display = 'none';
+            } else {
+                addressValue.value = '';
+                RRRdiv.style.display = 'none';
+                popUp.style.display = 'block';
+            }
+
+            if (!selectedOption & selectedValue == '') {
+                popUp.style.display = 'none';
+            }
+        }
+    }
+
+    function fetchAddressees() {
+        fetch('/get-addressees')
+            .then(response => response.json())
+            .then(populateAddresseesDatalist)
+            .catch(error => console.error('Error fetching addressees:', error));
+    }
+
+    function populateAddresseesDatalist(data) {
+        const datalist = document.getElementById('datalistOptions');
+        addressees = data.addressees;
+
+        addressees.forEach(addressee => {
+            const option = document.createElement('option');
+            option.value = `${addressee.abbrev} - ${addressee.name_primary}`;
+            option.id = addressee.id;
+            datalist.appendChild(option);
+        });
+    }
+
     var rrr_tns = [];
     var count = 0;
 
