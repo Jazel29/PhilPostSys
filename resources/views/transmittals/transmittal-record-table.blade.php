@@ -122,7 +122,7 @@
         table.dataTable thead th,
         table.dataTable thead td {
         padding: 10px 18px;
-        border-bottom: 1px solid #111;
+        border-bottom: 3px solid #0026C8;
         }
         table.dataTable thead th:active,
         table.dataTable thead td:active {
@@ -131,7 +131,7 @@
         table.dataTable tfoot th,
         table.dataTable tfoot td {
         padding: 10px 18px 6px 18px;
-        border-top: 1px solid #111;
+        border-top: 1px solid #909090;
         }
         table.dataTable thead .sorting,
         table.dataTable thead .sorting_asc,
@@ -739,7 +739,7 @@
     }
 
     .table-size thead {
-        border-bottom: 2px solid #303030;
+        border-bottom: 2px solid #909090;
         padding: 5px;
     }
 
@@ -750,10 +750,6 @@
     .text-center{
         border-bottom: 1px;
     }  
-
-    .table-size tbody tr {
-        border-radius: 10px; 
-    }
 
     .hover-row:hover {
         background: linear-gradient(90deg, #0026C8, #2C54FF);
@@ -790,7 +786,6 @@
     .modal-title {
     color: #ffffff;
     }
-
 
     .fa-angle-left {
         margin-right: 20px;
@@ -866,7 +861,7 @@
                     <div class="container-fluid my-5">
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <table class="table table-size mt-5" id="example">
+                                <table class="table table-size mt-5" id="example" style="border: 1px solid #909090; border-radius: 30px; overflow: auto; padding: 20px;">
                                     <thead class="text-center">
                                         <tr>
                                             <th scope="col-items">Items</th>

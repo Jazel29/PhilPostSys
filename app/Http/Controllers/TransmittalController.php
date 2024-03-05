@@ -13,7 +13,8 @@ use PHPUnit\Framework\MockObject\Stub\ReturnArgument;
 class TransmittalController extends Controller
 {
     public function index(Request $request): View
-    {
+    {   
+        $count = Transmittals::count();
         $query = Transmittals::query()->get();
         $rrt_n = [];
         $addressees = [];
@@ -32,7 +33,7 @@ class TransmittalController extends Controller
             $addressees[$record->id] = $addressee;
         }
     
-        return view('tracer', compact('query', 'rrt_n', 'addressees'));
+        return view('tracer', compact('query', 'rrt_n', 'addressees', 'count'));
     }
     
 
