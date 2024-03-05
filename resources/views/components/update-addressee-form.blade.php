@@ -189,7 +189,7 @@
                             <span>Addressee Name Line 1</span>
                         </div>
                         <div class="input-bx">    
-                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" value="{{ $record->name_secondary }}">
+                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" value="{{ $record->name_secondary ? $record->name_secondary : '' }}">
                             <span>Addressee Name Line 2</span>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
         <div class="mt-3 border rounded-md p-3">
             <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee: </h1>
             <div class="input-bx">
-                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->address }}">
+                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->address ? $record->address : '' }}">
                 <span>Floor/Bldg/Street/Barangay</span>
             </div>
 
