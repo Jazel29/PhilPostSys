@@ -85,6 +85,10 @@
         border-color: #a0aec0;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
+
+    .display-6 {
+        color: #505050;
+    }
 </style>
 
 
@@ -102,7 +106,7 @@
 
 <div class="ml-8">
     <div class="row">
-        <h1 class="display-5"> Add New Transmittal </h1>
+        <h1 class="display-6"> Add New Transmittal </h1>
     </div>
 </div>
 

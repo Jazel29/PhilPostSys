@@ -185,6 +185,7 @@
         border-top: 1px solid #ddd;
         border-right: 1px solid #ddd;
         }
+
         table.dataTable.cell-border tbody tr th:first-child,
         table.dataTable.cell-border tbody tr td:first-child {
         border-left: 1px solid #ddd;
@@ -381,7 +382,7 @@
         border: 1px solid transparent;
         border-radius: 15px;
         }
-        
+
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         color: #333 !important;
@@ -758,7 +759,7 @@
         background: linear-gradient(90deg, #0026C8, #2C54FF);
         box-shadow: 0 0 20px #0026C8;
         color: #FFFFFF;
-        border-radius: 100px;
+        border-radius: 15px;
     }
 
     .caret {
@@ -790,17 +791,31 @@
     color: #ffffff;
     }
 
-    .fa-circle-chevron-left {
-        font-size: 30px;
+
+    .fa-angle-left {
+        margin-right: 20px;
+        font-size: 25px;
+        color: #505050;
     }
+
+    .fa-angle-left:hover {
+        color: #0026C8;
+    }
+
+    .display-6 {
+        color: #505050;
+    }
+
 
 </style>
 
     <div class="container">
-        <div class="row mt-3">
-            <div class="col my-2">
-            <a href="/tracer"><i class="fa-solid fa-circle-chevron-left"></i></a><h1 class="display-6">Transmittal Record</h1>
-            </div>
+    <div class="row mt-3">
+        <div class="col my-2 d-flex align-items-center">
+            <a href="/tracer"><i class="fa-solid fa-angle-left"></i></a>
+            <h1 class="display-6">Transmittal Record</h1>
+        </div>
+
             <div class="col text-right">
                 <button class="btn btn-outline-success" onclick="exportToExcel()">
                     <i class="fa-solid fa-table"></i>

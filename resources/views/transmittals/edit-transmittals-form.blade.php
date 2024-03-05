@@ -803,27 +803,6 @@
         </tr>
         </thead>
         <tbody class="text-center">
-        @if ($rrr_tn->isEmpty())
-            <tr>
-                <th>Empty Record</th>
-                <td>No RRRTN Found</td>
-                <td>------</td>
-            </tr>
-        @else
-            @foreach ($rrr_tn as $index => $rrt)
-                <tr>
-                    <th scope="row">{{ $index + 1 }}</th>
-                    <td>{{ $rrt->returncard }}</td>
-                    <td>
-                        <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8" style="" class="">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-secondary" title="Delete Student" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        @endif
             @if ($rrr_tn->isEmpty())
                 <tr>
                     <th>Empty Record</th>
@@ -839,7 +818,7 @@
                             <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">X</button>
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">Delete Item</button>
                             </form>
                         </td>
                     </tr>

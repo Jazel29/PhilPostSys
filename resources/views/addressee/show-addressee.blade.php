@@ -916,6 +916,11 @@
     }
     .btn-sm:hover{
         background-color: #BB2D3B;    }
+
+    .display-6 {
+        color: #505050;
+    }
+
 </style>
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
     <div class="mssg">
@@ -932,7 +937,7 @@
 <div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 text-gray-900">
-        <h1 class="display-5 mb-7 "> List of Addressee </h1>
+        <h1 class="display-6 mb-7 "> List of Addressee </h1>
         <div class="mt-5">
             <table class="table table-size mt-8" id="example">
                 <thead class="text-center">
