@@ -1,4 +1,4 @@
-    <style>
+<style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
         padding: 20px;
@@ -85,9 +85,87 @@
         border-color: #a0aec0;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
-
     .display-6 {
         color: #505050;
+    }
+    .form-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        font-size: 1rem;
+        padding: 1rem;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        width: 100%;
+        transition: border-color 0.3s;
+        background-color: transparent;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #0026C8; /* Change focus border color */
+    }
+    
+    .form-control + label {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        transition: top 0.3s, font-size 0.3s;
+        pointer-events: none; /* Ensure label doesn't interfere with input */
+    }
+    
+    .form-control:focus + label,
+    .form-control:not(:placeholder-shown) + label {
+        top: 0.25rem;
+        font-size: 0.75rem;
+        color: #0026C8; /* Change label color on focus or when input is not empty */
+    }
+
+    .input-bx{
+    position: relative;
+
+
+    }
+    .input-bx input{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #7f8fa6;
+        border-radius: 15px;
+        outline: none;
+        font-size: 1rem;
+        transition: 0.6s;
+    }
+
+    .input-bx span{
+        position: absolute;
+        top: 1px;
+        left: 20px;
+        padding: 10px;
+        font-size: 1rem;
+        color: #7f8fa6;
+        pointer-events: none;
+        transition: 0.1s;
+    }
+    .input-bx input:valid ~ span,
+    .input-bx input:focus ~ span{
+        color: #3742fa;
+        transform: translateX(5px) translateY(-9px);
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 0 10px;
+        background: #fff;
+    }
+
+    .input-bx input:valid,
+    .input-bx input:focus{
+        color: #000;
+        border: 1px solid #0026C8;
+
+    }
+    .text-color {
+        color: #000;
     }
 </style>
 
@@ -114,17 +192,19 @@
     @csrf
     <div class="add-transmittal-form flex flex-col md:flex-row">
         <div class="left-section w-full md:w-1/2">
-            <div class="mx-4">          
-                <div class="row mt-4">
-                    <input type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19 input-border" required>
+            <div class="row">          
+                <div class="mt-4 input-bx">
+                    <input type="date" name="date_posted" id="date_posted" class="form-control form-border rounded-md text-19 input-border" required>
                 </div>
-                
-                <div class="row mt-2">
-                    <input placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19 input-border" required>
+            
+                <div class="mt-2 input-bx">
+                    <input type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19 input-border" required>
+                    <span>Mail Tracking Number</span>
                 </div>
-                <div id="mail_tn_error" class="text-danger mt-2"></div>
-                <div class="row mt-2">
-                    <input class="form-control rounded-md text-19 input-border" list="datalistOptions" id="addresseeDataList" placeholder="Addressee"required>
+                <div id="mail_tn_error" class="text-danger mt-2 mb-2"></div>
+                <div class="input-bx">
+                    <input class="form-control rounded-md text-19 input-border form-border" list="datalistOptions" id="addresseeDataList" required>
+                    <span>Addressee</span>
                     <datalist id="datalistOptions">
                         <option value="Add New Addressee"></option>
                     </datalist>
@@ -133,30 +213,33 @@
                 <div id="popover-content" class="mt-2 text-danger" style="display: none;">
                     Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
                 </div>
-                <div class="row mt-4">
-                   <div class="text-gray-500">
+                <div class="row mt-3 input-bx ml-0"> 
+                    <div class="text-gray-500 ml-2">
                         Address:
                    </div> 
-                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;"></textarea>
+                    <textarea id="address" name="address" rows="2" class="rounded-lg text-19 form-border" style="border-color:#a0aec0;"></textarea>
                 </div>
             </div>
         </div>    
         <div class="right-section w-full md:w-1/2 mt-4" id="addRRR_div">
             <div class="flex flex-col">
-                <div>
-                    <div class="flex flex-row">
-                        <input placeholder="Tracking Number/s of Registry Return Recepits/Proofs of Delivery" type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 ml-1" style="border-color:#a0aec0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
-                        <div>
-                            <button type="button" id="add" class="ml-3 btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
-                        </div>
+                <div class="flex flex-row input-bx">
+                    <div class="w-full ml-3">
+                        <input type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 mb-2">
+                        <span>Tracking Number/s of Registry Return Receipts/Proofs of Delivery</span>
                     </div>
-                    <div class="mt-5 custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
+                    <div class="ml-2">
+                        <button type="button" id="add" class="btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
+                    </div>
+                </div>
+                <div class="ml-2 mt-2">
+                    <div class="custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
                         <div id="rrrtn_error" class="text-danger mt-2"></div>
                         <input type="hidden" name="rrr_tns" id="rrr_tns_input">
                     </div>
-                    <div class="flex justify-end mt-3">
-                        <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" id="submitBtn">Submit</button>
-                    </div>
+                </div>
+                <div class="flex justify-end mt-3">
+                    <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" id="submitBtn">Submit</button>
                 </div>
             </div> 
         </div>
