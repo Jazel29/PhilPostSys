@@ -767,14 +767,6 @@
                 <div id="popover-content" class="mt-2 text-danger" style="display: none;">
                     Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
                 </div>
-                <div class="row mt-4">
-                   <div class="text-gray-500">
-                        Address:
-                   </div> 
-                    <textarea id="address" name="address" rows="2" class="rounded-md text-19" style="border-color:#a0aec0;">
-                    {{ old('addresseeDataList', $addressee->zip . '-' . $addressee->city . ' - ' . $addressee->province) }}
-                    </textarea>
-                </div>
             </div>
         </div>
         <div class="right-section w-1/2" id="addRRR_div">

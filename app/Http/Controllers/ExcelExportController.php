@@ -27,8 +27,8 @@ class ExcelExportController extends Controller
             'A5' => $formattedDate,
             'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
             'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
-            'A9' => $exportData['records']['address'] ?? '',
-            'A10' => $exportData['records']['zip'] . ' ' . $exportData['records']['city'] ?? '',
+            'A9' => $exportData['records']['address'] . ', ' . $exportData['records']['city'] ?? '',
+            'A10' => $exportData['records']['zip'] . ' ' . $exportData['records']['province'] ?? '',
         ];
 
         // Set font attributes to make it bold for specific cells
