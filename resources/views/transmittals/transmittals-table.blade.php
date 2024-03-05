@@ -358,7 +358,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 200px;
+            width: 300px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
@@ -834,6 +834,10 @@
     color: #ffffff;
     }
 
+    .display-6 {
+        color: #505050;
+    }
+
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
@@ -861,7 +865,7 @@
 <div id="overlay"></div><!-- Add overlay div -->
 
 <div class="row mb-5">
-    <h1 class="display-5">Trace Transmittals</h1>
+    <h1 class="display-6">Trace Transmittals</h1>
 </div>
 
 <div class="newtb mt-5">
@@ -991,7 +995,7 @@
         ]
     });
 
-    $('.dataTables_filter input').attr('placeholder', ' Search');
+    $('.dataTables_filter input').attr('placeholder', 'Search');
     // $('.dataTables_length label').contents().filter(function() {
     //     return this.nodeType === 3; // Filter out text nodes
     // }).remove();
