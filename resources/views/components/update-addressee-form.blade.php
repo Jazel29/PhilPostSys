@@ -222,7 +222,7 @@
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
+            <button type="submit" class="btn btn-outline-primary">Update</button>
         </div>
     </form>
 </div>

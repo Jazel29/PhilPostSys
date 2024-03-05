@@ -122,7 +122,7 @@
         table.dataTable thead th,
         table.dataTable thead td {
         padding: 10px 18px;
-        border-bottom: 1px solid #111;
+        border-bottom: 2px solid #D3D3D3;
         }
         table.dataTable thead th:active,
         table.dataTable thead td:active {
@@ -131,7 +131,7 @@
         table.dataTable tfoot th,
         table.dataTable tfoot td {
         padding: 10px 18px 6px 18px;
-        border-top: 1px solid #111;
+        border-bottom: 1px solid #0026C8;
         }
         table.dataTable thead .sorting,
         table.dataTable thead .sorting_asc,
@@ -171,6 +171,7 @@
         vertical-align: middle;
         line-height: 15px;
         font-size: 13px;
+        border-bottom: 1px solid #D3D3D3
         }
         table.dataTable.row-border tbody th,
         table.dataTable.row-border tbody td,
@@ -735,7 +736,7 @@
     .container-dots {
         width: 60px; /* Adjust the width as needed */
         height: 40px; /* Adjust the height as needed */
-        border: 1px solid #909090; /* Border color */
+        border: 1px solid #D3D3D3; /* Border color */
         border-radius: 20px; /* Half of the height to create a rounded rectangle */
         display: flex;
         align-items: center;
@@ -838,6 +839,17 @@
         color: #505050;
     }
 
+    .title-divider {
+    width: calc(95% - 15px); /* Adjust the width as needed */
+    border: none;
+    border-bottom: 2px solid #909090; /* Light gray color */
+    margin-top: 30px; /* Adjust the margin as needed */
+    margin-left: auto; /* Left padding */
+    margin-right: auto; /* Right padding */
+    }
+
+    
+
 </style>
 
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
@@ -864,12 +876,16 @@
 
 <div id="overlay"></div><!-- Add overlay div -->
 
-<div class="row mb-5">
-    <h1 class="display-6">Trace Transmittals</h1>
+<div class="row mb-5 align-items-center">
+    <h1 class="display-6" style="display: flex; align-items: center;">Trace Transmittals 
+        <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
+    </h1>
+    <hr class="title-divider">
 </div>
 
-<div class="newtb mt-5">
-    <table id="transmittalstable" class="table table-auto" cellspacing="0">
+
+<div class="newtb mt-5" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
+    <table id="transmittalstable" class="table table-auto" cellspacing="0" style="margin-bottom: 0;">
         <thead class="text-center">
             <tr> 
                 <th>Transmittal TN</th>
@@ -934,6 +950,7 @@
         </tbody>
     </table>
 </div>
+
 </div>
 
 

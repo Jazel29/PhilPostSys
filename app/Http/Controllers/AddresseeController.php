@@ -10,6 +10,7 @@ class AddresseeController extends Controller
 {
     public function showIndex()
     {
+        
         return view('new-addressee');
     }
 
@@ -92,9 +93,10 @@ class AddresseeController extends Controller
     }
 
     public function showAddresseeList(){
+        $count = AddresseeList::count();
         $addresseeAll = AddresseeList::select('*')->get();
 
-        return view('addressee.show-addressee')->with(['addresseeAll'=>$addresseeAll]);
+        return view('addressee.show-addressee')->with(['addresseeAll'=>$addresseeAll, 'count'=>$count]);
     }
     
     public function destroy($id)

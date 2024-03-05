@@ -355,7 +355,7 @@
 
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #aaa;
-            width: 200px;
+            width: 300px;
             border-radius: 15px;
             padding: 5px;
             background-color: transparent;
@@ -874,8 +874,9 @@
     }
 
     .btn-update {
+        font-size: 14px;
         color: #FCBE00;
-        padding: 10px;
+        padding: 7px;
         border: 1px solid #FCBE00;
         border-radius: 15px;
         transition: all 0.3s ease;
@@ -884,7 +885,7 @@
     .btn-update:hover {
         font-weight: bold;
         color: #FFF;
-        padding: 10px;
+        padding: 7px;
         border-radius: 50px;
         background: #FCBE00;
     }
@@ -937,7 +938,9 @@
 <div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 text-gray-900">
-        <h1 class="display-6 mb-7 "> List of Addressee </h1>
+        <h1 class="display-6" style="display: flex; align-items: center;">List Of Addressee 
+            <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
+        </h1>
         <div class="mt-5">
             <table class="table table-size mt-8" id="example">
                 <thead class="text-center">
