@@ -15,6 +15,13 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
+    Route::get('verify-root-account', function(){
+         return redirect()->route('register');
+    });
+            
+    Route::post('verify-root-account', [RegisteredUserController::class, 'verifyRootAccount'])
+            ->name('verify-root-account');
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
