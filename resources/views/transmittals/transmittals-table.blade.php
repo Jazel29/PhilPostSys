@@ -768,6 +768,9 @@
         color: #111;
     }
 
+    /* CSS for the page loader overlay */
+    
+
     /* Custom table styles */
     .table-wrapper th {
         border-radius: 0px;
@@ -837,18 +840,10 @@
 
     .display-6 {
         color: #505050;
+        font-size: 30px;
+        font-weight: 500;
     }
 
-    .title-divider {
-    width: calc(95% - 15px); /* Adjust the width as needed */
-    border: none;
-    border-bottom: 2px solid #909090; /* Light gray color */
-    margin-top: 30px; /* Adjust the margin as needed */
-    margin-left: auto; /* Left padding */
-    margin-right: auto; /* Right padding */
-    }
-
-    
 
 </style>
 
@@ -880,7 +875,6 @@
     <h1 class="display-6" style="display: flex; align-items: center;">Trace Transmittals 
         <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
     </h1>
-    <hr class="title-divider">
 </div>
 
 <div class="newtb mt-5" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
@@ -927,9 +921,11 @@
                     
                     <td>
                         <div class="d-flex">
+
                             <div class="ms-3 mt-2">
                                 <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn btn-view">View</a>
                             </div>
+
                             <div class="ms-3 mt-2">
                                 <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update">Update</a>
                             </div>
@@ -983,7 +979,7 @@
         setTimeout(function() {
             $('#flashMessage').fadeOut('slow');
             $('#overlay').fadeOut('slow');
-        }, 2000);
+        }, 2);
     });
     
     $(document).ready(function() {
@@ -997,6 +993,7 @@
         };
     });
 </script>
+
 <script>
    $(document).ready(function() {
     $('#transmittalstable').DataTable({
@@ -1018,11 +1015,19 @@
     // }).remove();
     $('#2').css('padding-top', '1px');
 });
-
 </script>
-<style>
-    .highlight {
-        border: 2px solid red; /* You can customize the highlighting style */
-    }
+
+<script>
+    // fade in transition
+    $(document).ready(function() {
+        // Hide the content of the page initially
+        $('body').css('display', 'none');
+        
+        // Fade in the content once the page has fully loaded
+        $(window).on('load', function() {
+            $('body').fadeIn('slow');
+        });
+    });
+</script>
 
 </style>

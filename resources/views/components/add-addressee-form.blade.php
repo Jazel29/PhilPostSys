@@ -148,11 +148,17 @@
         border: 1px solid #0026C8;
     }
 
+    .display-6 {
+        color: #505050;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
 </style>
 
 <div class="mb-8">
     <div class="flex justify-between items-center">
-        <h1 class="display-5"> Add New Addressee </h1>
+        <h1 class="display-6"> Add New Addressee </h1>
     </div>
 </div>
 <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
@@ -238,4 +244,15 @@
         // Clear all input fields inside the form
         document.getElementById("addresseeForm").reset();
     }
+
+    // fade in transition
+    $(document).ready(function() {
+        // Hide the content of the page initially
+        $('body').css('display', 'none');
+        
+        // Fade in the content once the page has fully loaded
+        $(window).on('load', function() {
+            $('body').fadeIn('slow');
+        });
+    });
 </script>
