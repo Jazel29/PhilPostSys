@@ -79,74 +79,15 @@
     }
     
     .form-control {
-        font-size: 1rem;
-        padding: 1rem;
-        border: none;
-        border-bottom: 2px solid #ccc;
         width: 100%;
-        transition: border-color 0.3s;
-        background-color: transparent;
-      }
-    
-    .form-control:focus {
-        outline: none;
-        border-color: #0026C8;
-    }
-    
-    .form-control + label {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        transition: top 0.3s, font-size 0.3s;
-        pointer-events: none;
-    }
-    
-    .form-control:focus + label,
-    .form-control:not(:placeholder-shown) + label {
-        top: 0.25rem;
-        font-size: 0.75rem;
-        color: #0026C8; /* Change label color on focus or when input is not empty */
-    }
-
-    .input-bx{
-    position: relative;
-
-
-    }
-    .input-bx input{
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #7f8fa6;
         border-radius: 15px;
-        outline: none;
-        font-size: 1rem;
-        transition: 0.6s;
+        /* border-color: #6B7280; */
     }
 
-    .input-bx span{
-        position: absolute;
-        top: 1px;
-        left: 20px;
-        padding: 10px;
-        font-size: 1rem;
-        color: #7f8fa6;
-        pointer-events: none;
-        transition: 0.1s;
+    .floating-label {
+        width: 200px;
     }
-    .input-bx input:valid ~ span,
-    .input-bx input:focus ~ span{
-        color: #3742fa;
-        transform: translateX(5px) translateY(-9px);
-        font-size: 0.65rem;
-        font-weight: 600;
-        padding: 0 10px;
-        background: #fff;
-    }
-    .input-bx input:valid,
-    .input-bx input:focus{
-        color: #000;
-        border: 1px solid #0026C8;
-    }
+    
 
 </style>
 
@@ -170,49 +111,65 @@
 <div class="row mt-3">
     <form action="/add_addressee" method="post" id="addresseeForm">
         @csrf
-        <div class="list-addressee-form border rounded-md p-3">
+        <div class="border rounded-md p-3">
             <div class="row">
-                <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information : </h1>
+                <h1 class="text-gray-700 mb-3 ml-1">Addressee Information:</h1>
 
-                <div class="input-bx col-md-3 mb-2">
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control rounded-md text-19 form-border no-margin" place required>
-                    <span>Addressee Abbreviation</span>
-                </div>
-                <div class="input-bx col-md-9">
-                    <div>
-                        <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2 rounded-md text-19 form-border" required>
-                        <span>Addressee Name Line 1</span>
+                <div class="col-md-3 mb-2">
+                    <div class="relative">
+                        <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. DOH-RO5" required>
+                        <label for="nameAbbrev" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Abbreviation</label>
                     </div>
-                    <div class="input-bx">
-                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 rounded-md text-19 form-border">
-                        <span>Addressee Name Line 2</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="relative">
+                        <input type="text" name="namePrimary" id="namePrimary" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Department of Health" required>
+                        <label for="namePrimary" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 floating-label">Addressee Name Line 1</label>
+                    </div>
+                    <div class="relative mt-3">
+                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Regional Office V" />
+                        <label for="nameSecondary" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Name Line 2</label>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mt-7 border rounded-md p-3">
-            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Address : </h1>
+            <h1 class="text-gray-700 mb-3 ml-1">Addressee Address:</h1>
 
-            <div class="input-bx col-md-12">
-                <div class="flex flex-col">
-                    <input type="text" name="address" id="address" class="form-control mb-2 rounded-md text-19 form-border" not>
-                    <span>Building/Floor/Street/Barangay/Sitio/Purok</span>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="relative">
+                        <input type="text" name="address" id="address" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. 4500" required/>
+                        <label for="address" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Building/Floor/Street/Barangay/Sitio/Purok</label>
+                    </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4 input-bx">
-                        <input type="text" name="city" id="city" class="form-control mb-2 rounded-md text-19 form-border" required>
-                        <span>City/Municipality</span>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="city" id="city" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Legazpi City" required/>
+                            <label for="city" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">City/Municipality</label>
+                        </div>
                     </div>
-                    <div class="col-md-4 input-bx">
-                        <input type="text" name="zip" id="zip" class="form-control mb-2 rounded-md text-19 form-border" required>
-                        <span>Zip Code </span>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="zip" id="zip" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. 4500" required/>
+                            <label for="zip" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Zip Code</label>
+                        </div>
                     </div>
-                    <div class="col-md-4 input-bx">
-                        <input type="text" name="province" id="province" class="form-control rounded-md text-19 form-border" required>
-                        <span>Province</span>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="province" id="province" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. 4500" required/>
+                            <label for="province" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
+                        </div>
                     </div>
+                    <!-- <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="province" id="province" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Albay" required/>
+                            <label for="province" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform-translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
