@@ -28,6 +28,10 @@
         .copyright {
             font-weight: 400;
             font-size: small;
+            position: fixed;
+            left: 50%; /* Center the element horizontally */
+            transform: translateX(-50%); /* Adjust to center the element */
+            width: auto;
         }
 
         .curDateTime {
@@ -50,8 +54,7 @@
             width: 100%;
             height: auto;
             max-width: 100vw;
-            max-height: 100vh;
-            object-fit: contain;
+            max-height: 80vh; /* Adjust the max-height value to compress the height of the image */
         }
 
         .fullscreen {
@@ -59,11 +62,18 @@
             object-fit: contain;
         }
 
-        /* Hide the time section on small screens */
         @media (max-width: 767px) {
             .time,
             .curDateTime {
-                display: none;
+                display: none; /* Hide the time section on small screens */
+            }
+            .navposition {
+                text-align: right; /* Align the content to the right */
+                margin-left: auto; /* Push the element to the right */
+            }
+            .copyright {
+                font-size: x-small;
+                white-space: nowrap; /* Prevent line breaks */
             }
         }
     </style>
@@ -80,23 +90,23 @@
                 <img src="{{ asset('assets/PHLPOSTLogo.png') }}" alt="PhilPostLogo"
                     class="h-10 fill-current text-gray-800" />
             </div>
-
-            <div class="hover:bg-gray-300 rounded-md ml-10 text-sm">
-                <button class="flex items-center p-2">
-                    <a href="/#">Home</a>
-                </button>
+            <div class="navposition flex">
+                <div class="hover:bg-gray-300 rounded-md ml-10 text-sm">
+                    <button class="flex items-center p-2">
+                        <a href="/#">Home</a>
+                    </button>
+                </div>
+                <div class="hover:bg-gray-300 rounded-md ml-2 text-sm">
+                    <button class="flex items-center p-2">
+                        <a href="/#">About</a>
+                    </button>
+                </div>
+                <div class="hover:bg-gray-300 rounded-md ml-2 text-sm">
+                    <button class="flex items-center p-2">
+                        <a href="/login">Login</a>
+                    </button>
+                </div>
             </div>
-            <div class="hover:bg-gray-300 rounded-md ml-2 text-sm">
-                <button class="flex items-center p-2">
-                    <a href="/#">About</a>
-                </button>
-            </div>
-            <div class="hover:bg-gray-300 rounded-md ml-2 text-sm">
-                <button class="flex items-center p-2">
-                    <a href="/login">Login</a>
-                </button>
-            </div>
-
             <div class="curDateTime">
                 <div class="flex justify-end time">Philippine Standard Time:</div>
                 <h6 class="h4" id="currentDateTime"></h6>
@@ -104,13 +114,13 @@
         </div>
     </nav>
 
-    <div>
+    <div class="fullscreen">
         <img src="{{ asset('assets/philpost_index.png') }}" alt="philpostindex"
             class="fullscreen-image img-fluid" />
     </div>
 
     <div class="scrollleft">
-        <marquee class="p-2" behavior="scroll" direction="left" scrollamount="5">
+        <marquee class="p-1" behavior="scroll" direction="left" scrollamount="5">
             SCAM ALERT: Clients are advised to beware of phishing attempts. Protect your data and privacy. ANNOUNCEMENT:
             The Post Office official website is undergoing development. Anticipate new and improved online services coming
             very soon!
@@ -118,31 +128,33 @@
     </div>
 
     <!-- Footer Section -->
-    <footer class="copyright p-2 text-center border">
-        <p>Copyright © 2024 All Rights Reserved by Philippine Postal Corporation Legazpi City</p>
+    <footer class="copyright p-1">
+        <p>Copyright © 2024 All Rights Reserved by Philpost Corporation, Legazpi</p>
     </footer>
 
+    <script>
+        function displayCurrentDateTime() {
+            var currentDate = new Date();
+            var options = {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            };
+
+            var dateTimeString = currentDate.toLocaleString('en-US', options);
+            document.getElementById('currentDateTime').innerText = dateTimeString;
+        }
+
+        setInterval(displayCurrentDateTime, 1000);
+        displayCurrentDateTime();
+
+    </script>
+
+</body>
+
 </html>
-
-<script>
-    function displayCurrentDateTime() {
-        var currentDate = new Date();
-        var options = {
-            weekday: 'long',
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: true
-        };
-
-        var dateTimeString = currentDate.toLocaleString('en-US', options);
-        document.getElementById('currentDateTime').innerText = dateTimeString;
-    }
-
-    setInterval(displayCurrentDateTime, 1000);
-    displayCurrentDateTime();
-
-</script>
