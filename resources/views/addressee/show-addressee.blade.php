@@ -357,9 +357,7 @@
             border: 1px solid #aaa;
             width: 300px;
             border-radius: 15px;
-            padding: 5px;
             background-color: transparent;
-            margin-left: 3px;
         }
 
         .dataTables_wrapper .dataTables_info {
