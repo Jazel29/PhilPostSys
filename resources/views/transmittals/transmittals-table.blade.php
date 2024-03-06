@@ -883,7 +883,6 @@
     <hr class="title-divider">
 </div>
 
-
 <div class="newtb mt-5" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
     <table id="transmittalstable" class="table table-auto" cellspacing="0" style="margin-bottom: 0;">
         <thead class="text-center">
