@@ -120,6 +120,7 @@
                         <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. DOH-RO5" required>
                         <label for="nameAbbrev" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Abbreviation</label>
                     </div>
+                    <div id="abbrev_error" class="text-danger mt-2 mb-2"></div>
                 </div>
                 <div class="col-md-9">
                     <div class="relative">
@@ -140,7 +141,7 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="relative">
-                        <input type="text" name="address" id="address" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. 4500" required/>
+                        <input type="text" name="address" id="address" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Brgy. 35, Old Albay District" />
                         <label for="address" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Building/Floor/Street/Barangay/Sitio/Purok</label>
                     </div>
                 </div>
@@ -163,19 +164,13 @@
                             <input type="text" name="province" id="province" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. 4500" required/>
                             <label for="province" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
                         </div>
-                    </div>
-                    <!-- <div class="col-md-4">
-                        <div class="relative">
-                            <input type="text" name="province" id="province" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" placeholder="ex. Albay" required/>
-                            <label for="province" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform-translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
-                        </div>
-                    </div> -->
+                    </div> 
                 </div>
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button type="button" class="btn btn-outline-secondary mr-4" onclick="clearForm()">Clear</button>
-            <button type="submit" class="btn btn-outline-primary">Save Addressee</button>
+            <button type="button" class="btn text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onclick="clearForm()">Clear</button>
+            <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="submitBtn">Save Addressee</button>
         </div>
     </form>
 </div>
@@ -191,6 +186,43 @@
             $('#overlay').fadeOut('slow');
         }, 1000);
     });
+
+    $(document).ready(function () {
+        $('#nameAbbrev').on('blur', checkMailTrackingNumber);
+    });
+
+    function checkMailTrackingNumber() {
+        var nameAbbrev = $('#nameAbbrev').val();
+        console.log(nameAbbrev);
+
+        $.ajax({
+            type: 'GET',
+            url: '/checkAddressee',
+            data: { nameAbbrev: nameAbbrev },
+            success: handleCheckSuccess,
+            error: handleCheckError
+        });
+    }
+
+    function handleCheckSuccess(response) {
+        var abbrevErrorElement = $('#abbrev_error');
+        var submitButton = $('#submitBtn');
+
+        if (response.exists) {
+            abbrevErrorElement.html('<i class="fa-solid fa-circle-exclamation fa-fade fa-sm"></i>   Addressee already exists');
+            console.log('Addressee already exists');
+            submitButton.prop('disabled', true); // Disable the submit button
+        } else {
+            abbrevErrorElement.text('');
+            submitButton.prop('disabled', false); // Enable the submit button
+            console.log('Addressee does not exist');
+        }
+    }
+
+    function handleCheckError(error) {
+        console.error('Error checking Mail Tracking Number:', error);
+    }
+
     function clearForm() {
         // Clear all input fields inside the form
         document.getElementById("addresseeForm").reset();

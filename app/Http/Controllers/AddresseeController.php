@@ -57,6 +57,15 @@ class AddresseeController extends Controller
         return response()->json(['addressees' => $addressees], 200);
     }
 
+    public function checkAddressee(Request $request)
+    {
+        $addressee = $request->input('nameAbbrev');
+
+        $existingAddressee = AddresseeList::where('abbrev', $addressee)->exists();
+
+        return response()->json(['exists' => $existingAddressee]);
+    }
+
     public function updateAddressee(Request $request, $addressee_id)
     {
         try {

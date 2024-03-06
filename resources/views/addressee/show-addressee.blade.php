@@ -875,11 +875,12 @@
 
     .btn-update {
         font-size: 14px;
-        color: #FCBE00;
+        color: black;
         padding: 7px;
         border: 1px solid #FCBE00;
         border-radius: 15px;
         transition: all 0.3s ease;
+        background: #FCBE00;
     }
 
     .btn-update:hover {
@@ -887,7 +888,7 @@
         color: #FFF;
         padding: 7px;
         border-radius: 50px;
-        background: #FCBE00;
+        background: #e39800;
     }
 
 
