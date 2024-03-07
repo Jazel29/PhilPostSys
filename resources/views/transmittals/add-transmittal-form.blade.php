@@ -1,7 +1,7 @@
 <style>
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
-        padding: 20px;
+        padding: 10px;
         margin-left: 5px;
         max-width: 540px;
     }
@@ -95,75 +95,10 @@
     
     .form-control {
         font-size: 1rem;
-        padding: 1rem;
-        border: none;
-        border-bottom: 2px solid #ccc;
-        width: 100%;
-        transition: border-color 0.3s;
+        border-radius: 15px;
         background-color: transparent;
     }
     
-    .form-control:focus {
-        outline: none;
-        border-color: #0026C8; /* Change focus border color */
-    }
-    
-    .form-control + label {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        transition: top 0.3s, font-size 0.3s;
-        pointer-events: none; /* Ensure label doesn't interfere with input */
-    }
-    
-    .form-control:focus + label,
-    .form-control:not(:placeholder-shown) + label {
-        top: 0.25rem;
-        font-size: 0.75rem;
-        color: #0026C8; /* Change label color on focus or when input is not empty */
-    }
-
-    .input-bx{
-    position: relative;
-
-
-    }
-    .input-bx input{
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #7f8fa6;
-        border-radius: 15px;
-        outline: none;
-        font-size: 1rem;
-        transition: 0.6s;
-    }
-
-    .input-bx span{
-        position: absolute;
-        top: 1px;
-        left: 20px;
-        padding: 10px;
-        font-size: 1rem;
-        color: #7f8fa6;
-        pointer-events: none;
-        transition: 0.1s;
-    }
-    .input-bx input:valid ~ span,
-    .input-bx input:focus ~ span{
-        color: #3742fa;
-        transform: translateX(5px) translateY(-9px);
-        font-size: 0.65rem;
-        font-weight: 600;
-        padding: 0 10px;
-        background: #fff;
-    }
-
-    .input-bx input:valid,
-    .input-bx input:focus{
-        color: #000;
-        border: 1px solid #0026C8;
-
-    }
     .text-color {
         color: #000;
     }
@@ -198,12 +133,28 @@
     @csrf
     <div class="add-transmittal-form flex flex-col md:flex-row">
         <div class="left-section w-full md:w-1/2">
+            <div class="relative mb-2.5">
+                <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+            </div>
+            <div class="relative mb-2.5">
+                <input type="text" name="mail_tn" id="mail_tn" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="mail_tn" class="absolute text-sm text-indigo-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Mail Tracking Number</label>
+            </div>
+            <div id="mail_tn_error" class="text-danger mt-2 mb-2"></div>  
+            <div class="relative mb-2.5">
+                <input list="datalistOptions" id="addresseeDataList" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="addresseeDataList" class="absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee</label>
+                <datalist id="datalistOptions">
+                    <option value="Add New Addressee"></option>
+                </datalist>
+                <input class="form-control" type="hidden" name="receiver" id="receiver">
+            </div>
             <div class="row">          
                 <div class="mt-4 input-bx">
-                    <input type="date" name="date_posted" id="date_posted" class="form-control form-border rounded-md text-19 input-border" required>
+                    <input list="datalistOptions" id="addresseeDataList" class="form-control form-border rounded-md text-19 input-border" required>
                 </div>
             
-                <div class="mt-2 input-bx">
+                <div class="mt-3 input-bx">
                     <input type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19 input-border" required>
                     <span>Mail Tracking Number</span>
                 </div>
@@ -220,10 +171,10 @@
                     Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
                 </div>
                 <div class="row mt-3 input-bx ml-0"> 
-                    <div class="text-gray-500 ml-2">
+                    <div class="text-gray-500 text-sm">
                         Address:
-                   </div> 
-                    <textarea id="address" name="address" rows="2" class="rounded-lg text-19 form-border" style="border-color:#a0aec0;"></textarea>
+                    </div> 
+                    <input type="text" id="address" name="address" rows="2" class="form-control input-border rounded-lg text-19 form-border" disabled>
                 </div>
             </div>
         </div>    
@@ -235,7 +186,7 @@
                         <span>Tracking Number/s of Registry Return Receipts/Proofs of Delivery</span>
                     </div>
                     <div class="ml-2">
-                        <button type="button" id="add" class="btn btn-md text-19 border-2 border-blue-600 hover:text-white hover:bg-blue-600" onclick="addTN()">Add</button>
+                        <button type="button" id="add" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onclick="addTN()">Add</button>
                     </div>
                 </div>
                 <div class="ml-2 mt-2">
@@ -245,7 +196,7 @@
                     </div>
                 </div>
                 <div class="flex justify-end mt-3">
-                    <button type="submit" class="btn border-2 btn-md border-blue-600 hover:text-white hover:bg-blue-600" id="submitBtn">Submit</button>
+                    <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" id="submitBtn">Submit</button>
                 </div>
             </div> 
         </div>
@@ -277,17 +228,38 @@
                 <div class="modal-body">
                     <!-- Add your form fields for adding a new addressee here -->
                     <!-- Example: -->
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
-                    <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
-                    <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
-                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
-                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
-                    <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
-                    <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="nameAbbrev" id="nameAbbrev" class="text-dark form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="nameAbbrev" class="absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Abbreviation</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="namePrimary" id="namePrimary" class="text-dark form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="namePrimary" class="absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Name Line 1</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="nameSecondary" id="nameSecondary" class="text-dark form-control mb-2 block px-3 px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="nameSecondary" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Name Line 2</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="address" id="address" class="text-dark form-control mb-2 block px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="address" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Floor/Bldg/Street/Barangay</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="city" id="city" class="text-dark form-control mb-2 block px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="city" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">City/Municipality</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="zip" id="zip" class="text-dark form-control mb-2 block px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="zip" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Zip Code</label>
+                    </div>
+                    <div class="relative mb-2.5">
+                        <input type="text" name="province" id="province" class="text-dark form-control mb-2 block px-3 px-3 pb-2.5 pt-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="province" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
+                    <button type="submit" class="btn btn text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="saveAddresee()">Save Addressee</button>
                 </div>
             </form>
         </div>
@@ -368,17 +340,17 @@
     }
 
     function handleMailTrackingNumberCheck(response) {
-            var mailTnErrorElement = $('#mail_tn_error');
-            var submitButton = $('#submitBtn');
+        var mailTnErrorElement = $('#mail_tn_error');
+        var submitButton = $('#submitBtn');
 
-            if (response.exists) {
-                mailTnErrorElement.html('<i class="fa-solid fa-circle-exclamation fa-fade fa-sm"></i>   Transmittal Tracking Number already exists');
-                submitButton.prop('disabled', true); // Disable the submit button
-            } else {
-                mailTnErrorElement.text('');
-                submitButton.prop('disabled', false); // Enable the submit button
-            }
+        if (response.exists) {
+            mailTnErrorElement.html('<i class="fa-solid fa-circle-exclamation fa-fade fa-sm"></i>   Transmittal Tracking Number already exists');
+            submitButton.prop('disabled', true); // Disable the submit button
+        } else {
+            mailTnErrorElement.text('');
+            submitButton.prop('disabled', false); // Enable the submit button
         }
+    }
 
 
     function handleMailTrackingNumberError(error) {

@@ -40,7 +40,7 @@ class TransmittalController extends Controller
     public function store(Request $request) {
         // Create a new Transmittals record
         $transmittal = Transmittals::create([
-            'mailTrackNum' => $request->input('mail_tn'),
+            'mailTrackNum' => strtoupper($request->input('mail_tn')),
             'recieverName' => $request->input('receiver'),
             'recieverAddress' => $request->input('address'),
             'date' => $request->input('date_posted')
@@ -58,7 +58,7 @@ class TransmittalController extends Controller
             foreach ($rrr_tns as $returnCard) {
                 ReturnCards::create([
                     'trucknumber' => $request->input('mail_tn'),
-                    'returncard' => $returnCard
+                    'returncard' => strtoupper($returnCard)
                 ]);
             }
         } else {

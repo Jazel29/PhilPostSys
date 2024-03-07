@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/remove-addressee/{id}', [AddresseeController::class, 'destroy'])->name('addressee.destroy');
     Route::get('/update-addressee/{id}', [AddresseeController::class, 'showUpdateAddressee'])->name('update.addressee.form');
     Route::post('/update-addressee-submit/{id}', [AddresseeController::class, 'updateAddressee'])->name('update.addressee.submit');
+    Route::get('/checkAddressee', [AddresseeController::class, 'checkAddressee'])->name('checkAddressee');
 
     Route::get('/export-to-excel', [ExcelExportController::class, 'exportToExcel']);
     Route::get('/download-excel/{filename}', [ExcelExportController::class, 'downloadExcel'])->name('download-excel');

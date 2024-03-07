@@ -679,58 +679,64 @@
     }
 
     .btn-view {
-        color: #2C54FF;
+        color: #fff;
+        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
         padding: 7px;
         font-size: 14px;
         border: 1px solid #2C54FF;
         border-radius: 15px;
         background: transparent;
         transition: all 0.3s ease;
+        background: #2C54FF
     }
 
     .btn-view:hover {
     font-weight: bold;
     font-size: 14px;
-    color: #FFF;
+    color: black;
     padding: 7px; 
     border-radius: 50px; 
-    background: #2C54FF;
+    background: #002adf;
     }
 
     .btn-update {
         font-size: 14px;
-        color: #FCBE00;
+        color: #FFF;
+        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
         padding: 7px;
         border: 1px solid #FCBE00;
         border-radius: 15px;
         transition: all 0.3s ease;
+        background: #FCBE00;
     }
 
     .btn-update:hover {
         font-weight: bold;
         font-size: 14px;
-        color: #FFF;
+        color: black;
         padding: 7px;
         border-radius: 50px;
-        background: #FCBE00;
+        background: #e39800;
     }
 
     .btn-danger {
         font-size: 14px;
-        color: #EE1A2E;
+        color: #FFF;
+        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
         padding: 7px;
         border: 1px solid #EE1A2E;
         border-radius: 15px;
         transition: all 0.3s ease;
+        background: #EE1A2E;
     }
 
     .btn-danger:hover {
         font-weight: bold;
         font-size: 14px;
-        color: #FFF;
+        color: black;
         padding: 7px;
         border-radius: 50px;
-        background: #EE1A2E;
+        background: #cf0215;
     }
 
     .container-dots {
