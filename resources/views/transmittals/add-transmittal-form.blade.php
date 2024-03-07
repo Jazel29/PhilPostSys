@@ -491,15 +491,4 @@
         });
     }
 
-    // fade in transition 
-        $(document).ready(function() {
-        // Hide the content of the page initially
-        $('body').css('display', 'none');
-        
-        // Fade in the content once the page has fully loaded
-        $(window).on('load', function() {
-            $('body').fadeIn('slow');
-        });
-    });
-
 </script>
