@@ -163,6 +163,12 @@
     .text-color {
         color: #000;
     }
+
+    .display-6 {
+        color: #505050;
+        font-size: 30px;
+        font-weight: 500;
+    }
 </style>
 
 
@@ -549,4 +555,16 @@
             datalist.appendChild(option);
         });
     }
+
+    // fade in transition 
+        $(document).ready(function() {
+        // Hide the content of the page initially
+        $('body').css('display', 'none');
+        
+        // Fade in the content once the page has fully loaded
+        $(window).on('load', function() {
+            $('body').fadeIn('slow');
+        });
+    });
+
 </script>

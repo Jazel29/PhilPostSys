@@ -1,8 +1,8 @@
 <style>
 
-   /* start - table */
+ /* start - table */
 
-   table.dataTable th.dt-left,
+ table.dataTable th.dt-left,
         table.dataTable td.dt-left {
         text-align: left;
         }
@@ -122,7 +122,7 @@
         table.dataTable thead th,
         table.dataTable thead td {
         padding: 10px 18px;
-        border-bottom: 1px solid #111;
+        border-bottom: 3px solid #0026C8;
         }
         table.dataTable thead th:active,
         table.dataTable thead td:active {
@@ -131,7 +131,7 @@
         table.dataTable tfoot th,
         table.dataTable tfoot td {
         padding: 10px 18px 6px 18px;
-        border-top: 1px solid #111;
+        border-top: 1px solid #909090;
         }
         table.dataTable thead .sorting,
         table.dataTable thead .sorting_asc,
@@ -159,17 +159,17 @@
         background-image: url("../images/sort_desc_disabled.png");
         }
         table.dataTable tbody tr {
-        background-color: #ffffff;
-        
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #D3D3D3;
+        border-radius: 50px;
         }
+        
         table.dataTable tbody tr.selected {
         background-color: #b0bed9;
         }
         table.dataTable tbody th,
         table.dataTable tbody td {
-        padding: 1px 10px;
-        font-size: 15px;
-        vertical-align: middle;
+        padding: 8px 10px;
         }
         table.dataTable.row-border tbody th,
         table.dataTable.row-border tbody td,
@@ -188,6 +188,7 @@
         border-top: 1px solid #ddd;
         border-right: 1px solid #ddd;
         }
+
         table.dataTable.cell-border tbody tr th:first-child,
         table.dataTable.cell-border tbody tr td:first-child {
         border-left: 1px solid #ddd;
@@ -206,8 +207,7 @@
         }
         table.dataTable.hover tbody tr:hover,
         table.dataTable.display tbody tr:hover {
-        background-color: #2C54FF;
-        color: #ffffff;
+        background-color: #f6f6f6;
         }
         table.dataTable.hover tbody tr:hover.selected,
         table.dataTable.display tbody tr:hover.selected {
@@ -385,6 +385,7 @@
         border: 1px solid transparent;
         border-radius: 15px;
         }
+
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
         color: #333 !important;
@@ -686,107 +687,145 @@
         padding-left: 0px;
     }
 
+
     .btn {
         border-radius: 15px;
     }
 
+    .btn-secondary {
+        border: 1px solid #EE1A2E;
+        border-radius: 15px;
+        color: #EE1A2E;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-secondary:hover {
+        border: 1px solid #EE1A2E;
+        background: #EE1A2E;
+        color: #fff;
+    }
     .input-group {
         width: 250px;
         padding-left: 2px;
     }
 
+    .fa-angle-left {
+        margin-right: 10px;
+        margin-left: 10px;
+        font-size: 25px;
+        color: #909090;
+    }
+
+    .fa-angle-left:hover {
+        color: #0026C8;
+        border: 1px solid #0026C8;
+        border-radius: 15px;
+        padding: 2px;
+        font-size: 20px;
+    }
+
+    .display-6 {
+        color: #909090;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .fa-circle-xmark {
+        font-size: 13px;
+        padding-right: 5px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
 
 </style>
 
-<div class="ml-4">
-
-        {{--  This alert is for success edit --}}
-        @if(session('edit-ok'))
-        <div class="alert alert-success" role="alert">
-            <p>{{ session('edit-ok') }}</p>
+<div class="row mt-3 align-items-center">
+    <div class="col">
+        <div class="d-flex align-items-center">
+            <a href="{{ url('/tracer') }}"><i class="fa-solid fa-angle-left"></i></a>
+            <h1 class="display-6 ml-3">Update Transmittal</h1>
         </div>
-        @endif
-        {{--  This alert is for deletion of RRRTN --}}
-        @if(session('rem-ok'))
-        <div class="alert alert-success" role="alert">
-            <p>{{ session('rem-ok') }}</p>
-        </div>
-        @endif
-
-        {{-- alert for add return --}}
-        <div class="content mt-5">
-            <div class="d-flex justify-content-center">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-        
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-            </div>
-        </div>
-
-    <div>
-        <h1 class="display-5">Update Transmittal</h1>
     </div>
-
-
 </div>
+
+<div class="ml-4">
+    {{-- This alert is for success edit --}}
+    @if(session('edit-ok'))
+    <div class="alert alert-success" role="alert">
+        <p>{{ session('edit-ok') }}</p>
+    </div>
+    @endif
+    {{-- This alert is for deletion of RRRTN --}}
+    @if(session('rem-ok'))
+    <div class="alert alert-success" role="alert">
+        <p>{{ session('rem-ok') }}</p>
+    </div>
+    @endif
+
+    {{-- alert for add return --}}
+    <div class="content mt-5">
+        <div class="d-flex justify-content-center">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+    
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
 {{-- this form for update  --}}
 <form action="{{ url('transmittals/'. $records->id. '/update') }}" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     @method("PATCH")
     <div class="add-transmittal-form flex">
-        <div class="left-section w-1/2 ">
-            <div class="mx-4">
-                <div class="row mt-4">
-                    <div class="form-date">
-                        <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required readonly>
-                    </div>
-
-                    <div class="input-group">
-                        <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control tracking rounded-md text-19" style="border-color:#a0aec0;" required disabled>
-                        <button id="editIcon" class="btn btn-outline-secondary" type="button">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                    </div>
-
+        <div class="mx-4">
+            <div class="row mt-4">
+                <div class="form-date">
+                    <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required readonly>
                 </div>
 
-                <div class="row mt-2">
-                    <input class="form-control rounded-md text-19 input-border" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" required>
-                    <datalist id="datalistOptions">
-                        <option value="Add New Addressee"></option>
-                    </datalist>
-                    <input class="form-control" type="hidden" name="receiver" id="receiver">
+                <div class="input-group">
+                    <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control tracking rounded-md text-19" style="border-color:#a0aec0;" required disabled>
+                    <button id="editIcon" class="btn btn-outline-secondary" type="button">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
                 </div>
-                <div id="popover-content" class="mt-2 text-danger" style="display: none;">
-                    Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
-                </div>
+
+            </div>
+
+            <div class="row mt-2">
+                <input class="form-control rounded-md text-19 input-border" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" required>
+                <datalist id="datalistOptions">
+                    <option value="Add New Addressee"></option>
+                </datalist>
+                <input class="form-control" type="hidden" name="receiver" id="receiver">
+            </div>
+            <div id="popover-content" class="mt-2 text-danger" style="display: none;">
+                Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
             </div>
         </div>
-        <div class="right-section w-1/2" id="addRRR_div">
-            <div class="flex flex-col mt-4">
-                <div>
-                    <div class="flex justify-end mt-3">
-                        <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
-                    </div>
-                </div>
-            </div> 
+        <div class="flex justify-center mt-3">
+            <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
         </div>
     </div>
 </form>
+
+
 <div class="d-flex justify-content-end">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
 </div>
 
 <div class="content">
-    <div class="h2 d-flex justify-content-center">Return Card List</div>
-    <table class="table table-size mt-4 hover" id="example">
+    <div class="h7 d-flex justify-content-center">Return Card List</div>
+    <table class="table table-size mt-4 hover" id="example" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
         <thead class="text-center">
         <tr>
             <th scope="col">Items</th>
@@ -810,7 +849,8 @@
                             <form method="POST" action="{{ route('return.destroy', $rrt->id) }}" accept-charset="UTF-8">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">Delete Item</button>
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Confirm delete? {{ $rrt->returncard }}')">
+                                    <i class="fa-solid fa-circle-xmark"></i>Delete Item</button>   
                             </form>
                         </td>
                     </tr>
@@ -1160,5 +1200,15 @@
         document.forms[0].submit();
     }
 
+    // fade in transition
+    $(document).ready(function() {
+        // Hide the content of the page initially
+        $('body').css('display', 'none');
+        
+        // Fade in the content once the page has fully loaded
+        $(window).on('load', function() {
+            $('body').fadeIn('slow');
+        });
+    });
 
 </script>
