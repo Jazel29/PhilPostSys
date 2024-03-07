@@ -705,10 +705,6 @@
         background: #EE1A2E;
         color: #fff;
     }
-    .input-group {
-        width: 250px;
-        padding-left: 2px;
-    }
 
     .fa-angle-left {
         margin-right: 10px;
@@ -738,8 +734,41 @@
         padding-bottom: 3px;
     }
 
-</style>
+    #flashMessage.alert-primary {
+        background-color: #0D6EFD; 
+        color: #fff;
+        text-align: center; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+    }
+    #flashMessage.alert-primary {
+        background-color:#0D6EFD; 
+        color: #fff;
+        text-align: center; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600; 
+        position: relative; /* Add relative positioning for overlay */
+        z-index: 50; /* Ensure flash message is above overlay */
+        border-radius: 15px !important;
+    }
 
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity as needed */
+        display: none; /* Initially hidden */
+        z-index: 40; /* Below flash message */
+    }
+
+</style>
+<div id="overlay"></div>
 <div class="row mt-3 align-items-center">
     <div class="col">
         <div class="d-flex align-items-center">
@@ -749,83 +778,63 @@
     </div>
 </div>
 
-<div class="ml-4">
-    {{-- This alert is for success edit --}}
-    @if(session('edit-ok'))
-    <div class="alert alert-success" role="alert">
-        <p>{{ session('edit-ok') }}</p>
-    </div>
-    @endif
-    {{-- This alert is for deletion of RRRTN --}}
-    @if(session('rem-ok'))
-    <div class="alert alert-success" role="alert">
-        <p>{{ session('rem-ok') }}</p>
-    </div>
-    @endif
-
-    {{-- alert for add return --}}
-    <div class="content mt-5">
-        <div class="d-flex justify-content-center">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-    
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-        </div>
+<div class="mssg position-fixed top-8 start-50 translate-middle-x w-1/4 z-50">
+    <div class="mssg">
+        @if(session('success'))
+            <div id="flashMessage" class="alert alert-primary" role="alert">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
     </div>
 </div>
+
+<!-- @if (session('success'))
+    <div class="alert alert-success mt-5">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger mt-5">
+        {{ session('error') }}
+    </div>
+@endif -->
 
 {{-- this form for update  --}}
 <form action="{{ url('transmittals/'. $records->id. '/update') }}" method="POST" class="p-3 needs-validation" onsubmit="submitForm()">
     @csrf
     @method("PATCH")
-    <div class="add-transmittal-form flex">
-        <div class="mx-4">
-            <div class="row mt-4">
-                <div class="form-date">
-                    <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required readonly>
-                </div>
-
-                <div class="input-group">
-                    <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control tracking rounded-md text-19" style="border-color:#a0aec0;" required disabled>
-                    <button id="editIcon" class="btn btn-outline-secondary" type="button">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                </div>
-
+    <div class="row mt-4">
+        <div class="col-3 form-date">
+            <input value="{{ $records->date }}" type="date" name="date_posted" id="date_posted" class="form-control rounded-md text-19" style="border-color:#a0aec0;" required readonly>
+        </div>
+        <div class="col-3">
+            <div class="input-group">
+                <input value="{{ $records->mailTrackNum }}" placeholder="Mail Tracking Number" type="text" name="mail_tn" id="mail_tn" class="form-control tracking rounded-md text-19" style="border-color:#a0aec0;" required disabled>
+                <button id="editIcon" class="btn btn-outline-secondary" type="button">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
             </div>
-
-            <div class="row mt-2">
-                <input class="form-control rounded-md text-19 input-border" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" required>
-                <datalist id="datalistOptions">
-                    <option value="Add New Addressee"></option>
-                </datalist>
-                <input class="form-control" type="hidden" name="receiver" id="receiver">
-            </div>
+        </div>
+        <div class="col">
+            <input class="form-control" list="datalistOptions" id="addresseeDataList" placeholder="Addressee" value="{{ old('addresseeDataList', $addressee->abbrev . ' - ' . $addressee->name_primary) }}" required>
+            <datalist id="datalistOptions">
+                <option value="Add New Addressee"></option>
+            </datalist>
+            <input class="form-control" type="hidden" name="receiver" id="receiver" value="{{ $addressee->id }}">
             <div id="popover-content" class="mt-2 text-danger" style="display: none;">
                 Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
             </div>
         </div>
-        <div class="flex justify-center mt-3">
-            <button type="submit" class="btn border-2 btn-md border-green-600 hover:text-white hover:bg-green-600">Update</button>
-        </div>
+    </div>
+    <div class="text-end mt-3">
+        <button type="submit" class="btn focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:focus:ring-green-900">Update</button>
+        <button type="button" class="btn focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#newRRRModal">Add RRR TN</button>
     </div>
 </form>
 
-
-<div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>
-</div>
-
-<div class="content">
-    <div class="h7 d-flex justify-content-center">Return Card List</div>
-    <table class="table table-size mt-4 hover" id="example" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
+<div class="content my-5">
+    <table class="table table-size mt-4 hover" id="returnCardsTable" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
         <thead class="text-center">
         <tr>
             <th scope="col">Items</th>
@@ -859,228 +868,126 @@
         </tbody>
     </table>
 </div>
+</div>
 
 <!--  modal for creating new addressee-->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
-            </div>
-            <div class="mssg">
-                @if(session('record_added'))
-                
-                    <div class="alert alert-primary" role="alert">
-                        <p>{{ session('record_added') }}</p>
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#newAddresseeModal').modal('show');
-                        });
-                    </script>
-                @endif
-            </div>
-            <form action="/add_addressee" method="post">
-                @csrf
-                <div class="modal-body">
-                    <!-- Add your form fields for adding a new addressee here -->
-                    <!-- Example: -->
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
-                    <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
-                    <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
-                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
-                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
-                    <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
-                    <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
-                </div>
-            </form>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
         </div>
-    </div>
-</div>
-
-<!-- modal for add button -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+        <div class="mssg">
+            @if(session('record_added'))
+            
+                <div class="alert alert-primary" role="alert">
+                    <p>{{ session('record_added') }}</p>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#newAddresseeModal').modal('show');
+                    });
+                </script>
+            @endif
+        </div>
+        <form action="/add_addressee" method="post">
+            @csrf
             <div class="modal-body">
-                <form class="row g-3" action="/addReturn" method="POST">
-                    @csrf
-                    <div class="col-auto">
-                        <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
-                        <label for="last-barcode" class="visually-hidden">Barcode</label>
-                        <input type="text" value="{{ $records->mailTrackNum }}" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
-                    </div>
-                    {{-- <div class="col-auto">
-                      <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>
-                    </div> --}}
-
+                <!-- Add your form fields for adding a new addressee here -->
+                <!-- Example: -->
+                <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
+                <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
+                <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
+                <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
+                <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
+                <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
+                <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                </form>
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
             </div>
-        </div>
+        </form>
     </div>
+</div>
+</div>
+
+<!-- modal for add RRR TN -->
+<div class="modal fade" id="newRRRModal" tabindex="-1" aria-labelledby="newRRRModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newRRRModalLabel">New RRR Tracking Number</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/addReturn" method="POST">
+            @csrf
+            <div class="modal-body">
+                <input type="text" value="" name="trackingNum" class="form-control rounded-lg" placeholder="Scan or Enter a Tracking Number">
+                <input type="text" value="{{ $records->mailTrackNum }}" class="" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
-            </div>
-            <div class="mssg">
-                @if(session('record_added'))
-                
-                    <div class="alert alert-primary" role="alert">
-                        <p>{{ session('record_added') }}</p>
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#newAddresseeModal').modal('show');
-                        });
-                    </script>
-                @endif
-            </div>
-            <form action="/add_addressee" method="post">
-                @csrf
-                <div class="modal-body">
-                    <!-- Add your form fields for adding a new addressee here -->
-                    <!-- Example: -->
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
-                    <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
-                    <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
-                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
-                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
-                    <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
-                    <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
-                </div>
-            </form>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
         </div>
+        <div class="mssg">
+            @if(session('record_added'))
+            
+                <div class="alert alert-primary" role="alert">
+                    <p>{{ session('record_added') }}</p>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#newAddresseeModal').modal('show');
+                    });
+                </script>
+            @endif
+        </div>
+        <form action="/add_addressee" method="post">
+            @csrf
+            <div class="modal-body">
+                <!-- Add your form fields for adding a new addressee here -->
+                <!-- Example: -->
+                <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
+                <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
+                <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
+                <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
+                <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
+                <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
+                <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
+                <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
-    // Function to handle form submission
-    function submitForm() {
-        // Add logic to submit the form
-        // Example: You can use AJAX to send a request to the server
-
-        // After submission, close the modal
-        $('#submitConfirmationModal').modal('hide');
-    }
-
     $(document).ready(function() {
-        // Initially, disable the input field
-        $('#mail_tn').prop('disabled', true);
+        if ($('#flashMessage').length > 0) {
+            $('#overlay').fadeIn('slow');
+        }
 
-        // Flag to track if the input field is being edited
-        var isEditing = false;
-
-        // When the edit icon is clicked
-        $('#editIcon').click(function() {
-            // Enable the input field for editing
-            $('#mail_tn').prop('disabled', false);
-            // Focus on the input field
-            $('#mail_tn').focus();
-            // Set editing flag to true
-            isEditing = true;
-        });
-
-        // When the user clicks outside the input field or the edit icon
-        $(document).click(function(e) {
-            if (!$(e.target).closest('#mail_tn').length && !$(e.target).closest('#editIcon').length) {
-                // Disable the input field regardless of editing status
-                $('#mail_tn').prop('disabled', true);
-                // Reset editing flag
-                isEditing = false;
-            }
-        });
-
-        // When submitting the form
-        $('form').submit(function() {
-            // Re-enable the input field before form submission
-            $('#mail_tn').prop('disabled', false);
-        });
+        setTimeout(function() {
+            $('#flashMessage').fadeOut('slow');
+            $('#overlay').fadeOut('slow');
+        }, 2000);
     });
-</script>
 
-<!-- Modal -->
-<div class="modal fade" id="newAddresseeModal" tabindex="-1" role="dialog" aria-labelledby="newAddresseeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newAddresseeModalLabel">Add New Addressee</h5>
-            </div>
-            <div class="mssg">
-                @if(session('record_added'))
-                    <div class="alert alert-primary" role="alert">
-                        <p>{{ session('record_added') }}</p>
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#newAddresseeModal').modal('show');
-                        });
-                    </script>
-                @endif
-            </div>
-            <form action="/add_addressee" method="post">
-                @csrf
-                <div class="modal-body">
-                    <!-- Add your form fields for adding a new addressee here -->
-                    <!-- Example: -->
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control mb-2" placeholder="Addressee Abbreviation" required>
-                    <input type="text" name="namePrimary" id="namePrimary" class="form-control mb-2" placeholder="Addressee Name Line 1" required>
-                    <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2" placeholder="Addressee Name Line 2">
-                    <input type="text" name="address" id="address" class="form-control mb-2" placeholder="Floor/Bldg/Street/Barangay ">
-                    <input type="text" name="city" id="city" class="form-control mb-2" placeholder="City/Municipality" required>
-                    <input type="text" name="zip" id="zip" class="form-control mb-2" placeholder="Zip Code" required>
-                    <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province" required>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                    <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="content mt-5">
-    <div class="d-flex justify-content-center">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-    </div>
-</div>
-
-<script>
-
-    // edit button - start //
-    
     $(document).ready(function() {
     // Initially, disable the input field
     $('#mail_tn').prop('disabled', true);
@@ -1120,37 +1027,48 @@
     // edit button - end //
 
     $(document).ready(function() {
-        $('#example').dataTable();
+        $('#returnCardsTable').DataTable({
+            "info": false,
+            "responsive": true,
+            "language": {
+            "search": "" }
+        });
 
-    } );
+        $('.dataTables_filter input').attr('placeholder', 'Search');
+        $('.dataTables_length label').contents().filter(function() {
+            return this.nodeType === 3; // Filter out text nodes
+        }).remove();
+        $('.dataTables_filter label').contents().filter(function() {
+            return this.nodeType === 3; // Filter out text nodes
+        }).remove();
+
+    });
 
     
-    document.getElementById('addresseeDataList').addEventListener('input', handleAddresseeDataListInput);
-    document.addEventListener('DOMContentLoaded', fetchAddressees);
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('addresseeDataList').addEventListener('input', handleAddresseeDataListInput);
+        fetchAddressees();
+    });
     function handleAddresseeDataListInput() {
-        var addressValue = document.getElementById('address');
+        console.log("function called");
         var addresseeVal = document.getElementById('receiver');
-        var RRRdiv = document.getElementById('addRRR_div');
         var popUp = document.getElementById('popover-content');
         var tn = document.getElementById('mail_tn');
         var selectedValue = this.value;
+
 
         if (selectedValue === 'Add New Addressee') {
             $('#newAddresseeModal').modal('show');
             this.value = '';
         } else {
             var selectedOption = document.querySelector('#datalistOptions option[value="' + selectedValue + '"]');
-
+            
             if (selectedOption) {
                 var selectedId = selectedOption.id;
                 var selectedAddressee = addressees.find(addressee => addressee.id == selectedId);
-                addressValue.value = `${selectedAddressee.address} ${selectedAddressee.city} ${selectedAddressee.zip} ${selectedAddressee.province}`;
                 addresseeVal.value = selectedId;
-                RRRdiv.style.display = 'block';
                 popUp.style.display = 'none';
             } else {
-                addressValue.value = '';
-                RRRdiv.style.display = 'none';
                 popUp.style.display = 'block';
             }
 
@@ -1192,12 +1110,12 @@
     }
 
     function submitForm() {
-
         // Set the rrr_tns array value to the hidden input
         document.getElementById('rrr_tns_input').value = JSON.stringify(rrr_tns);
 
         // Submit the form
         document.forms[0].submit();
+        $('#submitConfirmationModal').modal('hide');
     }
 
     // fade in transition

@@ -124,8 +124,7 @@ class TransmittalController extends Controller
             $mailTrackNum = $request->input('mail_tn');
             $date = $request->input('date_posted');
             $address = $request->input('receiver');
-            
-            
+
             // Retrieve the current truck number
             $currentMailTrackNum = $record->mailTrackNum;
 
@@ -140,7 +139,7 @@ class TransmittalController extends Controller
             // Update associated return cards' truck numbers
             ReturnCards::where('trucknumber', $currentMailTrackNum)->update(['trucknumber' => $mailTrackNum]);
 
-            return redirect()->back()->with('edit-ok', 'Record Updated Successfully!');
+            return redirect()->back()->with('success', 'Record Updated Successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }
@@ -171,6 +170,6 @@ class TransmittalController extends Controller
     
     public function deleteReturnCard($id){
         ReturnCards::destroy($id);
-        return redirect()->back()->with('rem-okd', 'Record Deleted Successfully! this');
+        return redirect()->back()->with('success', 'Record Deleted Successfully!');
     }
 }
