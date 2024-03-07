@@ -12,6 +12,7 @@ class DashboardController extends Controller
     public function index(){
         //this is used for total number of rows which reflect as the number of transmittals
         $transmittalsTotal = Transmittals::count();
+        $transmittalsChar = Transmittals::all();
 
         // Retrieve all dates from the Transmittals model
         $dates = Transmittals::pluck('date');
@@ -49,7 +50,7 @@ class DashboardController extends Controller
         return view('dashboard')->with(['totalTransmittals'=>$transmittalsTotal, 'freqDate' => $mostUsedDate, 'tolNo'=>$mostUsedDateCount, 'totalAddressees' => $addresseesTotal,
         'mostUsedAbbreviation' => $mostUsedAbbreviation,
         'mostUsedAbbreviationCount' => $mostUsedAbbreviationCount,
-        'mostUsedAddresses' => $mostUsedAddresses
+        'mostUsedAddresses' => $mostUsedAddresses, 'transmittalsChart' => $transmittalsChar
     ]);
     }
 
