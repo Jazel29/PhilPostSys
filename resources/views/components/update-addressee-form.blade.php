@@ -65,9 +65,6 @@
         z-index: 40; /* Below flash message */
     }
 
-    .btn {
-        border-radius: 15px !important;
-    }
     .box-with-shadow {
         box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
     }
@@ -86,12 +83,145 @@
         color: #000;
     }
 
+    .fa-angle-left {
+        margin-right: 20px;
+        margin-left: 5px;
+        font-size: 25px;
+        color: #909090;
+    }
+
+    .fa-angle-left:hover {
+        color: #0026C8;
+        border: 1px solid #0026C8;
+        border-radius: 15px;
+        padding: 2px;
+        font-size: 20px;
+    }
+
+    .btn-warning {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #FCBE00;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+    .btn-warning:hover {
+        color: #fff;
+        border-radius: 50px;
+        background: #FCBE00;
+    }
+
+    .btn-warning:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #FCBE00; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+
+
+    .display-6 {
+        color: #909090;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .border{
+        border-radius: 20px;
+    }
+
+    .fa-angle-left {
+        margin-right: 20px;
+        margin-left: 5px;
+        font-size: 25px;
+        color: #909090;
+    }
+
+    .fa-angle-left:hover {
+        color: #0026C8;
+        border: 1px solid #0026C8;
+        border-radius: 15px;
+        padding: 2px;
+        font-size: 20px;
+    }
+
+    .btn-warning {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #FCBE00;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+    .btn-warning:hover {
+        color: #fff;
+        border-radius: 50px;
+        background: #FCBE00;
+    }
+
+    .btn-warning:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #FCBE00; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+
+
+    .display-6 {
+        color: #909090;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .border{
+        border-radius: 20px;
+    }
+
 </style>
 
 <div>
-    <div class="mb-2">
-        <h1 class="display-5"> Update Addressee </h1>
-    </div>
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <a href="{{ url('/tracer') }}"><i class="fa-solid fa-angle-left"></i></a>
+                    <h1 class="display-6" style="margin-left: -5px;">Update Addressee</h1>
+                </div>
+            </div>
     <div class="mssg position-fixed top-6 start-50 translate-middle-x h-5 w-1/4 z-50">
         <div class="mssg">
             @if(session('flash_mssg'))
@@ -166,8 +296,7 @@
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button type="button" class="btn text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onclick="clearForm()">Clear</button>
-            <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="submitBtn">Save Addressee</button>
+            <button type="submit" class="btn btn-warning">Update</button>
         </div>
     </form>
 </div>
