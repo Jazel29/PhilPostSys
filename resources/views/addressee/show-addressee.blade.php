@@ -737,10 +737,6 @@
         border-radius: 15px;
     }
 
-    .btn-outline-success {
-        border-radius: 15px;
-    }
-
     .table-size {
     width: 100%;
     border-collapse: collapse; /* Ensure borders collapse properly */
@@ -783,9 +779,6 @@
         background-color: #FFFFFF;
         }
 
-    .fa-envelope {
-        font-size: 29px;
-    }
     #flashMessage.alert-primary {
         background-color:#0D6EFD; 
         color: #fff;
@@ -809,9 +802,6 @@
         z-index: 40; /* Below flash message */
     }
 
-    .btn {
-        border-radius: 15px !important;
-    }
     .custom-header{
         background-color: #BB2D3B;
     }
@@ -868,32 +858,49 @@
         gap: 10px;
     }
 
-    .btn {
-        border-radius:5px;
-        padding-left: 7px;
-        padding-right: 7px;
-        padding-top: 4px;
-        padding-bottom: 4px;
+    .btn-warning{
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #FCBE00;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
     }
 
-    .btn-update {
-        font-size: 14px;
-        color: black;
-        padding: 7px;
-        border: 1px solid #FCBE00;
-        border-radius: 15px;
-        transition: all 0.3s ease;
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+    .btn-warning:hover {
+        color: #fff;
+        border-radius: 100px;
         background: #FCBE00;
     }
 
-    .btn-update:hover {
-        font-weight: bold;
-        color: #FFF;
-        padding: 7px;
+    .btn-warning:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #FCBE00; 
         border-radius: 50px;
-        background: #e39800;
+        animation: fadeIn 0.4s forwards; 
     }
 
+    .fa-pen {
+        font-size: 12px;
+        margin-right: 5px;
+    }
 
     .custom-search-input,
     .custom-filter-select {
@@ -977,7 +984,7 @@
                                 <th class="textStyle" scope="row-item">{{ $addressee->zip}}</th>
                                 <th class="textStyle" scope="row-item">{{ $addressee->province }}</th>
                                 <td>
-                                    <a href="{{ url('/update-addressee/'.$addressee->id) }}" class="btn btn-update"><i class="fa-solid fa-pen"></i>Update</a>
+                                    <a href="{{ url('/update-addressee/'.$addressee->id) }}" class="btn btn-warning"><i class="fa-solid fa-pen"></i>Update</a>
                                 </td>
                             </tr>
                         @endforeach

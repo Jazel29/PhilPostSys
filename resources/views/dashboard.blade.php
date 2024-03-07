@@ -585,7 +585,7 @@ body {
                     <div id="chart" class="w-full"></div>
 
                     <!-- Your chart script -->
-                    <script>
+                    <script>                
                         var options = {
                             series: [
                                 {
