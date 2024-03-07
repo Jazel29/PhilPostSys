@@ -192,15 +192,9 @@
             </div>
             <div class="mssg">
                 @if(session('record_added'))
-                
                     <div class="alert alert-primary" role="alert">
                         <p>{{ session('record_added') }}</p>
                     </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('#newAddresseeModal').modal('show');
-                        });
-                    </script>
                 @endif
             </div>
             <form action="/add_addressee" method="post">
