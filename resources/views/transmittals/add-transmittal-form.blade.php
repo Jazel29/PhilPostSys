@@ -2,7 +2,6 @@
     .custom-border {
         border: 2px solid #333; /* Change #333 to the desired dark color code */
         padding: 10px;
-        margin-left: 5px;
         max-width: 540px;
     }
 
@@ -131,7 +130,7 @@
 
 <form action="/addRecord" id="addAddresseeForm" method="POST" class="p-3 needs-validation" onsubmit="event.preventDefault(); showConfirmationModal();">
     @csrf
-    <div class="add-transmittal-form flex flex-col md:flex-row">
+    <div class="add-transmittal-form flex flex-col md:flex-row mb-5 mt-2 md:mx-5">
         <div class="left-section w-full md:w-1/2">
             <div class="relative mb-2.5">
                 <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
@@ -149,56 +148,37 @@
                 </datalist>
                 <input class="form-control" type="hidden" name="receiver" id="receiver">
             </div>
-            <div class="row">          
-                <div class="mt-4 input-bx">
-                    <input list="datalistOptions" id="addresseeDataList" class="form-control form-border rounded-md text-19 input-border" required>
-                </div>
-            
-                <div class="mt-3 input-bx">
-                    <input type="text" name="mail_tn" id="mail_tn" class="form-control rounded-md text-19 input-border" required>
-                    <span>Mail Tracking Number</span>
-                </div>
-                <div id="mail_tn_error" class="text-danger mt-2 mb-2"></div>
-                <div class="input-bx">
-                    <input class="form-control rounded-md text-19 input-border form-border" list="datalistOptions" id="addresseeDataList" required>
-                    <span>Addressee</span>
-                    <datalist id="datalistOptions">
-                        <option value="Add New Addressee"></option>
-                    </datalist>
-                    <input class="form-control" type="hidden" name="receiver" id="receiver">
-                </div>
-                <div id="popover-content" class="mt-2 text-danger" style="display: none;">
-                    Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
-                </div>
-                <div class="row mt-3 input-bx ml-0"> 
-                    <div class="text-gray-500 text-sm">
-                        Address:
-                    </div> 
-                    <input type="text" id="address" name="address" rows="2" class="form-control input-border rounded-lg text-19 form-border" disabled>
-                </div>
+            <div id="popover-content" class="mt-2 text-danger" style="display: none;">
+                Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
+            </div>
+            <div class="relative mb-2.5">
+                <input type="text" id="address" name="address" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled/>
+                <label for="address" class="absolute text-indigo-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Address</label>
             </div>
         </div>    
-        <div class="right-section w-full md:w-1/2 mt-4" id="addRRR_div">
-            <div class="flex flex-col">
-                <div class="flex flex-row input-bx">
-                    <div class="w-full ml-3">
-                        <input type="text" name="rrr_tn" id="rrr_tn" class="form-control rounded-md text-gray-500 border-gray-500 text-19 mb-2">
-                        <span>Tracking Number/s of Registry Return Receipts/Proofs of Delivery</span>
-                    </div>
-                    <div class="ml-2">
-                        <button type="button" id="add" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onclick="addTN()">Add</button>
+        <div class="right-section w-full md:w-1/2 md:mx-5" id="addRRR_div">
+            <div class="row d-flex">
+                <div class="col-10 mx-0">
+                    <div class="relative mb-2.5">
+                        <input type="text" name="rrr_tn" id="rrr_tn" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
+                        <label for="rrr_tn" class="absolute text-sm text-indigo-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">RRR Tracking Number/s</label>
                     </div>
                 </div>
-                <div class="ml-2 mt-2">
+                <div class="col-2 mx-0">
+                    <button type="button" id="add" class="rounded-full btn-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium px-2.5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onclick="addTN()">Add</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
                     <div class="custom-border font-md rounded-md" id="rrr_div" style="border-color:#a0aec0;">
                         <div id="rrrtn_error" class="text-danger mt-2"></div>
                         <input type="hidden" name="rrr_tns" id="rrr_tns_input">
                     </div>
                 </div>
-                <div class="flex justify-end mt-3">
-                    <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" id="submitBtn">Submit</button>
-                </div>
-            </div> 
+            </div>
+            <div class="flex justify-end mt-3">
+                <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" id="submitBtn">Submit</button>
+            </div>
         </div>
     </div>
 </form>
