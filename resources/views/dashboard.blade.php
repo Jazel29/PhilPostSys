@@ -494,31 +494,7 @@ body {
   }
 }
 
-#fadeInOverlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #fff; /* Adjust the opacity as needed */
-        z-index: 9998; /* Ensure it appears below the existing overlay */
-    }
-
-#fadeInOverlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #fff; /* Adjust the opacity as needed */
-        z-index: 9998; /* Ensure it appears below the existing overlay */
-    }
-
 </style>
-
-<div id="fadeInOverlay"></div>
 
 <div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -750,18 +726,5 @@ body {
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        // Hide the content of the page initially
-        $('body').css('display', 'none');
-        
-        // Fade in the content once the page has fully loaded
-        $(window).on('load', function() {
-            $('body').fadeIn('slow');
-        });
-    });
-</script>
-
 
 </x-app-layout>

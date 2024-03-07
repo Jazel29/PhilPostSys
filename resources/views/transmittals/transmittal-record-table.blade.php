@@ -1038,24 +1038,3 @@
         });
     });
 </script>
-
-<script>
-    $(document).ready(function() {
-        // Function to handle the fade out transition
-        function fadeOutTransition() {
-            // Fade out animation
-            $('body').animate({ opacity: 0 }, 300, function() {
-                // After fade out animation, redirect to the transmittal table (or the tracer) page
-                window.location.href = "{{ url('/tracer') }}"; // Adjust the URL as needed
-            });
-        }
-
-        // Click event handler for the back button beside the title
-        $('.fa-angle-left').parent().on('click', function(e) {
-            e.preventDefault(); // Prevent the default link behavior
-
-            // Trigger fade out transition
-            fadeOutTransition();
-        });
-    });
-</script>
