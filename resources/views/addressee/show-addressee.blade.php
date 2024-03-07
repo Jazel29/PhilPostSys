@@ -1,8 +1,8 @@
 <x-app-layout>
 <style>
-    /* start - table */
+   /* start - table */
 
-    table.dataTable th.dt-left,
+   table.dataTable th.dt-left,
         table.dataTable td.dt-left {
         text-align: left;
         }
@@ -122,7 +122,7 @@
         table.dataTable thead th,
         table.dataTable thead td {
         padding: 10px 18px;
-        border-bottom: 1px solid #111;
+        border-bottom: 2px solid #D3D3D3;
         }
         table.dataTable thead th:active,
         table.dataTable thead td:active {
@@ -131,7 +131,7 @@
         table.dataTable tfoot th,
         table.dataTable tfoot td {
         padding: 10px 18px 6px 18px;
-        border-top: 1px solid #111;
+        border-bottom: 1px solid #0026C8;
         }
         table.dataTable thead .sorting,
         table.dataTable thead .sorting_asc,
@@ -167,7 +167,12 @@
         }
         table.dataTable tbody th,
         table.dataTable tbody td {
-        padding: 8px 10px;
+        padding: 7px 10px;
+        text-align: left;
+        vertical-align: middle;
+        line-height: 15px;
+        font-size: 13px;
+        border-bottom: 1px solid #D3D3D3
         }
         table.dataTable.row-border tbody th,
         table.dataTable.row-border tbody td,
@@ -761,7 +766,7 @@
     }
 
     .hover-row:hover {
-        background: linear-gradient(90deg, #0026C8, #2C54FF);
+        background: #D3D3D3;
         color: #FFFFFF;
         border-radius: 100px;
     }
@@ -912,14 +917,16 @@
     /* Add rounded corners to table rows on hover and change background color to blue */
     #example tbody tr:hover {
         border-radius: 10px;
-        background: linear-gradient(90deg, #0026C8, #2C54FF);
-        color: #FFFFFF;
+        background: #EAEAEA;
+        color: #000;
     }
     .btn-sm:hover{
         background-color: #BB2D3B;    }
 
     .display-6 {
         color: #505050;
+        font-size: 30px;
+        font-weight: 500;
     }
 
 </style>
@@ -941,7 +948,7 @@
         <h1 class="display-6" style="display: flex; align-items: center;">List Of Addressee 
             <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
         </h1>
-        <div class="mt-5">
+        <div class="mt-5" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;" >
             <table class="table table-size mt-8" id="example">
                 <thead class="text-center">
                     <tr>
@@ -971,7 +978,7 @@
                                 <th class="textStyle" scope="row-item">{{ $addressee->zip}}</th>
                                 <th class="textStyle" scope="row-item">{{ $addressee->province }}</th>
                                 <td>
-                                    <a href="{{ url('/update-addressee/'.$addressee->id) }}" class="btn btn-update">Update</a>
+                                    <a href="{{ url('/update-addressee/'.$addressee->id) }}" class="btn btn-update"><i class="fa-solid fa-pen"></i>Update</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -159,8 +159,11 @@
         background-image: url("../images/sort_desc_disabled.png");
         }
         table.dataTable tbody tr {
-        background-color: #ffffff;
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #D3D3D3;
+        border-radius: 50px;
         }
+        
         table.dataTable tbody tr.selected {
         background-color: #b0bed9;
         }
@@ -789,36 +792,43 @@
 
     .fa-angle-left {
         margin-right: 20px;
+        margin-left: 5px;
         font-size: 25px;
-        color: #505050;
+        color: #909090;
     }
 
     .fa-angle-left:hover {
         color: #0026C8;
+        border: 1px solid #0026C8;
+        border-radius: 15px;
+        padding: 2px;
+        font-size: 20px;
     }
 
     .display-6 {
-        color: #505050;
+        color: #909090;
+        font-size: 30px;
+        font-weight: 500;
     }
-
 
 </style>
 
     <div class="container">
-    <div class="row mt-3">
-        <div class="col my-2 d-flex align-items-center">
-            <a href="/tracer"><i class="fa-solid fa-angle-left"></i></a>
-            <h1 class="display-6">Transmittal Record</h1>
-        </div>
-
-            <div class="col text-right">
-                <button class="btn btn-outline-success" onclick="exportToExcel()">
-                    <i class="fa-solid fa-table"></i>
-                    <span> Export as Excel</span>
-                </button>
+        <div class="row mt-3 align-items-center">
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <a href="{{ url('/tracer') }}"><i class="fa-solid fa-angle-left"></i></a>
+                    <h1 class="display-6" style="margin-left: -5px;">Transmittal Record</h1>
+                </div>
             </div>
+        <div class="col text-end">
+            <button class="btn btn-outline-success" onclick="exportToExcel()">
+                <i class="fa-solid fa-table"></i>
+                <span>Export as Excel</span>
+            </button>
         </div>
     </div>
+</div>
 
         <div class="row mt-3">
         <!-- First Column -->
@@ -861,7 +871,7 @@
                     <div class="container-fluid my-5">
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <table class="table table-size mt-5" id="example" style="border: 1px solid #909090; border-radius: 30px; overflow: auto; padding: 20px;">
+                                <table class="table table-size mt-5" id="example" style="border: 1px solid #D3D3D3; border-radius: 30px; overflow: auto; padding: 20px;">
                                     <thead class="text-center">
                                         <tr>
                                             <th scope="col-items">Items</th>
@@ -1015,4 +1025,37 @@
         });
     }
 
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Hide the content of the page initially
+        $('body').css('display', 'none');
+        
+        // Fade in the content once the page has fully loaded
+        $(window).on('load', function() {
+            $('body').fadeIn('slow');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Function to handle the fade out transition
+        function fadeOutTransition() {
+            // Fade out animation
+            $('body').animate({ opacity: 0 }, 300, function() {
+                // After fade out animation, redirect to the transmittal table (or the tracer) page
+                window.location.href = "{{ url('/tracer') }}"; // Adjust the URL as needed
+            });
+        }
+
+        // Click event handler for the back button beside the title
+        $('.fa-angle-left').parent().on('click', function(e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Trigger fade out transition
+            fadeOutTransition();
+        });
+    });
 </script>
