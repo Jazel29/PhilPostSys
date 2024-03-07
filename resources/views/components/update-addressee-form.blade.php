@@ -79,75 +79,9 @@
     
     .form-control {
         font-size: 1rem;
-        padding: 1rem;
-        border: none;
-        border-bottom: 2px solid #ccc;
-        width: 100%;
-        transition: border-color 0.3s;
-        background-color: transparent;
-    }
-    
-    .form-control:focus {
-        outline: none;
-        border-color: #0026C8; /* Change focus border color */
-    }
-    
-    .form-control + label {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        transition: top 0.3s, font-size 0.3s;
-        pointer-events: none; /* Ensure label doesn't interfere with input */
-    }
-    
-    .form-control:focus + label,
-    .form-control:not(:placeholder-shown) + label {
-        top: 0.25rem;
-        font-size: 0.75rem;
-        color: #0026C8; /* Change label color on focus or when input is not empty */
-    }
-
-    .input-bx{
-    position: relative;
-
-
-    }
-    .input-bx input{
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #7f8fa6;
         border-radius: 15px;
-        outline: none;
-        font-size: 1rem;
-        transition: 0.6s;
     }
-
-    .input-bx span{
-        position: absolute;
-        top: 1px;
-        left: 20px;
-        padding: 10px;
-        font-size: 1rem;
-        color: #7f8fa6;
-        pointer-events: none;
-        transition: 0.1s;
-    }
-    .input-bx input:valid ~ span,
-    .input-bx input:focus ~ span{
-        color: #3742fa;
-        transform: translateX(5px) translateY(-9px);
-        font-size: 0.65rem;
-        font-weight: 600;
-        padding: 0 10px;
-        background: #fff;
-    }
-
-    .input-bx input:valid,
-    .input-bx input:focus{
-        color: #000;
-        border: 1px solid #0026C8;
-
-    }
+    
     .text-color {
         color: #000;
     }
@@ -172,62 +106,84 @@
 <div id="overlay"></div><!-- Add overlay div -->
 
 <div class="row mt-3">
-    <form action="{{ url('update-addressee-submit/'. $record->id) }}" method="post">
+    <form action="/add_addressee" method="post" id="addresseeForm">
         @csrf
-        <div class="list-addressee-form border rounded-md p-3">
+        <div class="border rounded-md p-3">
             <div class="row">
-                <h1 class="text-gray-700 mb-3 ml-1"> Addressee Information: </h1>
-                
-                <div class="input-bx col-md-3">
-                    <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->abbrev }}" required>
-                    <span>Addressee Abbreviation</span>
+                <h1 class="text-gray-700 mb-3 ml-1">Addressee Information:</h1>
+
+                <div class="col-md-3 mb-2">
+                    <div class="relative">
+                        <input type="text" name="nameAbbrev" id="nameAbbrev" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->abbrev}}" required>
+                        <label for="nameAbbrev" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Abbreviation</label>
+                    </div>
+                    <div id="abbrev_error" class="text-danger mt-2 mb-2"></div>
                 </div>
                 <div class="col-md-9">
-                    <div class="flex flex-col">
-                        <div class="input-bx">
-                            <input type="text" name="namePrimary" id="namePrimary" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->name_primary }}" required>
-                            <span>Addressee Name Line 1</span>
-                        </div>
-                        <div class="input-bx">    
-                            <input type="text" name="nameSecondary" id="nameSecondary" class="form-control mb-2 form-border rounded-md text-19" value="{{ $record->name_secondary ? $record->name_secondary : '' }}">
-                            <span>Addressee Name Line 2</span>
-                        </div>
+                    <div class="relative">
+                        <input type="text" name="namePrimary" id="namePrimary" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->name_primary }}" required>
+                        <label for="namePrimary" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 floating-label">Addressee Name Line 1</label>
+                    </div>
+                    <div class="relative mt-3">
+                        <input type="text" name="nameSecondary" id="nameSecondary" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->name_secondary }}" />
+                        <label for="nameSecondary" class="absolute text-sm text-gray-500 dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Addressee Name Line 2</label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-3 border rounded-md p-3">
-            <h1 class="text-gray-700 mb-3 ml-1"> Addressee Addressee: </h1>
-            <div class="input-bx">
-                <input type="text" name="address" id="address" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->address ? $record->address : '' }}">
-                <span>Floor/Bldg/Street/Barangay</span>
-            </div>
+        <div class="mt-7 border rounded-md p-3">
+            <h1 class="text-gray-700 mb-3 ml-1">Addressee Address:</h1>
 
-            
-            
-            <div class="row">
-                <div class="col-md-4 input-bx">
-                    <input type="text" name="city" id="city" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->city }}" required>
-                    <span>City/Municipality</span>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="relative">
+                        <input type="text" name="address" id="address" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->address}}" />
+                        <label for="address" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Building/Floor/Street/Barangay/Sitio/Purok</label>
+                    </div>
                 </div>
-                <div class="col-md-4 input-bx">
-                    <input type="text" name="zip" id="zip" class="form-control form-border mb-2 rounded-md text-19" value="{{ $record->zip }}" required>
-                    <span>Zip Code</span>
-                </div>
-                <div class="col-md-4 input-bx">
-                    <input type="text" name="province" id="province" class="form-control form-border mb-2 rounded-md text-19" required value="{{ $record->province }}">
-                    <span>Province</span>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="city" id="city" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->city}}" required/>
+                            <label for="city" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">City/Municipality</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="zip" id="zip" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->zip}}" required/>
+                            <label for="zip" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <input type="text" name="province" id="province" class="form-control block px-2.5 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer text-dark" value="{{ $record->province}}" required/>
+                            <label for="province" class="absolute text-sm text-gray-500 dark:dark:text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Province</label>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
         <div class="flex justify-end mt-3">
-            <button type="submit" class="btn btn-outline-primary">Update</button>
+            <button type="button" class="btn text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onclick="clearForm()">Clear</button>
+            <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="submitBtn">Save Addressee</button>
         </div>
     </form>
 </div>
 
 <script>
+    $(document).ready(function() {
+        if ($('#flashMessage').length > 0) {
+            $('#overlay').fadeIn('slow');
+        }
+
+        setTimeout(function() {
+            $('#flashMessage').fadeOut('slow');
+            $('#overlay').fadeOut('slow');
+        }, 1000);
+    });
+    
     document.getElementById('addresseeDataList').addEventListener('input', handleAddresseeDataListInput);
     document.addEventListener('DOMContentLoaded', fetchAddressees);
     
@@ -302,14 +258,4 @@
             datalist.appendChild(option);
         });
     }
-    $(document).ready(function() {
-        if ($('#flashMessage').length > 0) {
-            $('#overlay').fadeIn('slow');
-        }
-
-        setTimeout(function() {
-            $('#flashMessage').fadeOut('slow');
-            $('#overlay').fadeOut('slow');
-        }, 2000);
-    });
 </script>
