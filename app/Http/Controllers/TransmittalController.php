@@ -139,7 +139,7 @@ class TransmittalController extends Controller
             // Update associated return cards' truck numbers
             ReturnCards::where('trucknumber', $currentMailTrackNum)->update(['trucknumber' => $mailTrackNum]);
 
-            return redirect()->back()->with('success', 'Record Updated Successfully!');
+            return redirect('/tracer')->with('success', 'Record Updated Successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error updating transmittal: ' . $e->getMessage());
         }

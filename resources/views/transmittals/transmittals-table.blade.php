@@ -737,7 +737,6 @@
         }
     }
 
-
     .btn-warning:hover {
         color: #fff;
         border-radius: 50px;
