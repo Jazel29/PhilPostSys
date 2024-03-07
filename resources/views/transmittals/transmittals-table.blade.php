@@ -700,7 +700,6 @@
 
     .btn-view:hover {
         color: #fff;
-        font-weight: bold;
         border-radius: 50px;
         background: #0026C8;
     }
@@ -717,7 +716,7 @@
         animation: fadeIn 0.4s forwards; 
     }
 
-    .btn-update {
+    .btn-warning {
         font-size: 14px;
         color: #fff;
         padding: 8px; 
@@ -739,14 +738,13 @@
     }
 
 
-    .btn-update:hover {
+    .btn-warning:hover {
         color: #fff;
-        font-weight: bold;
         border-radius: 50px;
         background: #FCBE00;
     }
 
-    .btn-update:hover::after {
+    .btn-warning:hover::after {
         content: '';
         position: absolute;
         top: -5px;
@@ -782,7 +780,6 @@
 
     .btn-danger:hover {
         color: #fff;
-        font-weight: bold;
         border-radius: 50px;
         background: #EE1A2E;
     }
@@ -993,7 +990,7 @@
                             </div>
 
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update"  title="Edit Transmittal Record">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-warning"  title="Edit Transmittal Record">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}">
