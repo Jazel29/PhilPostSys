@@ -677,71 +677,133 @@
     }
 
     .btn-view {
-        color: #fff;
-        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
-        padding: 7px;
         font-size: 14px;
-        border: 1px solid #2C54FF;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
         border-radius: 15px;
-        background: transparent;
-        transition: all 0.3s ease;
-        background: #2C54FF
+        background: #0026C8;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
     }
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+
     .btn-view:hover {
-    font-weight: bold;
-    font-size: 14px;
-    color: black;
-    padding: 7px; 
-    border-radius: 50px; 
-    background: #002adf;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 50px;
+        background: #0026C8;
+    }
+
+    .btn-view:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #0026C8; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
     }
 
     .btn-update {
         font-size: 14px;
-        color: #FFF;
-        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
-        padding: 7px;
-        border: 1px solid #FCBE00;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
         border-radius: 15px;
-        transition: all 0.3s ease;
+        background: #FCBE00;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+
+    .btn-update:hover {
+        color: #fff;
+        font-weight: bold;
+        border-radius: 50px;
         background: #FCBE00;
     }
 
-    .btn-update:hover {
-        font-weight: bold;
-        font-size: 14px;
-        color: black;
-        padding: 7px;
+    .btn-update:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #FCBE00; 
         border-radius: 50px;
-        background: #e39800;
+        animation: fadeIn 0.4s forwards; 
     }
 
     .btn-danger {
         font-size: 14px;
-        color: #FFF;
-        text-shadow: 3px 3px 11px rgba(0, 0, 0, 1);
-        padding: 7px;
-        border: 1px solid #EE1A2E;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
         border-radius: 15px;
-        transition: all 0.3s ease;
+        background: #EE1A2E;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0; 
+        }
+        to {
+            opacity: 1; 
+        }
+    }
+
+
+    .btn-danger:hover {
+        color: #fff;
+        font-weight: bold;
+        border-radius: 50px;
         background: #EE1A2E;
     }
 
-    .btn-danger:hover {
-        font-weight: bold;
-        font-size: 14px;
-        color: black;
-        padding: 7px;
+    .btn-danger:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #EE1A2E; 
         border-radius: 50px;
-        background: #cf0215;
+        animation: fadeIn 0.4s forwards; 
     }
 
     .container-dots {
-        width: 60px; /* Adjust the width as needed */
-        height: 40px; /* Adjust the height as needed */
-        border: 1px solid #D3D3D3; /* Border color */
-        border-radius: 20px; /* Half of the height to create a rounded rectangle */
+        width: 60px; 
+        height: 40px; 
+        border: 1px solid #D3D3D3;
+        border-radius: 20px; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -749,7 +811,7 @@
     }
 
     .dots {
-        font-size: 24px; /* Adjust the font size as needed */
+        font-size: 24px;
         line-height: 1;
     }
 
@@ -927,17 +989,17 @@
                         <div class="d-flex">
 
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Record" class="btn btn-view">View</a>
+                                <a href="{{ url('/transmittals/' . $record->id) }}" title="View Transmittal Record" class="btn btn-view">View</a>
                             </div>
 
                             <div class="ms-3 mt-2">
-                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update">Update</a>
+                                <a href="{{ url('/transmittals/'.$record->id.'/edit') }}" class="btn btn-update"  title="Edit Transmittal Record">Update</a>
                             </div>
                             <div class="ms-3 mt-2">
                                 <form method="POST" action="{{ route('transmittals.destroy', $record->id) }}">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="button" class="btn btn-danger delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Record">Delete</button>
+                                    <button type="button" class="btn btn-danger delete-button" data-delete-url="{{ route('transmittals.destroy', $record->id) }}" title="Delete Transmittal 2Record">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -968,7 +1030,7 @@
                 <form id="deleteForm" method="POST" action="">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="btn btn-danger text-color">Yes, Delete</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
                 </form>
             </div>
         </div>

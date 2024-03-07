@@ -69,9 +69,47 @@
         z-index: 40; /* Below flash message */
     }
 
-    .btn {
-        border-radius: 15px !important;
+
+    .btn-save {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #0026C8;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
     }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0; /* Start from fully transparent */
+        }
+        to {
+            opacity: 1; /* Fade in to fully opaque */
+        }
+    }
+
+    .btn-save:hover {
+        color: #fff;
+        font-weight: bold;
+        border-radius: 100px;
+        background: #0026C8;
+    }
+
+    .btn-save:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #0026C8; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+
 
     .form-group {
         position: relative;
@@ -176,7 +214,7 @@
         </div>
         <div class="flex justify-end mt-3">
             <button type="button" class="btn text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onclick="clearForm()">Clear</button>
-            <button type="submit" class="btn text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="submitBtn">Save Addressee</button>
+            <button type="submit" class="btn btn-save text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full px-3 py-2.5 text-sm text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="submitBtn">Save Addressee</button>
         </div>
     </form>
 </div>
