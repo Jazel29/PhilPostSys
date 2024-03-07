@@ -15,6 +15,7 @@ class Transmittals extends Model
         'date'
     ];
 
+    
     public function returnCards()
     {
         return $this->hasMany(ReturnCards::class, 'trucknumber', 'mailTrackNum');

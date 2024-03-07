@@ -426,7 +426,10 @@ body {
 .recentCustomers table tr:hover td h4 span {
   color: var(--black1);
 }
-
+.card,
+.box-container {
+  border-radius: 15px;
+}
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
   .navigation {
@@ -502,91 +505,106 @@ body {
         z-index: 9998; /* Ensure it appears below the existing overlay */
     }
 
+#fadeInOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff; /* Adjust the opacity as needed */
+        z-index: 9998; /* Ensure it appears below the existing overlay */
+    }
+
 </style>
 
 <div id="fadeInOverlay"></div>
 
-<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">  
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-                <!-- ======================= Cards ================== -->
-              <div class="cardBox">
-                  <div class="card">
-                      <div class="row">
-                          <!-- Left Column for Number and Title -->
-                          <div class="col">
-                              <a href="/tracer">
-                              <div class="numbers">{{ $totalTransmittals }}</div>
-                              <div class="cardName">No. of Transmittals</div>
-                          </div></a>
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+            <div class="card">
+                <div class="row">
+                    <!-- Left Column for Number and Title -->
+                    <div class="col">
+                        <a href="/tracer">
+                            <div class="numbers">{{ $totalTransmittals }}</div>
+                            <div class="cardName">No. of Transmittals</div>
+                        </a>
+                    </div>
 
-                        <!-- Right Column for Icon -->
-                        
-                        <div class="col-auto iconBx">
-                          <i class="fa-solid fa-envelope-open-text"></i>
-                        </div>
+                    <!-- Right Column for Icon -->
+                    <div class="col-auto iconBx">
+                        <i class="fa-solid fa-envelope-open-text"></i>
                     </div>
                 </div>
+            </div>
 
-                  <div class="card">
-                      <div class="row">
-                          <!-- Left Column for Number and Title -->
-                          <div class="col">
-                              <a href="/tracer">
-                              <div class="numbers">{{ $tolNo }}</div>
-                              <div class="cardName">Most No. of Transmittals</div>
-                              <div class="cardName">Date : {{ $freqDate }}</div>
-                          </div></a>
+            <div class="card">
+                <div class="row">
+                    <!-- Left Column for Number and Title -->
+                    <div class="col">
+                        <a href="/tracer">
+                            <div class="numbers">{{ $tolNo }}</div>
+                            <div class="cardName">Most No. of Transmittals</div>
+                            <div class="cardName">Date : {{ $freqDate }}</div>
+                        </a>
+                    </div>
 
-                        <!-- Right Column for Icon -->
-                        <div class="col-auto iconBx">
-                          <i class="fa-solid fa-paper-plane"></i>
-                        </div>
+                    <!-- Right Column for Icon -->
+                    <div class="col-auto iconBx">
+                        <i class="fa-solid fa-paper-plane"></i>
                     </div>
                 </div>
+            </div>
 
-                  <div class="card">
-                      <div class="row">
-                          <!-- Left Column for Number and Title -->
-                          <div class="col"><a href="/tracer">
-                              <div class="numbers">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</div>
-                              <div class="cardName">Top Transmittals</div>
-                          </div></a>
+            <div class="card">
+                <div class="row">
+                    <!-- Left Column for Number and Title -->
+                    <div class="col">
+                        <a href="/tracer">
+                            <div class="numbers">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</div>
+                            <div class="cardName">Top Transmittals</div>
+                        </a>
+                    </div>
 
-                        <!-- Right Column for Icon -->
-                        <div class="col-auto iconBx">
-                          <i class="fa-solid fa-building-columns"></i>
-                        </div>
+                    <!-- Right Column for Icon -->
+                    <div class="col-auto iconBx">
+                        <i class="fa-solid fa-building-columns"></i>
                     </div>
                 </div>
+            </div>
 
-                  <div class="card">
-                      <div class="row">
-                          <!-- Left Column for Number and Title -->
-                          <div class="col">
-                          <a href="/show-addressee">
-                              <div class="numbers">{{ $totalAddressees }}</div>
-                              <div class="cardName">No. of Addressees</div>
-                          </div></a>
+            <div class="card">
+                <div class="row">
+                    <!-- Left Column for Number and Title -->
+                    <div class="col">
+                        <a href="/show-addressee">
+                            <div class="numbers">{{ $totalAddressees }}</div>
+                            <div class="cardName">No. of Addressees</div>
+                        </a>
+                    </div>
 
-                          <!-- Right Column for Icon -->
-                          <div class="col-auto iconBx">
-                              <i class="fa-solid fa-person-circle-check"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-9">
-                <div class="ml-4 p-6 text-gray-700 font-bold">
+                    <!-- Right Column for Icon -->
+                    <div class="col-auto iconBx">
+                        <i class="fa-solid fa-person-circle-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mx-2">
+            <div class="col-md-9">
+                <div class="ml-4 p-3 text-gray-700 mb-0 font-bold">
                     Monthly Return Count and Return Rate
                 </div>
-                
 
                 <!-- Include ApexCharts script -->
                 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-                <div class="mx-3">
+                <div class="  ">
                     <!-- Chart container -->
                     <div id="chart" class="w-full"></div>
 
@@ -687,30 +705,51 @@ body {
                         chart.render();
                     </script>
                 </div>
-                </div>
-                <div class="col mt-4 me-4">
-                  <div class="h5 text-center">Top Transmittals (Deparment)</div>
-                  <div class="card mt-3 shadow rounded-lg" style="height: 300px;">
-                      <div class="h7 mt-1 fw-bold p-2">Ranking</div>
-                    <div class="card-body">
-                      @if($mostUsedAddresses->isEmpty())
-                        <p class="text-center">Empty Addresee</p>
-                      @else
-                      @foreach($mostUsedAddresses as $topdept)
-                          <div class="row">
-                              <div class="col">{{ $topdept->abbrev }}</div>
-                              <div class="col text-end">{{ $topdept->address_count }}</div>
-                          </div>
-                      @endforeach
-                      @endif
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
+
+            <div class="col mt-4 mb-2">
+                <div class="text-gray-700 font-bold text-center">Top Transmittal</div>
+                <div class="card mt-2 shadow" style="height: 300px;">
+                    <div class="card-body">
+                        @if($mostUsedAddresses->isEmpty())
+                            <p class="text-center">Empty Addressee</p>
+                            @else
+                            @php
+                                $startColor = [42, 160, 249]; // RGB values for #2AA0F9
+                                $endColor = [255, 255, 255]; // RGB values for white
+
+                                // Calculate the color step for each row
+                                $colorStep = [];
+                                for ($i = 0; $i < 3; $i++) {
+                                    $colorStep[$i] = ($endColor[$i] - $startColor[$i]) / min(8, count($mostUsedAddresses));
+                                }
+                            @endphp
+
+                            @foreach($mostUsedAddresses as $index => $topdept)
+                                @php
+                                    // Calculate the current color based on the step
+                                    $currentColor = [
+                                        round($startColor[0] + $index * $colorStep[0]),
+                                        round($startColor[1] + $index * $colorStep[1]),
+                                        round($startColor[2] + $index * $colorStep[2]),
+                                    ];
+                                    $color = sprintf('#%02X%02X%02X', ...$currentColor);
+                                @endphp
+                                <div class="box-container border mb-2" style="border-color: {{ $color }}; background-color: {{ $color }};">
+                                    <div class="row py-2 mx-1">
+                                        <div class="col">{{ $topdept->abbrev }}</div>
+                                        <div class="col text-end">{{ $topdept->address_count }}</div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 
 <script>
     $(document).ready(function() {
