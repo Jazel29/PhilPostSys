@@ -106,7 +106,7 @@
 <div id="overlay"></div><!-- Add overlay div -->
 
 <div class="row mt-3">
-    <form action="/add_addressee" method="post" id="addresseeForm">
+    <form action="/update-addressee-submit/" method="post" id="addresseeForm">
         @csrf
         <div class="border rounded-md p-3">
             <div class="row">
