@@ -134,7 +134,6 @@
         <div class="left-section w-full md:w-1/2">
             <div class="relative mb-2.5">
                 <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
-                <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  required/>
             </div>
             <div class="relative mb-2.5">
                 <input type="text" name="mail_tn" id="mail_tn" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
