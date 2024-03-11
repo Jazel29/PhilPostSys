@@ -525,7 +525,7 @@ body {
                         <a href="/tracer">
                             <div class="numbers">{{ $tolNo }}</div>
                             <div class="cardName">Most No. of Transmittals</div>
-                            <div class="cardName">Date : {{ $freqDate }}</div>
+                            <div class="cardName">Date: {{ \Carbon\Carbon::parse($freqDate)->format('F j, Y') }}</div>
                         </a>
                     </div>
 
@@ -541,7 +541,7 @@ body {
                     <!-- Left Column for Number and Title -->
                     <div class="col">
                         <a href="/tracer">
-                            <div class="numbers">{{ $mostUsedAbbreviation }} : {{ $mostUsedAbbreviationCount }}</div>
+                            <div class="numbers">{{ $mostUsedAbbreviation }}: {{ $mostUsedAbbreviationCount }}</div>
                             <div class="cardName">Top Transmittals</div>
                         </a>
                     </div>

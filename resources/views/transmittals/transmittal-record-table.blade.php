@@ -927,9 +927,10 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
-                "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
-                "pageLength": 25, // Default number of records per page
+                "lengthMenu": [[-1], ["All"]],
+                "pageLength": -1, // Default number of records per page
                 "info": false,
+                "pagination": false,
             });  
         });
 

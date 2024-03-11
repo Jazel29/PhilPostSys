@@ -368,19 +368,20 @@
         }else{
             rrrtn_error.text('');
             if (rrr_tn_value) {
-                rrr_tns.push(rrr_tn_value);
+                rrr_tns.unshift(rrr_tn_value);  // Add the new value to the beginning of the array
 
                 var count = rrr_tns.length;
                 var tn_container = createTNContainer(count, rrr_tn_value);
 
-                document.getElementById('rrr_div').appendChild(tn_container);
+                var rrr_div = document.getElementById('rrr_div');
+                
+                // Insert the new element at the top
+                rrr_div.insertBefore(tn_container, rrr_div.firstChild);
 
                 $('#rrr_tn').val('');
                 console.log(rrr_tns);
             }
         }
-
-        
     }
 
     function createTNContainer(count, rrr_tn_value) {

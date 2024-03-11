@@ -35,13 +35,13 @@ class AddresseeController extends Controller
             ]);
 
             AddresseeList::create([
-                'abbrev' => $request->input('nameAbbrev'),
-                'name_primary' => $request->input('namePrimary'),
-                'name_secondary' => $request->input('nameSecondary'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
+                'abbrev' => strtoupper($request->input('nameAbbrev')),
+                'name_primary' => strtoupper($request->input('namePrimary')),
+                'name_secondary' => strtoupper($request->input('nameSecondary')),
+                'address' => ucwords($request->input('address')),
+                'city' => ucwords($request->input('city')),
                 'zip' => $request->input('zip'),
-                'province' => $request->input('province')
+                'province' => ucwords($request->input('province'))
             ]);
             
             return redirect()->back()->with('flash_mssg', 'Addressee Added Successfully');
@@ -85,13 +85,13 @@ class AddresseeController extends Controller
 
             // Update the addressee's information
             $addressee->update([
-                'abbrev' => $request->input('nameAbbrev'),
-                'name_primary' => $request->input('namePrimary'),
-                'name_secondary' => $request->input('nameSecondary'),
-                'address' => $request->input('address'),
-                'city' => $request->input('city'),
+                'abbrev' => strtoupper($request->input('nameAbbrev')),
+                'name_primary' => strtoupper($request->input('namePrimary')),
+                'name_secondary' => strtoupper($request->input('nameSecondary')),
+                'address' => ucwords($request->input('address')),
+                'city' => ucwords($request->input('city')),
                 'zip' => $request->input('zip'),
-                'province' => $request->input('province')
+                'province' => ucwords($request->input('province'))
             ]);
 
             return redirect('/show-addressee')->with('flash_mssg', 'Addressee Updated Successfully');
