@@ -133,6 +133,7 @@
     <div class="add-transmittal-form flex flex-col md:flex-row mb-5 mt-2 md:mx-5">
         <div class="left-section w-full md:w-1/2">
             <div class="relative mb-2.5">
+                <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
                 <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  required/>
             </div>
             <div class="relative mb-2.5">
@@ -152,8 +153,8 @@
                 Invalid Addressee. <a href="#" onclick="openModal()" class="underline-link">Click here</a> to add new addressee.
             </div>
             <div class="relative mb-2.5">
-                <input type="text" id="address" name="address" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
-                <label for="address" class="absolute text-indigo-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Address</label>
+                <input type="text" id="address" name="address" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " readonly/>
+                <label for="address" class="absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Address</label>
             </div>
         </div>    
         <div class="right-section w-full md:w-1/2 md:mx-5" id="addRRR_div">
@@ -450,7 +451,7 @@
             if (selectedOption) {
                 var selectedId = selectedOption.id;
                 var selectedAddressee = addressees.find(addressee => addressee.id == selectedId);
-                addressValue.value = `${selectedAddressee.address} ${selectedAddressee.city} ${selectedAddressee.zip} ${selectedAddressee.province}`;
+                addressValue.value = `${selectedAddressee.address || ''}${selectedAddressee.address ? ', ' : ''}${selectedAddressee.zip || ''} ${selectedAddressee.city || ''}${selectedAddressee.city ? ', ' : ''}${selectedAddressee.province || ''}`;                
                 addresseeVal.value = selectedId;
                 RRRdiv.style.display = 'block';
                 popUp.style.display = 'none';
