@@ -134,7 +134,6 @@
         <div class="left-section w-full md:w-1/2">
             <div class="relative mb-2.5">
                 <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
-                <input type="date" name="date_posted" id="date_posted" class="form-control block px-3 pb-2.5 pt-2.5 w-full text-sm text-dark text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  required/>
             </div>
             <div class="relative mb-2.5">
                 <input type="text" name="mail_tn" id="mail_tn" class="text-dark form-control block px-3 pb-2.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
@@ -369,19 +368,20 @@
         }else{
             rrrtn_error.text('');
             if (rrr_tn_value) {
-                rrr_tns.push(rrr_tn_value);
+                rrr_tns.unshift(rrr_tn_value);  // Add the new value to the beginning of the array
 
                 var count = rrr_tns.length;
                 var tn_container = createTNContainer(count, rrr_tn_value);
 
-                document.getElementById('rrr_div').appendChild(tn_container);
+                var rrr_div = document.getElementById('rrr_div');
+                
+                // Insert the new element at the top
+                rrr_div.insertBefore(tn_container, rrr_div.firstChild);
 
                 $('#rrr_tn').val('');
                 console.log(rrr_tns);
             }
         }
-
-        
     }
 
     function createTNContainer(count, rrr_tn_value) {

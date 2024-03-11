@@ -967,7 +967,7 @@
                 <tr>
                     <th scope="row">{{ $record->mailTrackNum }}</th>
                     <td>{{ $record->date }}</td>
-                    <td>{{ $addressee->name_primary }} {{ '-' . $addressee->name_secondary }}</td>
+                    <td><b>{{ $addressee->abbrev }}</b> <br> {{$addressee->name_primary }} {{ '-' . $addressee->name_secondary }}</td>
                     <td>{{ $addressee->address !== null ? $addressee->address . ',' : '' }}
                         {{ $addressee->city }}, {{ $addressee->zip }} {{ $addressee->province }}</td>
                     <td class="ellipsis"> <!-- Apply ellipsis to this column -->
@@ -1060,6 +1060,8 @@
    $(document).ready(function() {
     $('#transmittalstable').DataTable({
         "info": false,
+        "pageLength": 100,
+        "paging": false,
         "language": {
             "search": ""
         },
