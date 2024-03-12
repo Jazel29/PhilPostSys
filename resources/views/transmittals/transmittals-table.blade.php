@@ -1061,7 +1061,6 @@
     $('#transmittalstable').DataTable({
         "info": false,
         "pageLength": 100,
-        "paging": false,
         "language": {
             "search": ""
         },
