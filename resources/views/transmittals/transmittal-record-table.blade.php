@@ -931,33 +931,8 @@
                 "pageLength": -1, // Default number of records per page
                 "info": false,
                 "pagination": false,
-            });  
-        });
-
-        // (kevin) start - frontend javascript for table //
-                
-        $(document).ready(function() {
-        $(".hover-row").hover(
-            function() {
-                $(this).find('.caret').css('display', 'inline');
-            },
-            function() {
-                $(this).find('.caret').css('display', 'none');
-            }
-        );
-        });
-
-    // (kevin) end - frontend javascript for table //
-
-        // search bar //
-        $(document).ready(function() {
-            $('#transmittalstable').DataTable({
-                "info": false,
-                "responsive": true,
-                "language": {
-                "search": "" }
             });
-
+            
             $('.dataTables_filter input').attr('placeholder', 'Search');
             $('.dataTables_length label').contents().filter(function() {
                 return this.nodeType === 3; // Filter out text nodes
@@ -965,11 +940,24 @@
             $('.dataTables_filter label').contents().filter(function() {
                 return this.nodeType === 3; // Filter out text nodes
             }).remove();
+        });
 
+        // (kevin) start - frontend javascript for table //
+                
+        $(document).ready(function() {
+            $(".hover-row").hover(
+                function() {
+                    $(this).find('.caret').css('display', 'inline');
+                },
+                function() {
+                    $(this).find('.caret').css('display', 'none');
+                }
+            );
         });
 
         function exportToExcel() {
             console.log('exportToExcel called');
+            $('#example').DataTable().page.len(-1).draw(); // Show all records
             // Collect table data
             var tableData = [];
 
