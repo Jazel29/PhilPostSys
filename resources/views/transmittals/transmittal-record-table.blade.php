@@ -819,6 +819,7 @@
                 <div class="d-flex align-items-center">
                     <a href="{{ url('/tracer') }}"><i class="fa-solid fa-angle-left"></i></a>
                     <h1 class="display-6" style="margin-left: -5px;">Transmittal Record</h1>
+                    <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
                 </div>
             </div>
         <div class="col text-end">
