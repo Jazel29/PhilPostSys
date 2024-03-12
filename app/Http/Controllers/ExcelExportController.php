@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 class ExcelExportController extends Controller
 {
+   
     public function exportToExcel(Request $request)
     {
         $exportData = json_decode($request->input('exportData'), true);
@@ -22,13 +23,17 @@ class ExcelExportController extends Controller
 
         $formattedDate = Carbon::parse($exportData['records']['date'])->format('F j, Y');
 
+        function capitalizeFirstLetter($str) {
+            return ucwords(strtolower($str));
+        }
+
         $data = [
             'D5' => $exportData['records']['mailTrackNum'] ?? '',
             'A5' => $formattedDate,
             'A7' => strtoupper($exportData['records']['addresseePN'] ?? ''),
             'A8' => strtoupper($exportData['records']['addresseeSN'] ?? ''),
-            'A9' => $exportData['records']['address'] . ', ' . $exportData['records']['city'] ?? '',
-            'A10' => $exportData['records']['zip'] . ' ' . $exportData['records']['province'] ?? '',
+            'A9' => capitalizeFirstLetter($exportData['records']['address']) . ', ' . capitalizeFirstLetter($exportData['records']['city']) ?? '',
+            'A10' => capitalizeFirstLetter($exportData['records']['zip']) . ' ' . capitalizeFirstLetter($exportData['records']['province']) ?? '',
         ];
 
         // Set font attributes to make it bold for specific cells

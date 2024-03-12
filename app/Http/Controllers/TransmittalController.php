@@ -74,12 +74,13 @@ class TransmittalController extends Controller
     public function show($mailTrackNum){
         $record = Transmittals::find($mailTrackNum);
         $rrr_tn = ReturnCards::where('trucknumber', $record->mailTrackNum)->get();
+        $count = $rrr_tn->count();
         $addressee = AddresseeList::find($record->recieverName);
         if (!$record) { 
             abort(404);
         }
         
-        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee]);
+        return view('transmittals', compact('mailTrackNum'))->with(['records' => $record, 'rrt_n' =>$rrr_tn, 'addressee' => $addressee, 'count' => $count]);
         
     }
 
