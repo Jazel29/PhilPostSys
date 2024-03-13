@@ -496,7 +496,7 @@ body {
 
 </style>
 
-<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-60">
+<div class="mt-3 sm:ml-4 lg:mx-3 lg:ml-60 xl:ml-80">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
         <!-- ======================= Cards ================== -->
