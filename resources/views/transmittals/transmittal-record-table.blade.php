@@ -656,14 +656,14 @@
     font-weight: bold;
     font-size: 15px;
     text-align: left;
-    line-height: 1px;
+    line-height: 15px;
     }
 
     .bold-date {
-        font-weight: bold;
-        text-align: left;
-        line-height: 5px;
-    }
+    font-weight: bold;
+    text-align: left;
+    line-height: 15px;
+}
 
     .bold-addressee {
         font-weight: bold;
@@ -683,8 +683,8 @@
     .labelsdate {
         color: #9F9F9F;
         text-align: left;
-        line-height: 20px;
-        padding-top: 5px;
+        line-height: 16px;
+        padding-bottom: 1px;
     }
     
     .highlight {
@@ -819,7 +819,7 @@
                 <div class="d-flex align-items-center">
                     <a href="{{ url('/tracer') }}"><i class="fa-solid fa-angle-left"></i></a>
                     <h1 class="display-6" style="margin-left: -5px;">Transmittal Record</h1>
-                    <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
+                    <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 4px 11px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
                 </div>
             </div>
         <div class="col text-end">
@@ -850,12 +850,12 @@
                 <p><span class="bold-date">{{ date('F j, Y', strtotime($records->date)) }}</span></p>
                 <hr class="custom-line" /><br>
                 <p class="labels-address">Address<br></p>
-                <span class="bold-address">
+                <div class="bold-address">
                     {{ $addressee->address }}<br>
                     {{ $addressee->zip }} 
                     {{ $addressee->city }},
                     {{ $addressee->province }}
-                </span>
+                </div>
                 <hr class="custom-line" /><br>
             </div>
 

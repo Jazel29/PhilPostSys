@@ -249,6 +249,7 @@ body {
   color: var(--black2);
   font-size: 14px;
   margin-top: 5px;
+  line-height: 9px;
 }
 
 .cardBox .card .iconBx {
@@ -263,6 +264,7 @@ body {
 .cardBox .card:hover .cardName,
 .cardBox .card:hover .iconBx {
   color: var(--white);
+ 
 }
 
 /* ================== Order Details List ============== */
@@ -492,6 +494,11 @@ body {
     right: 0;
     left: initial;
   }
+
+  .abbrevcount {
+    margin-left: 5px; /* Adjust the margin as needed */
+}
+
 }
 
 </style>
@@ -525,7 +532,7 @@ body {
                         <a href="/tracer">
                             <div class="numbers">{{ $tolNo }}</div>
                             <div class="cardName">Most No. of Transmittals</div>
-                            <div class="cardName">Date: {{ \Carbon\Carbon::parse($freqDate)->format('F j, Y') }}</div>
+                            <div class="cardName">{{ \Carbon\Carbon::parse($freqDate)->format('F j, Y') }}</div>
                         </a>
                     </div>
 
@@ -541,8 +548,12 @@ body {
                     <!-- Left Column for Number and Title -->
                     <div class="col">
                         <a href="/tracer">
-                            <div class="numbers">{{ $mostUsedAbbreviation }}: {{ $mostUsedAbbreviationCount }}</div>
-                            <div class="cardName">Top Transmittals</div>
+                        <div class="numbers">
+                            {{ $mostUsedAbbreviation }}
+                            <span class="abbrevcount">{{ $mostUsedAbbreviationCount }}</span>
+                        </div>
+                        <div class="cardName">Top Transmittals</div>
+                        
                         </a>
                     </div>
 
