@@ -14,7 +14,7 @@ class ExcelExportController extends Controller
     public function exportToExcel(Request $request)
     {
         $exportData = json_decode($request->input('exportData'), true);
-
+        
         // Load the existing spreadsheet (assuming format.xlsx is your template)
         $spreadsheet = IOFactory::load(public_path('assets/format.xlsx'));
 
@@ -35,7 +35,6 @@ class ExcelExportController extends Controller
             'A9' => capitalizeFirstLetter($exportData['records']['address']) . ', ' . capitalizeFirstLetter($exportData['records']['city']) ?? '',
             'A10' => capitalizeFirstLetter($exportData['records']['zip']) . ' ' . capitalizeFirstLetter($exportData['records']['province']) ?? '',
         ];
-
         // Set font attributes to make it bold for specific cells
         $boldCells = ['D5', 'A7', 'A8'];
 
@@ -95,7 +94,7 @@ class ExcelExportController extends Controller
                 }
             }
             
-        } else if ($rrtnLength <= 100) {
+        } else if ($rrtnLength <= 120   ) {
             foreach ($exportData['rrtn'] as $index => $rrtn) {
                 $rowCount++;
                 $row = $startRow + $rowCount;
