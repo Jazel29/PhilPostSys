@@ -614,7 +614,11 @@ body {
                                 curve: 'smooth'
                             },
                             xaxis: {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                categories: [
+                                    @foreach($transmittalsChar as $date)
+                                        '{{ $date }}',
+                                    @endforeach
+                                ]
                             },
                             yaxis: [
                                 {

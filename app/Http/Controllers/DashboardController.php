@@ -14,6 +14,9 @@ class DashboardController extends Controller
         $transmittalsTotal = Transmittals::count();
         $transmittalsChar = Transmittals::all();
 
+        $transmittalsData = Transmittals::pluck('date'); // Assuming you want to fetch dates only, adjust as per your requirement
+        $transmittalsChar = $transmittalsData->toArray();
+
         // Retrieve all dates from the Transmittals model
         $dates = Transmittals::pluck('date');
         // Count the occurrences of each date
@@ -45,12 +48,17 @@ class DashboardController extends Controller
             ->orderByDesc('address_count')
             ->limit(5)
             ->get();
-                
-
-        return view('dashboard')->with(['totalTransmittals'=>$transmittalsTotal, 'freqDate' => $mostUsedDate, 'tolNo'=>$mostUsedDateCount, 'totalAddressees' => $addresseesTotal,
-        'mostUsedAbbreviation' => $mostUsedAbbreviation,
-        'mostUsedAbbreviationCount' => $mostUsedAbbreviationCount,
-        'mostUsedAddresses' => $mostUsedAddresses, 'transmittalsChart' => $transmittalsChar
+        
+        return view('dashboard')->with([
+            'totalTransmittals'=>$transmittalsTotal, 
+            'freqDate' => $mostUsedDate, 
+            'tolNo'=>$mostUsedDateCount, 
+            'totalAddressees' => $addresseesTotal,
+            'mostUsedAbbreviation' => $mostUsedAbbreviation,
+            'mostUsedAbbreviationCount' => $mostUsedAbbreviationCount,
+            'mostUsedAddresses' => $mostUsedAddresses, 
+            'transmittalsChart' => $dates,
+            'transmittalsChar' => $transmittalsChar
     ]);
     }
 
