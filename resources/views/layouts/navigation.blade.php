@@ -7,6 +7,9 @@
         .nav-text {
             margin-left: -35px;
         }
+        .rounded {
+            border-radius: 11px !important;
+        }
     </style>
 
     <!-- Primary Navigation Menu -->
@@ -74,25 +77,25 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-2 space-y-1">
-            <x-responsive-nav-link :href="route('formTest')" :active="request()->routeIs('formTest')">
+            <x-responsive-nav-link :href="route('tracer')" :active="request()->routeIs('tracer')">
                 <i class="fa-solid fa-magnifying-glass mr-3"></i>
                 {{ __('Trace Transmittals') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-2 space-y-1">
-            <x-responsive-nav-link :href="route('new_transmittal')" :active="request()->routeIs('new_transmittal')">
+            <x-responsive-nav-link :href="route('add_transmittal')" :active="request()->routeIs('add_transmittal')">
                 <i class="fa-solid fa-pen-nib mr-3"></i>
                 {{ __('Add New Transmittal') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-2 space-y-1">
-            <x-responsive-nav-link :href="route('new.addressee')" :active="request()->routeIs('new.addressee')">
+            <x-responsive-nav-link :href="route('new-addressee')" :active="request()->routeIs('new-addressee')">
                 <i class="fa-solid fa-plus mr-3"></i>
                 {{ __('Add New Addressee') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-2 space-y-1">
-            <x-responsive-nav-link :href="route('show.addressee')" :active="request()->routeIs('show.addressee')">
+            <x-responsive-nav-link :href="route('show-addressee')" :active="request()->routeIs('show-addressee')">
                 <i class="fa-solid fa-book mr-3"></i>
                 {{ __('Addressee List') }}
             </x-responsive-nav-link>
@@ -125,33 +128,33 @@
 <!-- <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-gray-900 bg-opacity-50 sm:hidden"></div> -->
 <div class="hidden lg:block fixed bottom-0 w-full md:w-1/6 bg-white md:h-screen lg:pt-16" :class="{ '-translate-x-full': !open, 'translate-x-0': open }">
     <div class="lg:block hidden text-black mt-3">
-        <div class="hover:bg-gray-300 rounded-md mx-3 text-sm">
-            <a href="{{ route('dashboard') }}" class="flex items-center p-2">
-                <i class="fa-solid fa-chart-simple mr-4"></i>
+        <div class="hover:bg-gray-300 rounded mx-3 text-sm">
+            <a href="{{ route('dashboard') }}" class="flex items-center p-2 mb-1 {{ Request::is('dashboard') ? 'bg-blue-600 text-white rounded' : 'text-gray-700' }} hover:text-black">
+                <i class="fa-solid fa-chart-simple mr-4 ml-2"></i>
                 {{ __('Dashboard') }}
             </a>
         </div>
-        <div class="hover:bg-gray-300 rounded-md mx-3 text-sm">
-            <a href="{{ route('formTest') }}" class="flex items-center p-2">
-                <i class="fa-solid fa-magnifying-glass mr-3"></i>
+        <div class="hover:bg-gray-300 rounded mx-3 text-sm">
+            <a href="{{ route('tracer') }}" class="flex items-center p-2 mb-1 {{ Request::is('tracer') ? 'bg-blue-600 text-white rounded' : 'text-gray-700' }} hover:text-black">
+                <i class="fa-solid fa-magnifying-glass mr-3 ml-2"></i>
                 {{ __('Trace Transmittals') }}
             </a>
         </div>
-        <div class="hover:bg-gray-300 rounded-md mx-3 text-sm">
-            <a href="{{ route('new_transmittal') }}" class="flex items-center p-2">
-                <i class="fa-solid fa-pen-nib mr-3"></i>
+        <div class="hover:bg-gray-300 rounded mx-3 text-sm">
+            <a href="{{ route('add_transmittal') }}" class="flex items-center p-2 mb-1 {{ Request::is('add_transmittal') ? 'bg-blue-600 text-white rounded' : 'text-gray-700' }} hover:text-black">
+                <i class="fa-solid fa-pen-nib mr-3 ml-2"></i>
                 {{ __('Add New Transmittal') }}
             </a>
         </div>
-        <div class="hover:bg-gray-300 rounded-md mx-3 text-sm">
-            <a href="{{ route('new.addressee') }}" class="flex items-center p-2">
-                <i class="fa-solid fa-plus mr-3"></i>
+        <div class="hover:bg-gray-300 rounded mx-3 text-sm">
+            <a href="{{ route('new-addressee') }}" class="flex items-center p-2 mb-1 {{ Request::is('new-addressee') ? 'bg-blue-600 text-white rounded' : 'text-gray-700' }} hover:text-black">
+                <i class="fa-solid fa-plus mr-3 ml-2"></i>
                 {{ __('Add New Addressee') }}
             </a>
         </div>
-        <div class="hover:bg-gray-300 rounded-md mx-3 text-sm">
-            <a href="{{ route('show.addressee') }}" class="flex items-center p-2">
-                <i class="fa-solid fa-book mr-3"></i>
+        <div class="hover:bg-gray-300 rounded mx-3 text-sm">
+            <a href="{{ route('show-addressee') }}" class="flex items-center p-2 {{ Request::is('show-addressee') ? 'bg-blue-600 text-white rounded' : 'text-gray-700' }} hover:text-black">
+                <i class="fa-solid fa-book mr-3 ml-2"></i>
                 {{ __('Addressee List') }}
             </a>
         </div>
