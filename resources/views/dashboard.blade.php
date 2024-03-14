@@ -572,7 +572,7 @@ body {
         </div>
 
         <div class="row mx-2">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="ml-4 p-3 text-gray-700 mb-0 font-bold">
                     Monthly Return Count and Return Rate
                 </div>
@@ -684,45 +684,27 @@ body {
             </div>
 
             <div class="col mt-4 mb-2">
-                <div class="text-gray-700 font-bold text-center">Top Transmittal</div>
-                <div class="card mt-2 shadow" style="height: 300px;">
-                    <div class="card-body">
-                        @if($mostUsedAddresses->isEmpty())
-                            <p class="text-center">Empty Addressee</p>
-                            @else
-                            @php
-                                $startColor = [42, 160, 249]; // RGB values for #2AA0F9
-                                $endColor = [255, 255, 255]; // RGB values for white
-
-                                // Calculate the color step for each row
-                                $colorStep = [];
-                                for ($i = 0; $i < 3; $i++) {
-                                    $colorStep[$i] = ($endColor[$i] - $startColor[$i]) / min(8, count($mostUsedAddresses));
-                                }
-                            @endphp
-
-                            @foreach($mostUsedAddresses as $index => $topdept)
-                                @php
-                                    // Calculate the current color based on the step
-                                    $currentColor = [
-                                        round($startColor[0] + $index * $colorStep[0]),
-                                        round($startColor[1] + $index * $colorStep[1]),
-                                        round($startColor[2] + $index * $colorStep[2]),
-                                    ];
-                                    $color = sprintf('#%02X%02X%02X', ...$currentColor);
-                                @endphp
-                                <div class="box-container border mb-2" style="border-color: {{ $color }}; background-color: {{ $color }};">
-                                    <div class="row py-2 mx-1">
-                                        <div class="col">{{ $topdept->abbrev }}</div>
-                                        <div class="col text-end">{{ $topdept->address_count }}</div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-            </div>
-
+              <div class="text-gray-700 font-bold text-center">Top Transmittal</div>
+              <div class="card mt-2 shadow">
+                  <div class="card-body">
+                      @if($mostUsedAddresses->isEmpty())
+                          <p class="text-center">Empty Addressee</p>
+                      @else
+                          @foreach($mostUsedAddresses as $index => $topdept)
+                          <div class="box-container border mb-2 whitespace-nowrap">
+                              <div class="row py-2 mx-1 d-flex ">
+                                  <div class="col whitespace-nowrap" style="font-size: 13px; font-weight: 600;">{{ $topdept->abbrev }}</div>
+                                  <div class="col-2 justify-end mx-2">
+                                      <div class="bg-blue-600 rounded text-white inline-block px-2" style="font-size: 13px;">{{ $topdept->address_count }}</div>
+                                  </div>
+                              </div>
+                          </div>
+                          @endforeach
+                      @endif
+                  </div>
+              </div>
+          </div>
+          
         </div>
     </div>
 </div>

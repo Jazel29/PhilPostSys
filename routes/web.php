@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/return-cards/{id}', [BarCodeController::class, 'destroy'])->name('return-cards.destroy');
 
     //Transmittal record routes
-    Route::get('/tracer', [TransmittalController::class, 'index'])->name('formTest');
+    Route::get('/tracer', [TransmittalController::class, 'index'])->name('tracer');
     Route::get('/transmittals/{id}', [TransmittalController::class, 'show']);
     Route::post('/addRecord', [TransmittalController::class,'store'])->name('store');
     //checks if mailTrackNum already exists
@@ -66,14 +66,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/return/{id}', [TransmittalController::class, 'deleteReturnCard'])->name('return.destroy');
 
     // Route::get('/tracer', [TracerController::class, 'index'])->name('index');
-    Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('new_transmittal');
+    Route::get('/add_transmittal', [AddTransmittalController::class, 'index'])->name('add_transmittal');
     Route::get('/transmittals', [TransmittalsController::class, 'tracerForm'])->name('transmittals.table');
     
 
     Route::post('/add_addressee', [AddresseeController::class, 'storeAddressee'])->name('store.addressee');
     Route::get('/get-addressees', [AddresseeController::class, 'getAddressees'])->name('get.addressees');
-    Route::get('/new-addressee', [AddresseeController::class, 'showIndex'])->name('new.addressee');
-    Route::get('/show-addressee', [AddresseeController::class, 'showAddresseeList'])->name('show.addressee');
+    Route::get('/new-addressee', [AddresseeController::class, 'showIndex'])->name('new-addressee');
+    Route::get('/show-addressee', [AddresseeController::class, 'showAddresseeList'])->name('show-addressee');
     Route::delete('/remove-addressee/{id}', [AddresseeController::class, 'destroy'])->name('addressee.destroy');
     Route::get('/update-addressee/{id}', [AddresseeController::class, 'showUpdateAddressee'])->name('update.addressee.form');
     Route::post('/update-addressee-submit/{id}', [AddresseeController::class, 'updateAddressee'])->name('update.addressee.submit');
