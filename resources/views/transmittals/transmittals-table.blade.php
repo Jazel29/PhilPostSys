@@ -935,7 +935,7 @@
 
 <div class="row mb-5 align-items-center">
     <h1 class="display-6" style="display: flex; align-items: center;">Trace Transmittals 
-        <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 5px 15px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
+        <span style="margin-left: 15px; border: 1px solid blue; border-radius: 40px; padding: 4px 11px; color: #0026C8; font-size: 20px; font-weight: bold;">{{$count}} Records</span>
     </h1>
 </div>
 
