@@ -766,7 +766,94 @@
         display: none; /* Initially hidden */
         z-index: 40; /* Below flash message */
     }
+    .btn-warning {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #FCBE00;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+    .btn-warning:hover {
+        color: #fff;
+        border-radius: 50px;
+        background: #FCBE00;
+    }
 
+    .btn-warning:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #FCBE00; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+    .btn-submit {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #0D6EFD;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+    .btn-submit:hover {
+        color: #fff;
+        border-radius: 50px;
+        background: #0D6EFD;
+    }
+    .btn-submit:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #0D6EFD; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+    .btn-danger {
+        font-size: 14px;
+        color: #fff;
+        padding: 8px; 
+        border: none; 
+        border-radius: 15px;
+        background: #EE1A2E;
+        outline: none; 
+        position: relative; 
+        transition: all 0.4s ease;
+    }
+    .btn-danger:hover {
+        color: #fff;
+        border-radius: 50px;
+        background: #EE1A2E;
+    }
+    .btn-danger:hover::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px; 
+        right: -5px; 
+        bottom: -5px; 
+        border: 2px solid #EE1A2E; 
+        border-radius: 50px;
+        animation: fadeIn 0.4s forwards; 
+    }
+    .custom-header{
+        background-color: #0D6EFD;
+    }
+    .modal-title {
+    color: #ffffff;
+    }
 </style>
 <div id="overlay"></div>
 <div class="row mt-3 align-items-center">
@@ -828,8 +915,8 @@
         </div>
     </div>
     <div class="text-end mt-3">
-        <button type="submit" class="btn focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:focus:ring-green-900">Update</button>
-        <button type="button" class="btn focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#newRRRModal">Add RRR TN</button>
+        <button type="submit" class="btn btn-warning mr-3">Update</button>
+        <button type="button" class="btn btn-submit" data-bs-toggle="modal" data-bs-target="#newRRRModal">Add RRR TN</button>
     </div>
 </form>
 
@@ -904,8 +991,8 @@
                 <input type="text" name="province" id="province" class="form-control mb-2" placeholder="Province"   required>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Close</button>
-                <button type="submit" class="btn btn-outline-primary" onclick="saveAddresee()">Save Addressee</button>
+                <button type="button" class="btn btn-danger" onclick="closeModal()">Close</button>
+                <button type="submit" class="btn btn-submit" onclick="saveAddresee()">Save Addressee</button>
             </div>
         </form>
     </div>
@@ -915,8 +1002,9 @@
 <!-- modal for add RRR TN -->
 <div class="modal fade" id="newRRRModal" tabindex="-1" aria-labelledby="newRRRModalLabel" aria-hidden="true">
 <div class="modal-dialog">
+    <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header custom-header">
             <h5 class="modal-title" id="newRRRModalLabel">New RRR Tracking Number</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -927,8 +1015,8 @@
                 <input type="text" value="{{ $records->mailTrackNum }}" class="" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail" hidden>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save changes</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-submit">Save changes</button>
             </div>
         </form>
     </div>
