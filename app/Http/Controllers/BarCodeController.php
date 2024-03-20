@@ -12,7 +12,7 @@ class BarCodeController extends Controller
     }
 
     public function formTest(){
-        return view('barcode.test-store');
+        return view('barcode.store');
     }
 
     public function store(Request $request){
@@ -24,17 +24,41 @@ class BarCodeController extends Controller
         Barcode::create([
             'barcode'=> $request->input('barcode')
         ]);
-        return redirect('/barcode')->with('flash_mssg', 'Successfully Created!');
+        return redirect('/tracer')->with('flash_mssg', 'Successfully Created!');
     }
 
     public function addReturnCard(Request $request){
-        ReturnCards::create([
-            'returncard' => $request->input('trackingNum'),
-            'trucknumber' => $request->input('truckNumMail')
+        $request->validate([
+            'trackingNum' => 'required|unique:return_cards,returncard'
         ]);
-        return response()->json([
-            'redirect' => '/barcode',
-            'flash_mssg' => 'Successfully Created!'
-        ]);
+    
+        try {
+            ReturnCards::create([
+                'returncard' => $request->input('trackingNum'),
+                'trucknumber' => $request->input('truckNumMail')
+            ]);
+    
+            return redirect()->back()->with('success', 'Return card added successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error adding return card: ' . $e->getMessage());
+        }
+    }
+
+    public function show(){
+        $returncards = ReturnCards::all();
+    
+        return view('return_cards.index', compact('returncards'));
+    }
+
+    public function update(){
+
+    }
+
+    public function destroy($id)
+    {
+        $returnCard = ReturnCards::findOrFail($id);
+        $returnCard->delete();
+
+        return redirect()->back()->with('success', 'Return card deleted successfully.');
     }
 }

@@ -3,12 +3,12 @@
     Barcode Test Storing
   </div>
     <div class="mssg mt-2 d-flex justify-content-center">
-    <form class="row g-3" action="/store" method="POST">
+    <form class="row g-3" action="/addReturn" method="POST">
        @csrf
         <div class="col-auto">
-          
+          <input type="text" value="" name="trackingNum" placeholder="This is the rrtn">
           <label for="last-barcode" class="visually-hidden">Barcode</label>
-          <input type="text" class="form-control rounded" id="last-barcode" placeholder="######" name="barcode">
+          <input type="text" class="form-control rounded" id="last-barcode" placeholder="Transmittal_Barcode" name="truckNumMail">
         </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-primary mb-3">Submit Barcode</button>

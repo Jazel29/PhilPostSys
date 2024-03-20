@@ -1,3 +1,38 @@
+
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/PHLPOST-Logo_white_stroke.png" width="400" alt="Laravel Logo"></a></p>
+
+## About PhilPostSys
+
+PhiPostSys is a comprehensive post management system designed to facilitate efficient viewing, adding, and report generation functionalities for users across various platforms. This system is specifically designed to address and lessen the workload of philpost employee (post master).
+
+## Key Features
+* User-Friendly Interface: PhiPostSys boasts an intuitive and user-friendly interface, ensuring that users of all skill levels can navigate the system effortlessly. The layout is designed for maximum efficiency and ease of use.
+* Viewing Posts: Users can easily browse through existing posts, sorted by date, category, author, or other custom criteria. The system provides quick search and filter options to locate specific posts efficiently.
+* Adding Posts: Creating and publishing new posts is a streamlined process with PhiPostSys. Users can add new transmittals easily with the help of the user friendly input feilds.
+* Report Generation: PhiPostSys enables users to generate detailed reports on post performance, engagement metrics, and audience demographics. These reports provide valuable insights into the effectiveness of content strategies, helping users make informed decisions to optimize their posting strategies.
+
+## Pre Requesite
+* Composer (Pref the latest)
+* PHP 8.2+
+* Node JS
+* VS Code
+* XAMPP or Workbench ( MySQL )
+
+## Installation
+    git clone https://github.com/0roc4n/PhilPostSys.git
+    composer install
+    create database "philpost"
+    cp .env.example .env
+    open .env and modify database connection
+    php artisan key:generate
+    php artisan migrate
+    php artisan serve
+    npm run dev
+
+## About the Developer
+- The Developers of this system are the 4th year BS Information Technology Student from Bicol University - College of Science.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

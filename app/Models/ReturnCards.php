@@ -11,5 +11,9 @@ class ReturnCards extends Model
     protected $fillable=[
         'returncard',
         'trucknumber'
-    ];  
+    ]; 
+
+    public function transmittals(){
+        return $this->belongsTo(Transmittals::class);
+    }
 }
